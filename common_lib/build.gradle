@@ -1,0 +1,75 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk rootProject.android.compileSdkVersion
+
+    defaultConfig {
+        if(rootProject.ext.isApplication) {
+            applicationId "com.xwl.common_lib"
+        }
+        minSdk rootProject.android.minSdkVersion
+        targetSdk rootProject.android.targetSdkVersion
+        versionCode rootProject.android.versionCode
+        versionName rootProject.android.versionName
+        testInstrumentationRunner rootProject.android.testInstrumentationRunner
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+}
+
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+
+dependencies {
+    api 'androidx.core:core-ktx:1.7.0'
+    api 'androidx.appcompat:appcompat:1.5.0'
+    api 'com.google.android.material:material:1.6.1'
+    api 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    api rootProject.ext.dependencies.arouter_api
+    kapt rootProject.ext.dependencies.arouter_compiler
+
+    api "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+    api rootProject.ext.dependencies.lifecycle_extension
+    api rootProject.ext.dependencies.lifecycle_runtime_ktx
+    api rootProject.ext.dependencies.lifecycle_common_java8
+
+
+    api rootProject.ext.dependencies.rxjava2
+    api rootProject.ext.dependencies.rxjava2_android
+    api rootProject.ext.dependencies.retrofit
+    api rootProject.ext.dependencies.retrofit_adapter_rxjava2
+    api rootProject.ext.dependencies.retrofit_converter_gson
+    api rootProject.ext.dependencies.retrofit_converter_scalars
+    api rootProject.ext.dependencies.eventBus
+    api rootProject.ext.dependencies.gson
+    api rootProject.ext.dependencies.logger
+    api rootProject.ext.dependencies.okhttp3
+    api rootProject.ext.dependencies.immersionbar
+
+    api 'com.kunminx.archi:unpeek-livedata:4.4.1-beta1'
+}
