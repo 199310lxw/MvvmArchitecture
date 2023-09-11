@@ -5,7 +5,7 @@ package com.xwl.common_lib.constants
  * @date 2023/9/11
  * descripe
  */
-class RoutUrlConstant {
+class RoutMap {
     companion object {
         const val ACTIVITY_LOGIN = "/login/LoginActivity"
     }

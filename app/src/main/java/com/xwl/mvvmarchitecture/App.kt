@@ -31,18 +31,24 @@ class App: Application() {
         ARouter.init(this)
     }
 
+
+
+     fun getContext():Context {
+         return this
+    }
+
     /**
      * 是否debug模式
      *
      * @param context
      * @return
      */
-    fun isDebug(context: Context): Boolean {
+    private fun isDebug(context: Context): Boolean {
         return context.applicationInfo != null &&
                 context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
     }
 
-    fun registerActivityCallback() {
+    private fun registerActivityCallback() {
         registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks{
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
 

@@ -6,7 +6,7 @@ import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_base.viewmodel.EmptyViewModel
-import com.xwl.common_lib.constants.RoutUrlConstant
+import com.xwl.common_lib.constants.RoutMap
 import com.xwl.common_lib.ext.gone
 import com.xwl.common_lib.ext.onClick
 import com.xwl.mvvmarchitecture.databinding.ActivityMainBinding
@@ -21,7 +21,7 @@ class FlashActivity : BaseVmVbActivity<EmptyViewModel,ActivityMainBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         mViewBinding.tv.gone()
          mViewBinding.btn.onClick {
-             ARouter.getInstance().build(RoutUrlConstant.ACTIVITY_LOGIN)
+             ARouter.getInstance().build(RoutMap.ACTIVITY_LOGIN)
                  .navigation(this@FlashActivity, object : NavCallback() {
                      override fun onArrival(postcard: Postcard?) {
                          finish()

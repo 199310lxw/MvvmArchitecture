@@ -13,4 +13,22 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <declare-styleable name="TitleBar">
+        <attr name="middleText" format="reference|string" />
+        <attr name="rightText" format="reference|string" />
+        <attr name="leftVisible" format="boolean" />
+        <attr name="rightVisible" format="boolean" />
+        <attr name="leftIcon" format="reference" />
+        <attr name="middleTextColor" format="reference" />
+        <attr name="rightTextColor" format="reference" />
+        <attr name="rightTextSize" format="dimension" />
+        <attr name="middleTextBold" format="boolean" />
+        <attr name="rightTextBold" format="boolean" />
+        <attr name="background" format="reference" />
+        <attr name="showDividerLine" format="boolean" />
+        <attr name="fitsSystemWindows" format="boolean" />
+        <attr name="bottomLineVisible" format="boolean" />
+
+    </declare-styleable>
 </resources>
