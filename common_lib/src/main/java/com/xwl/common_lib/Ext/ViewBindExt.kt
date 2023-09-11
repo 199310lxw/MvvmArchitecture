@@ -16,6 +16,7 @@ import java.lang.reflect.ParameterizedType
  */
 
 @JvmName("inflateWithGeneric")
+@SuppressWarnings("unchecked")
 fun <VB : ViewBinding> AppCompatActivity.inflateBindingWithGeneric(layoutInflater: LayoutInflater): VB =
     withGenericBindingClass<VB>(this) { clazz ->
         clazz.getMethod("inflate", LayoutInflater::class.java).invoke(null, layoutInflater) as VB
@@ -26,6 +27,7 @@ fun <VB : ViewBinding> AppCompatActivity.inflateBindingWithGeneric(layoutInflate
     }
 
 @JvmName("inflateWithGeneric")
+@SuppressWarnings("unchecked")
 fun <VB : ViewBinding> Fragment.inflateBindingWithGeneric(layoutInflater: LayoutInflater, parent: ViewGroup?, attachToParent: Boolean): VB =
     withGenericBindingClass<VB>(this) { clazz ->
         clazz.getMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
@@ -35,7 +37,7 @@ fun <VB : ViewBinding> Fragment.inflateBindingWithGeneric(layoutInflater: Layout
             binding.lifecycleOwner = viewLifecycleOwner
         }
     }
-
+@SuppressWarnings("unchecked")
 private fun <VB : ViewBinding> withGenericBindingClass(any: Any, block: (Class<VB>) -> VB): VB {
     var genericSuperclass = any.javaClass.genericSuperclass
     var superclass = any.javaClass.superclass

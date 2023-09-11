@@ -8,9 +8,7 @@ android {
     compileSdk rootProject.android.compileSdkVersion
 
     defaultConfig {
-        if(rootProject.ext.isApplication) {
-            applicationId "com.xwl.common_base"
-        }
+
         minSdk rootProject.android.minSdkVersion
         targetSdk rootProject.android.targetSdkVersion
         versionCode rootProject.android.versionCode
@@ -36,6 +34,12 @@ android {
     buildFeatures {
         viewBinding true
         dataBinding true
+    }
+}
+
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
     }
 }
 

@@ -13,12 +13,10 @@ ext {
 
     abiFilters = ['armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'] //['armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64']
 
+    // 第三方库版本号的管理
     libsVersion = [
-            // 第三方库版本号的管理
-
             arouter_api = "1.5.2",
             arouter_compiler = "1.5.2",
-
             loggerVersion = "1.15",
             gsonVersion = "2.8.0",
             retrofit = "2.3.0",

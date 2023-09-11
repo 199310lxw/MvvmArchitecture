@@ -8,9 +8,7 @@ android {
     compileSdk rootProject.android.compileSdkVersion
 
     defaultConfig {
-        if(rootProject.ext.isApplication) {
-            applicationId "com.xwl.common_lib"
-        }
+
         minSdk rootProject.android.minSdkVersion
         targetSdk rootProject.android.targetSdkVersion
         versionCode rootProject.android.versionCode
@@ -50,7 +48,9 @@ dependencies {
     api 'com.google.android.material:material:1.6.1'
     api 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    api rootProject.ext.dependencies.arouter_api
+    api(rootProject.ext.dependencies.arouter_api) {
+        exclude group: 'androidx.core', module: 'core-ktx'
+    }
     kapt rootProject.ext.dependencies.arouter_compiler
 
     api "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"

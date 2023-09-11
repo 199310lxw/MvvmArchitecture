@@ -7,6 +7,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.xwl.common_base.viewmodel.BaseViewModel
 import com.xwl.common_lib.Ext.getVmClazz
 
+/**
+ * @author  lxw
+ * @date 2023/9/11
+ * descripe
+ */
 abstract class BaseVmActivity<VM: BaseViewModel>:BaseActivity() {
     protected var mViewModel: VM? = null
 
@@ -19,6 +24,7 @@ abstract class BaseVmActivity<VM: BaseViewModel>:BaseActivity() {
     private fun init(savedInstanceState: Bundle?) {
         mViewModel = createViewModel()
         initView(savedInstanceState)
+        initData()
     }
 
     private fun createViewModel():VM {
@@ -30,4 +36,5 @@ abstract class BaseVmActivity<VM: BaseViewModel>:BaseActivity() {
     abstract fun layoutId(): Int
 
     abstract fun initView(savedInstanceState: Bundle?)
+    abstract fun initData()
 }

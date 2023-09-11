@@ -3,6 +3,11 @@ package com.xwl.common_base.viewmodel
 import androidx.lifecycle.ViewModel
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 
+/**
+ * @author  lxw
+ * @date 2023/9/11
+ * descripe
+ */
 abstract class BaseViewModel: ViewModel() {
     val loadingChange: UiLoadingChange by lazy { UiLoadingChange() }
 
@@ -15,4 +20,6 @@ abstract class BaseViewModel: ViewModel() {
         //隐藏
         val dismissDialog by lazy { UnPeekLiveData<Boolean>() }
     }
+
+
 }

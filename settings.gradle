@@ -4,6 +4,8 @@ pluginManagement {
         google()
         mavenCentral()
         maven{ url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
     }
 }
 dependencyResolutionManagement {
@@ -12,9 +14,12 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven{ url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
     }
 }
 rootProject.name = "MvvmArchitecture"
 include ':app'
 include ':common_lib'
 include ':common_base'
+include ':mod_login'

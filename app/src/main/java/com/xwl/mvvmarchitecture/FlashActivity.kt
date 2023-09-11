@@ -1,0 +1,39 @@
+package com.xwl.mvvmarchitecture
+
+import android.os.Bundle
+import androidx.core.view.isVisible
+import com.alibaba.android.arouter.facade.Postcard
+import com.alibaba.android.arouter.facade.callback.NavCallback
+import com.alibaba.android.arouter.launcher.ARouter
+import com.orhanobut.logger.Logger
+import com.xwl.common_base.activity.BaseVmVbActivity
+import com.xwl.common_base.viewmodel.EmptyViewModel
+import com.xwl.common_lib.Constants.RoutUrlConstant
+import com.xwl.common_lib.Ext.gone
+import com.xwl.common_lib.Ext.onClick
+import com.xwl.common_lib.Ext.visible
+import com.xwl.mvvmarchitecture.databinding.ActivityMainBinding
+
+/**
+ * @author  lxw
+ * @date 2023/9/11
+ * descripe
+ */
+class FlashActivity : BaseVmVbActivity<EmptyViewModel,ActivityMainBinding>() {
+
+    override fun initView(savedInstanceState: Bundle?) {
+        mViewBinding.tv.gone()
+         mViewBinding.btn.onClick {
+             ARouter.getInstance().build(RoutUrlConstant.ACTIVITY_LOGIN)
+                 .navigation(this@FlashActivity, object : NavCallback() {
+                     override fun onArrival(postcard: Postcard?) {
+                         finish()
+                     }
+                 })
+         }
+    }
+
+    override fun initData() {
+
+    }
+}
