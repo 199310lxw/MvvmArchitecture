@@ -55,8 +55,10 @@ dependencies {
 
     api "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     api rootProject.ext.dependencies.lifecycle_extension
-    api rootProject.ext.dependencies.lifecycle_runtime_ktx
+//    api rootProject.ext.dependencies.lifecycle_runtime_ktx
     api rootProject.ext.dependencies.lifecycle_common_java8
+    api rootProject.ext.dependencies.viewModelKtx
+    api rootProject.ext.dependencies.liveDataKtx
 
 
     api rootProject.ext.dependencies.rxjava2
@@ -72,4 +74,11 @@ dependencies {
     api rootProject.ext.dependencies.immersionbar
 
     api 'com.kunminx.archi:unpeek-livedata:4.4.1-beta1'
+
+    //dialog
+    api "com.afollestad.material-dialogs:lifecycle:3.3.0"
+    api "com.afollestad.material-dialogs:core:3.3.0"
+    api "com.afollestad.material-dialogs:color:3.3.0"
+    api "com.afollestad.material-dialogs:datetime:3.3.0"
+    api "com.afollestad.material-dialogs:bottomsheets:3.3.0"
 }

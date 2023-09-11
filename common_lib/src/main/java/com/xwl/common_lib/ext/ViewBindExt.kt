@@ -1,4 +1,4 @@
-package com.xwl.common_lib.Ext
+package com.xwl.common_lib.ext
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

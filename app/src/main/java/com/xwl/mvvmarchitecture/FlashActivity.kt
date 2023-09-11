@@ -1,17 +1,14 @@
 package com.xwl.mvvmarchitecture
 
 import android.os.Bundle
-import androidx.core.view.isVisible
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
-import com.orhanobut.logger.Logger
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_base.viewmodel.EmptyViewModel
-import com.xwl.common_lib.Constants.RoutUrlConstant
-import com.xwl.common_lib.Ext.gone
-import com.xwl.common_lib.Ext.onClick
-import com.xwl.common_lib.Ext.visible
+import com.xwl.common_lib.constants.RoutUrlConstant
+import com.xwl.common_lib.ext.gone
+import com.xwl.common_lib.ext.onClick
 import com.xwl.mvvmarchitecture.databinding.ActivityMainBinding
 
 /**

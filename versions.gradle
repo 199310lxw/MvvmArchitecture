@@ -19,12 +19,14 @@ ext {
             arouter_compiler = "1.5.2",
             loggerVersion = "1.15",
             gsonVersion = "2.8.0",
-            retrofit = "2.3.0",
+
             rxjava = "2.1.1",
             rxjava_android = "2.1.1",
-            rxjava_adapter = "2.3.0",
-            gson_converter = "2.3.0",
-            scalars_converter = "2.3.0",
+
+            retrofit = " 2.9.0",//2.6.0以上版本才支持协程
+            rxjava_adapter = "2.9.0",
+            gson_converter = "2.9.0",
+            scalars_converter = "2.9.0",
             eventbus = "3.0.0",
             okhttp3 = "3.8.1",
             lifecycle = "2.2.0",
@@ -53,6 +55,8 @@ ext {
             lifecycle_extension       : "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle",
             lifecycle_runtime_ktx     : "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.lifecycle",
             lifecycle_common_java8    : "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycle",
+            viewModelKtx              : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0",
+            liveDataKtx               : "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0",
 
             immersionbar              : "com.geyifeng.immersionbar:immersionbar:$rootProject.immersionbar",
     ]

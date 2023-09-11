@@ -2,11 +2,10 @@ package com.example.mod_login.ui
 
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.example.mod_login.R
 import com.example.mod_login.databinding.ActivityLoginBinding
 import com.example.mod_login.viewmodel.LoginViewModel
 import com.xwl.common_base.activity.BaseVmVbActivity
-import com.xwl.common_lib.Constants.RoutUrlConstant
+import com.xwl.common_lib.constants.RoutUrlConstant
 
 
 /**
@@ -21,6 +20,6 @@ class LoginActivity : BaseVmVbActivity<LoginViewModel,ActivityLoginBinding>() {
     }
 
     override fun initData() {
-
+        mViewModel.getData()
     }
 }

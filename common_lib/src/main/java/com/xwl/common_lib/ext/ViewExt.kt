@@ -1,6 +1,5 @@
-package com.xwl.common_lib.Ext
+package com.xwl.common_lib.ext
 import android.view.View
-import com.orhanobut.logger.Logger
 
 var lastClickTime = 0L
 fun View.onClick(interval: Long = 500, action: (view: View) -> Unit) {

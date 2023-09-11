@@ -2,10 +2,12 @@ package com.xwl.common_base.activity
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.xwl.common_base.viewmodel.BaseViewModel
-import com.xwl.common_lib.Ext.getVmClazz
+import com.xwl.common_lib.ext.dismissLoadingExt
+import com.xwl.common_lib.ext.getVmClazz
+import com.xwl.common_lib.ext.showLoadingExt
 
 /**
  * @author  lxw
@@ -13,7 +15,7 @@ import com.xwl.common_lib.Ext.getVmClazz
  * descripe
  */
 abstract class BaseVmActivity<VM: BaseViewModel>:BaseActivity() {
-    protected var mViewModel: VM? = null
+    protected lateinit var mViewModel: VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,10 +27,22 @@ abstract class BaseVmActivity<VM: BaseViewModel>:BaseActivity() {
         mViewModel = createViewModel()
         initView(savedInstanceState)
         initData()
+        registerUiChange()
     }
 
     private fun createViewModel():VM {
         return ViewModelProvider(this)[getVmClazz(this)]
+    }
+
+    private fun registerUiChange() {
+        //显示弹窗
+        mViewModel.loadingChange.showDialog.observeInActivity(this, Observer {
+            showLoadingExt(it)
+        })
+        //关闭弹窗
+        mViewModel.loadingChange.dismissDialog.observeInActivity(this, Observer {
+            dismissLoadingExt()
+        })
     }
 
     abstract fun setLayout(): View?

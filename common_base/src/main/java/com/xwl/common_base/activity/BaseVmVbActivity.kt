@@ -3,7 +3,7 @@ package com.xwl.common_base.activity
 import android.view.View
 import androidx.viewbinding.ViewBinding
 import com.xwl.common_base.viewmodel.BaseViewModel
-import com.xwl.common_lib.Ext.inflateBindingWithGeneric
+import com.xwl.common_lib.ext.inflateBindingWithGeneric
 
 /**
  * @author  lxw

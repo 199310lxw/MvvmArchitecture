@@ -1,4 +1,4 @@
-package com.xwl.common_lib.Ext
+package com.xwl.common_lib.ext
 
 import java.lang.reflect.ParameterizedType
 

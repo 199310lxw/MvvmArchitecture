@@ -1,4 +1,4 @@
-package com.xwl.common_lib.Constants
+package com.xwl.common_lib.constants
 
 /**
  * @author  lxw
