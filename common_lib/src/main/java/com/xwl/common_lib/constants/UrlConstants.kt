@@ -7,8 +7,10 @@ package com.xwl.common_lib.constants
  */
 class UrlConstants {
     companion object{
-        const val BASE_URL = "https://www.wanandroid.com"
+        const val BASE_URL = "https://www.wanandroid.com/"
 
-        const val  ARTICLE_LIST = "/article/list/{page}/json"
+        const val  ARTICLE_LIST = "article/list/{page}/json"
+
+        const val  USER_REGISTER = "user/register"
     }
 }

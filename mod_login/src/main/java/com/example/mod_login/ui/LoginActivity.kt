@@ -29,15 +29,12 @@ class LoginActivity : BaseVmVbActivity<LoginViewModel,ActivityLoginBinding>() {
     }
 
     override fun initData() {
-        mViewModel.getData()
+        val map = HashMap<String,Any>()
+        map["username"] = "mrliudasfafasdf"
+        map["password"] = "mrliu123456"
+        map["repassword"] = "mrliu123456"
         mViewBinding.tv.onClick {
-              SharedPreferenceUtil.getInstance().putString(KeyConstant.KEY_USER_PHONE,"1234567890")
-              ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
-                  .navigation(this@LoginActivity, object : NavCallback() {
-                      override fun onArrival(postcard: Postcard?) {
-//                         finish()
-                      }
-                  })
+            mViewModel.register(map)
         }
     }
 }

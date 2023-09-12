@@ -24,4 +24,16 @@ class LoginViewModel: BaseViewModel() {
             }
         })
     }
+
+    fun register(map: Map<String,Any>) {
+        request(requestCall = {ApiManager.api.register(map)},object: IHttpCallBack<Any>{
+            override fun onSuccess(result: Any) {
+                Logger.e(result.toString())
+            }
+
+            override fun onFailure(obj: Any?) {
+               Logger.e(obj?.toString())
+            }
+        })
+    }
 }

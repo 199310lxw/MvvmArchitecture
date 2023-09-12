@@ -56,8 +56,6 @@ abstract class BaseViewModel: ViewModel() {
             val data = requestFlow(requestCall, errorBlock = errorBlock,showLoading = showLoading)
             if (data != null) {
                 successBlock.invoke(data)
-            } else {
-                errorBlock.invoke("数据为空")
             }
         }
    }
@@ -105,7 +103,7 @@ abstract class BaseViewModel: ViewModel() {
             }
 
             if (response?.isSuccess() == false) {
-                errorBlock?.invoke(response.msg)
+                errorBlock?.invoke(response.errorMsg)
                 return@flow
             }
             //2.发送网络请求结果回调

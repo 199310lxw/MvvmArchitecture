@@ -5,9 +5,7 @@ import com.xwl.common_base.bean.MarqueeBean
 import com.xwl.common_base.response.BaseResponse
 import com.xwl.common_lib.constants.UrlConstants
 import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * @author  lxw
@@ -25,5 +23,13 @@ interface ApiService {
         @Path("page") page: Int,
         @Query("page_size") pageSize: Int
     ): BaseResponse<ArticleList>?
+
+    /**
+     * 用户注册
+     */
+    @POST(UrlConstants.USER_REGISTER)
+    suspend fun register(
+        @QueryMap map: Map<String, @JvmSuppressWildcards Any>
+    ): BaseResponse<Any>?
 
 }
