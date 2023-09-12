@@ -42,7 +42,7 @@ abstract class BaseViewModel: ViewModel() {
         }, errorBlock = {
             calllback.onFailure(it)
         }, successBlock = {
-            calllback.onSuccess(it as T)
+            calllback.onSuccess(it)
         })
     }
 
@@ -50,11 +50,15 @@ abstract class BaseViewModel: ViewModel() {
        requestCall: suspend () -> BaseResponse<T>?,
        showLoading: ((Boolean) -> Unit)? = null,
        errorBlock: (String?) -> Unit,
-       successBlock: (T?) -> Unit
+       successBlock: (T) -> Unit
    ) {
         viewModelScope.launch(Dispatchers.Main) {
             val data = requestFlow(requestCall, errorBlock = errorBlock,showLoading = showLoading)
-            successBlock?.invoke(data)
+            if (data != null) {
+                successBlock.invoke(data)
+            } else {
+                errorBlock.invoke("数据为空")
+            }
         }
    }
 
@@ -101,8 +105,8 @@ abstract class BaseViewModel: ViewModel() {
             }
 
             if (response?.isSuccess() == false) {
-//                throw ApiException(response.errorCode, response.errorMsg)
                 errorBlock?.invoke(response.msg)
+                return@flow
             }
             //2.发送网络请求结果回调
             emit(response)

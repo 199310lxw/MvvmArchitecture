@@ -1,20 +1,13 @@
 package com.xwl.common_base.net;
 
-import android.text.TextUtils;
-
-import androidx.viewbinding.BuildConfig;
-
 import com.orhanobut.logger.Logger;
+import com.xwl.common_base.BuildConfig;
 
 import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -48,6 +41,7 @@ public class InjectHeaderInterceptor implements Interceptor {
                 builder.header(entry.getKey(), entry.getValue());
             }
         }
+        builder.addHeader("Terminal-Type", "ANDROID");
         request = builder.build();
 
         if (BuildConfig.DEBUG) {

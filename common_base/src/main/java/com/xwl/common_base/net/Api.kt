@@ -1,11 +1,8 @@
 package com.xwl.common_lib.net
 
-import android.util.Log
 import com.xwl.common_base.net.InjectHeaderInterceptor
-import com.xwl.common_lib.constants.UrlConstant
-import okhttp3.Interceptor
+import com.xwl.common_lib.constants.UrlConstants
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -21,7 +18,7 @@ object Api {
     init{
         mRetrofit = Retrofit.Builder()
             .client(initOkHttpClient())
-            .baseUrl(UrlConstant.BASE_URL)
+            .baseUrl(UrlConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -39,11 +36,10 @@ object Api {
      */
     private fun initOkHttpClient(): OkHttpClient {
         val build = OkHttpClient.Builder()
-            .connectTimeout(12, TimeUnit.SECONDS)
+            .connectTimeout(6, TimeUnit.SECONDS)
             .writeTimeout(12, TimeUnit.SECONDS)
             .readTimeout(12, TimeUnit.SECONDS)
         // 添加参数拦截器
-        val interceptors = mutableListOf<Interceptor>()
         build.addInterceptor(InjectHeaderInterceptor())
         return build.build()
     }

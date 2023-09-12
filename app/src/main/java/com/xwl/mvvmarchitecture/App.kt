@@ -1,11 +1,13 @@
 package com.xwl.mvvmarchitecture
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import com.alibaba.android.arouter.launcher.ARouter
+import com.xwl.common_lib.manager.ActivityManager
 
 /**
  * @author  lxw
@@ -13,6 +15,18 @@ import com.alibaba.android.arouter.launcher.ARouter
  * descripe
  */
 class App: Application() {
+
+    companion object{
+        @SuppressLint("StaticFieldLeak")
+        private lateinit var mContext: Context
+        fun getApplicationContext():Context {
+            return mContext
+        }
+    }
+
+    init {
+        mContext = this
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -33,9 +47,7 @@ class App: Application() {
 
 
 
-     fun getContext():Context {
-         return this
-    }
+
 
     /**
      * 是否debug模式
@@ -51,7 +63,7 @@ class App: Application() {
     private fun registerActivityCallback() {
         registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks{
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-
+                ActivityManager.addActivity(activity)
             }
 
             override fun onActivityStarted(activity: Activity) {
@@ -75,7 +87,7 @@ class App: Application() {
             }
 
             override fun onActivityDestroyed(activity: Activity) {
-
+                ActivityManager.removeActivity(activity)
             }
         })
     }

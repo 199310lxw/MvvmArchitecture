@@ -16,7 +16,7 @@ android {
         versionCode rootProject.android.versionCode
         versionName rootProject.android.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner rootProject.android.testInstrumentationRunner
     }
 
     buildTypes {
@@ -46,6 +46,7 @@ kapt {
 
 dependencies {
 
+    implementation project(':common_lib')
     implementation project(':common_base')
     if (!rootProject.ext.isApplication) {
         //集成模式下需要编译器生成路由通信的代码

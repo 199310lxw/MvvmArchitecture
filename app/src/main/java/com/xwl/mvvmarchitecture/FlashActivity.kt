@@ -21,10 +21,10 @@ class FlashActivity : BaseVmVbActivity<EmptyViewModel,ActivityMainBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         mViewBinding.tv.gone()
          mViewBinding.btn.onClick {
-             ARouter.getInstance().build(RoutMap.ACTIVITY_LOGIN)
+             ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
                  .navigation(this@FlashActivity, object : NavCallback() {
                      override fun onArrival(postcard: Postcard?) {
-                         finish()
+//                         finish()
                      }
                  })
          }

@@ -8,7 +8,7 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.xwl.common_lib.manager.ServiceManager;
+import com.xwl.common_lib.provider.ContextServiceProvider;
 
 /**
  * author: Administrator
@@ -19,31 +19,31 @@ import com.xwl.common_lib.manager.ServiceManager;
 public class ScreenUtil {
 
     public static int dip2px(float dipValue) {
-        final float scale = ServiceManager.INSTANCE.getApplicationContext().getResources().getDisplayMetrics().density;
+        final float scale = ContextServiceProvider.INSTANCE.getApplicationContext().getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
 
     public static int px2dip(float pxValue) {
-        final float scale = ServiceManager.INSTANCE.getApplicationContext().getResources().getDisplayMetrics().density;
+        final float scale = ContextServiceProvider.INSTANCE.getApplicationContext().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
     // 将px值转换为sp值
     public static int px2sp(float pxValue) {
-        final float fontScale = ServiceManager.INSTANCE.getApplicationContext().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = ContextServiceProvider.INSTANCE.getApplicationContext().getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
 
     // 将sp值转换为px值
     public static int sp2px(float spValue) {
-        final float fontScale = ServiceManager.INSTANCE.getApplicationContext().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = ContextServiceProvider.INSTANCE.getApplicationContext().getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
     // 获取屏幕的宽度
     public static int getScreenWidth() {
         DisplayMetrics dm = new DisplayMetrics();
-        WindowManager wm = (WindowManager) ServiceManager.INSTANCE.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) ContextServiceProvider.INSTANCE.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         if (wm == null) {
             return 0;
         }
@@ -54,7 +54,7 @@ public class ScreenUtil {
     // 获取屏幕的高度
     public static int getScreenHeight() {
         DisplayMetrics dm = new DisplayMetrics();
-        WindowManager wm = (WindowManager) ServiceManager.INSTANCE.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) ContextServiceProvider.INSTANCE.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         if (wm == null) {
             return 0;
         }
@@ -68,7 +68,7 @@ public class ScreenUtil {
      * @return the height of screen, in pixel
      */
     public static int getScreenHeight2() {
-        WindowManager wm = (WindowManager) ServiceManager.INSTANCE.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) ContextServiceProvider.INSTANCE.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         if (wm == null) {
             return 0;
         }
@@ -83,7 +83,7 @@ public class ScreenUtil {
      * @return the width of screen, in pixel
      */
     public static int getScreenWidth2() {
-        WindowManager wm = (WindowManager) ServiceManager.INSTANCE.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) ContextServiceProvider.INSTANCE.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         if (wm == null) {
             return 0;
         }

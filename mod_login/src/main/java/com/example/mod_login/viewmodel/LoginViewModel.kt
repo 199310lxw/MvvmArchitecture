@@ -15,10 +15,6 @@ class LoginViewModel: BaseViewModel() {
 
     fun getData() {
         request(requestCall = {ApiManager.api.getHomeList(1,10)},object: IHttpCallBack<ArticleList>{
-//            override fun onSuccess(obj: ArticleList?) {
-//                Logger.e(obj?.toString())
-//            }
-
             override fun onFailure(obj: Any?) {
                 Logger.e(obj?.toString())
             }

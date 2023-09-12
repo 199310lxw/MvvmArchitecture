@@ -9,6 +9,6 @@ import com.alibaba.android.arouter.facade.template.IProvider;
  * @date 2022/9/23
  * descripe
  */
-public interface IArouterService extends IProvider {
+public interface IContextService extends IProvider {
     Context getApplicationContext();
 }

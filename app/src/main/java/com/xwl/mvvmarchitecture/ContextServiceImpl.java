@@ -2,7 +2,9 @@ package com.xwl.mvvmarchitecture;
 
 import android.content.Context;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.xwl.common_lib.service.IArouterService;
+import com.orhanobut.logger.Logger;
+import com.xwl.common_lib.constants.RoutMap;
+import com.xwl.common_lib.service.IContextService;
 
 
 /**
@@ -10,11 +12,11 @@ import com.xwl.common_lib.service.IArouterService;
  * @date 2022/9/23
  * descripe
  */
-@Route(path = "/app/arouterServiceImpl")
-public class ArouterServiceImpl implements IArouterService {
+@Route(path = RoutMap.APP_SERVICE_CONTEXT)
+public class ContextServiceImpl implements IContextService {
     @Override
     public Context getApplicationContext() {
-        return new App().getContext();
+        return App.Companion.getApplicationContext();
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.gyf.immersionbar.ImmersionBar
+import com.xwl.common_lib.manager.ActivityManager
 
 /**
  * @author  lxw
