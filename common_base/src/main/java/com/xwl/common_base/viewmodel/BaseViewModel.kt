@@ -9,6 +9,7 @@ import com.xwl.common_lib.callback.IHttpCallBack
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 
 /**
@@ -46,7 +47,7 @@ abstract class BaseViewModel: ViewModel() {
         })
     }
 
-   fun <T> sendRequest(
+   fun <T>  sendRequest(
        requestCall: suspend () -> BaseResponse<T>?,
        showLoading: ((Boolean) -> Unit)? = null,
        errorBlock: (String?) -> Unit,
@@ -54,8 +55,10 @@ abstract class BaseViewModel: ViewModel() {
    ) {
         viewModelScope.launch(Dispatchers.Main) {
             val data = requestFlow(requestCall, errorBlock = errorBlock,showLoading = showLoading)
-            if (data != null) {
-                successBlock.invoke(data)
+            withContext(Dispatchers.Main) {
+                if (data != null) {
+                    successBlock.invoke(data)
+                }
             }
         }
    }
@@ -103,7 +106,9 @@ abstract class BaseViewModel: ViewModel() {
             }
 
             if (response?.isSuccess() == false) {
-                errorBlock?.invoke(response.errorMsg)
+                withContext(Dispatchers.Main) {
+                    errorBlock?.invoke(response.errorMsg)
+                }
                 return@flow
             }
             //2.发送网络请求结果回调

@@ -5,8 +5,10 @@
       <map>
         <entry key="..\:/Code/Android/mvvmArchitecture/app/src/main/res/layout/activity_main.xml" value="0.18020833333333333" />
         <entry key="..\:/Code/Android/mvvmArchitecture/common_base/src/main/res/layout/activity_base.xml" value="0.20153985507246377" />
+        <entry key="..\:/MyCode/Android/MvvmArchitecture/common_base/src/main/res/drawable/tip_toast_bg_conner_4.xml" value="0.118" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/common_base/src/main/res/layout/activity_base.xml" value="0.3390625" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/common_base/src/main/res/layout/layout_title_bar.xml" value="0.3390625" />
+        <entry key="..\:/MyCode/Android/MvvmArchitecture/common_base/src/main/res/layout/widget_tips_toast.xml" value="0.3151041666666667" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/common_lib/src/main/res/layout/layout_custom_progress_dialog_view.xml" value="0.35" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/activity_home.xml" value="0.3125" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_login/src/main/res/layout/activity_login.xml" value="0.30885416666666665" />

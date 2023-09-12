@@ -9,6 +9,7 @@ import com.example.mod_login.databinding.ActivityLoginBinding
 import com.example.mod_login.viewmodel.LoginViewModel
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.activity.BaseVmVbActivity
+import com.xwl.common_base.toast.TipsToast
 import com.xwl.common_lib.constants.KeyConstant
 import com.xwl.common_lib.constants.RoutMap
 import com.xwl.common_lib.ext.onClick
@@ -34,7 +35,11 @@ class LoginActivity : BaseVmVbActivity<LoginViewModel,ActivityLoginBinding>() {
         map["password"] = "mrliu123456"
         map["repassword"] = "mrliu123456"
         mViewBinding.tv.onClick {
-            mViewModel.register(map)
+            mViewModel.register(map)?.observe(this){
+                  it?.let {
+                      TipsToast.showTips(it)
+                  }
+            }
         }
     }
 }
