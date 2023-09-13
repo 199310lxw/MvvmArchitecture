@@ -6,7 +6,7 @@ ext {
             minSdkVersion            : 24,
             targetSdkVersion         : 32,
             versionCode              : 1,
-            versionName              : "1.1.32",
+            versionName              : "1.0.0",
             applicationId            : "com.xwl.mvvmarchitecture",
             testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner"
     ]

@@ -16,6 +16,11 @@ android {
         versionName rootProject.android.versionName
         testInstrumentationRunner rootProject.android.testInstrumentationRunner
 
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
 
     buildTypes {
@@ -37,19 +42,15 @@ android {
         dataBinding true
     }
 
-//    android.applicationVariants.all {
-//        variant ->
-//            variant.outputs.all {
-//                outputFileName = "mvvmarchitecture_v" + defaultConfig.versionName + ".apk"
-//            }
-//    }
-}
-
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                outputFileName = "mvvmarchitecture_v" + defaultConfig.versionName + ".apk"
+            }
     }
 }
+
+
 
 dependencies {
 
