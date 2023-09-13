@@ -5,7 +5,6 @@
     <application>
         <activity android:name=".ui.HomeActivity"
             android:launchMode="singleTask"/>
-
     </application>
 
 </manifest>

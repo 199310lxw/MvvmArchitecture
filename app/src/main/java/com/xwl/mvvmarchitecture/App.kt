@@ -7,7 +7,7 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import com.alibaba.android.arouter.launcher.ARouter
-import com.xwl.common_base.toast.TipsToast
+import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.manager.ActivityManager
 
 /**
@@ -46,10 +46,6 @@ class App: Application() {
         }
         ARouter.init(this)
     }
-
-
-
-
 
     /**
      * 是否debug模式

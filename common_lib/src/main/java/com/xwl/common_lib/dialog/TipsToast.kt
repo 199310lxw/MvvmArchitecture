@@ -1,6 +1,6 @@
 @file:JvmName("TipToast")
 
-package com.xwl.common_base.toast
+package com.xwl.common_lib.dialog
 
 import android.app.Application
 import android.os.Handler
@@ -11,8 +11,8 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.xwl.common_base.R
-import com.xwl.common_base.databinding.WidgetTipsToastBinding
+import com.xwl.common_lib.R
+import com.xwl.common_lib.databinding.WidgetTipsToastBinding
 
 object TipsToast {
 
@@ -111,7 +111,7 @@ object TipsToast {
                     0,
                     0
                 )
-                toast?.setGravity(Gravity.CENTER, 0, 0)
+                toast?.setGravity(Gravity.TOP, 0, 0)
                 toast?.duration = duration
                 toast?.show()
             } catch (e: Exception) {

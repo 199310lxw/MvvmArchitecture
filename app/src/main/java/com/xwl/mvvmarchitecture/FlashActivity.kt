@@ -24,7 +24,7 @@ class FlashActivity : BaseVmVbActivity<EmptyViewModel,ActivityMainBinding>() {
              ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
                  .navigation(this@FlashActivity, object : NavCallback() {
                      override fun onArrival(postcard: Postcard?) {
-//                         finish()
+                         finish()
                      }
                  })
          }

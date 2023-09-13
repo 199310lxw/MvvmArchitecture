@@ -111,7 +111,7 @@ abstract class BaseViewModel: ViewModel() {
             .onStart {
                 //4.请求开始，展示加载框
                 showLoading?.invoke(true)
-                delay(2000)
+//                delay(2000)
             }
             //5.捕获异常
             .catch { e ->

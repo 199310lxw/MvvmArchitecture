@@ -37,7 +37,7 @@ abstract class BaseVmActivity<VM: BaseViewModel>:BaseActivity() {
         //显示弹窗
         mViewModel.loadingChange.showDialog.observeInActivity(this){
             if(it) {
-                showLoadingExt("正在请求中,请稍后...")
+                showLoadingExt()
             } else {
                 dismissLoadingExt()
             }

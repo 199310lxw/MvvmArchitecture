@@ -14,7 +14,7 @@ private var loadingDialog: LoadingDialog? = null
 /**
  * 打开等待框
  */
-fun AppCompatActivity.showLoadingExt(message: String = "请求网络中") {
+fun AppCompatActivity.showLoadingExt(message: String = "加载中...") {
     if (!this.isFinishing) {
         if(loadingDialog == null) {
             loadingDialog = LoadingDialog(this, R.style.loading_dialog)
