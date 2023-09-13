@@ -17,6 +17,12 @@ android {
         versionName rootProject.android.versionName
 
         testInstrumentationRunner rootProject.android.testInstrumentationRunner
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
 
     buildTypes {
@@ -39,11 +45,7 @@ android {
 }
 
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
-}
+
 
 dependencies {
     implementation project(':common_lib')

@@ -15,6 +15,12 @@ android {
         versionName rootProject.android.versionName
 
         testInstrumentationRunner rootProject.android.testInstrumentationRunner
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
 
     buildTypes {
@@ -34,12 +40,6 @@ android {
     buildFeatures {
         viewBinding true
         dataBinding true
-    }
-}
-
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
     }
 }
 
