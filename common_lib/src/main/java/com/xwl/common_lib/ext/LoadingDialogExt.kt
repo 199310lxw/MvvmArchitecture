@@ -26,7 +26,7 @@ fun AppCompatActivity.showLoadingExt(message: String = "加载中...") {
 /**
  * 打开等待框
  */
-fun Fragment.showLoadingExt(message: String = "请求网络中") {
+fun Fragment.showLoadingExt(message: String = "加载中...") {
     if (!requireActivity().isFinishing) {
         if(loadingDialog == null) {
             loadingDialog = LoadingDialog(requireActivity(), R.style.loading_dialog)
