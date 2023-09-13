@@ -6,11 +6,8 @@ import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.response.BaseResponse
 import com.xwl.common_lib.callback.IHttpCallBack
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeout
 
 /**
  * @author  lxw
@@ -25,9 +22,9 @@ abstract class BaseViewModel: ViewModel() {
      */
     inner class UiLoadingChange {
         //显示加载框
-        val showDialog by lazy { UnPeekLiveData<String>() }
+//        val showDialog by lazy { UnPeekLiveData<String>() }
         //隐藏
-        val dismissDialog by lazy { UnPeekLiveData<Boolean>() }
+        val showDialog by lazy { UnPeekLiveData<Boolean>() }
     }
 
     fun <T> request(
@@ -35,11 +32,7 @@ abstract class BaseViewModel: ViewModel() {
         calllback: IHttpCallBack<T>
     ) {
         sendRequest(requestCall,showLoading =  {
-            if(it) {
-                loadingChange.showDialog.value = "正在请求"
-            } else {
-                loadingChange.dismissDialog.value = true
-            }
+                loadingChange.showDialog.value = it
         }, errorBlock = {
             calllback.onFailure(it)
         }, successBlock = {
@@ -47,7 +40,7 @@ abstract class BaseViewModel: ViewModel() {
         })
     }
 
-   fun <T>  sendRequest(
+    private fun <T>  sendRequest(
        requestCall: suspend () -> BaseResponse<T>?,
        showLoading: ((Boolean) -> Unit)? = null,
        errorBlock: (String?) -> Unit,
@@ -72,7 +65,7 @@ abstract class BaseViewModel: ViewModel() {
      * @param showLoading 开启和关闭加载框
      * @return 请求结果
      */
-    suspend fun <T> requestFlow(
+    private suspend fun <T> requestFlow(
         requestCall: suspend () -> BaseResponse<T>?,
         errorBlock: (String?) -> Unit,
         showLoading: ((Boolean) -> Unit)? = null
@@ -93,7 +86,7 @@ abstract class BaseViewModel: ViewModel() {
      * @param showLoading 开启和关闭加载框
      * @return Flow<BaseResponse<T>>
      */
-    suspend fun <T> requestFlowResponse(
+    private suspend fun <T> requestFlowResponse(
         requestCall: suspend () -> BaseResponse<T>?,
         errorBlock: (String?) -> Unit,
         showLoading: ((Boolean) -> Unit)? = null
@@ -118,18 +111,19 @@ abstract class BaseViewModel: ViewModel() {
             .onStart {
                 //4.请求开始，展示加载框
                 showLoading?.invoke(true)
+                delay(2000)
             }
             //5.捕获异常
             .catch { e ->
                 e.printStackTrace()
                 Logger.e(e.message)
-//                val exception = ExceptionHandler.handleException(e)
                 errorBlock?.invoke(e.message)
             }
             //6.请求完成，包括成功和失败
             .onCompletion {
                 showLoading?.invoke(false)
             }
+
         return flow
     }
 }

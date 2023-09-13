@@ -2,7 +2,6 @@ package com.xwl.common_base.activity
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.xwl.common_base.viewmodel.BaseViewModel
 import com.xwl.common_lib.ext.dismissLoadingExt
@@ -36,13 +35,13 @@ abstract class BaseVmActivity<VM: BaseViewModel>:BaseActivity() {
 
     private fun registerUiChange() {
         //显示弹窗
-        mViewModel.loadingChange.showDialog.observeInActivity(this, Observer {
-            showLoadingExt(it)
-        })
-        //关闭弹窗
-        mViewModel.loadingChange.dismissDialog.observeInActivity(this, Observer {
-            dismissLoadingExt()
-        })
+        mViewModel.loadingChange.showDialog.observeInActivity(this){
+            if(it) {
+                showLoadingExt("正在请求中,请稍后...")
+            } else {
+                dismissLoadingExt()
+            }
+        }
     }
 
     abstract fun setLayout(): View?
@@ -50,5 +49,6 @@ abstract class BaseVmActivity<VM: BaseViewModel>:BaseActivity() {
     abstract fun layoutId(): Int
 
     abstract fun initView(savedInstanceState: Bundle?)
+
     abstract fun initData()
 }

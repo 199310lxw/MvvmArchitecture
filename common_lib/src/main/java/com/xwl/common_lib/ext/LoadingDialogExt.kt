@@ -1,72 +1,44 @@
 package com.xwl.common_lib.ext
 
-import android.app.Activity
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.customview.customView
-import com.afollestad.materialdialogs.customview.getCustomView
-import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.xwl.common_lib.R
+import com.xwl.common_lib.dialog.LoadingDialog
 
 /**
  * @author : hgj
  * @date : 2020/6/28
  */
 
-//loading框
-private var loadingDialog: MaterialDialog? = null
-
+private var loadingDialog: LoadingDialog? = null
 /**
  * 打开等待框
  */
 fun AppCompatActivity.showLoadingExt(message: String = "请求网络中") {
     if (!this.isFinishing) {
-        if (loadingDialog == null) {
-            loadingDialog = MaterialDialog(this)
-                    .cancelable(true)
-                    .cancelOnTouchOutside(false)
-                    .cornerRadius(12f)
-                    .customView(R.layout.layout_custom_progress_dialog_view)
-                    .lifecycleOwner(this)
-            loadingDialog?.getCustomView()?.run {
-                this.findViewById<TextView>(R.id.loading_tips).text = message
-//                this.findViewById<ProgressBar>(R.id.progressBar).indeterminateTintList = SettingUtil.getOneColorStateList(this@showLoadingExt)
-            }
+        if(loadingDialog == null) {
+            loadingDialog = LoadingDialog(this, R.style.loading_dialog)
         }
+        loadingDialog?.setTitle(message)
         loadingDialog?.show()
     }
 }
-
 /**
  * 打开等待框
  */
 fun Fragment.showLoadingExt(message: String = "请求网络中") {
-    activity?.let {
-        if (!it.isFinishing) {
-            if (loadingDialog == null) {
-                loadingDialog = MaterialDialog(it)
-                    .cancelable(true)
-                    .cancelOnTouchOutside(false)
-                    .cornerRadius(12f)
-                    .customView(R.layout.layout_custom_progress_dialog_view)
-                    .lifecycleOwner(this)
-                loadingDialog?.getCustomView()?.run {
-                    this.findViewById<TextView>(R.id.loading_tips).text = message
-//                    this.findViewById<ProgressBar>(R.id.progressBar).indeterminateTintList = SettingUtil.getOneColorStateList(it)
-                }
-            }
-            loadingDialog?.show()
+    if (!requireActivity().isFinishing) {
+        if(loadingDialog == null) {
+            loadingDialog = LoadingDialog(requireActivity(), R.style.loading_dialog)
         }
+        loadingDialog?.setTitle(message)
+        loadingDialog?.show()
     }
 }
-
 /**
  * 关闭等待框
  */
-fun Activity.dismissLoadingExt() {
+fun AppCompatActivity.dismissLoadingExt() {
     loadingDialog?.dismiss()
     loadingDialog = null
 }
