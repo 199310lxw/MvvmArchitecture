@@ -10,9 +10,9 @@ import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.ParameterizedType
 
 /**
- * 作者　: hegaojian
- * 时间　: 2021/12/21
- * 描述　:
+ * @author  lxw
+ * @date 2023/9/13
+ * descripe
  */
 
 @JvmName("inflateWithGeneric")

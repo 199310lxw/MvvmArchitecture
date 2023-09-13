@@ -6,8 +6,9 @@ import com.xwl.common_lib.R
 import com.xwl.common_lib.dialog.LoadingDialog
 
 /**
- * @author : hgj
- * @date : 2020/6/28
+ * @author  lxw
+ * @date 2023/9/13
+ * descripe
  */
 
 private var loadingDialog: LoadingDialog? = null
