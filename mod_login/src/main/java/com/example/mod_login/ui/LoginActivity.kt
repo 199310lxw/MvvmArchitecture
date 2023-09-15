@@ -26,12 +26,12 @@ class LoginActivity : BaseVmVbActivity<LoginViewModel,ActivityLoginBinding>() {
         map["username"] = "fasasdasfafasd"
         map["password"] = "fasf123456"
         map["repassword"] = "fasf123456"
-        mViewBinding.tv.onClick {
-            mViewModel.register(map)?.observe(this){
-                  it?.let {
-                      TipsToast.showTips(it)
-                  }
-            }
-        }
+//        mViewBinding.tv.onClick {
+//            mViewModel.register(map)?.observe(this){
+//                  it?.let {
+//                      TipsToast.showTips(it)
+//                  }
+//            }
+//        }
     }
 }

@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/ll_root"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:gravity="center"
-        android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center">
 
-    <ImageView
-            android:id="@+id/iv_no_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_data_empty"
-            tools:ignore="ContentDescription" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieEmpty"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-            android:id="@+id/tv_no_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginStart="@dimen/dimen_size_dp_20"
-            android:layout_marginEnd="@dimen/dimen_size_dp_20"
-            android:text="@string/default_no_data"
-            android:textColor="@color/color_4f5356"
-            android:textSize="@dimen/dimen_size_sp_12" />
-</LinearLayout>
+        android:id="@+id/tv_no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/default_no_data"
+        android:textColor="@color/color_4f5356"
+        android:textSize="@dimen/dimen_size_sp_14"
+        app:layout_constraintStart_toStartOf="@+id/lottieEmpty"
+        app:layout_constraintEnd_toEndOf="@+id/lottieEmpty"
+        app:layout_constraintTop_toBottomOf="@+id/lottieEmpty"
+        android:layout_marginTop="-30dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

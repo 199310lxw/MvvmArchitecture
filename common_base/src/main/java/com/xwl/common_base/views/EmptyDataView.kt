@@ -23,6 +23,8 @@ class EmptyDataView @JvmOverloads constructor(
 
     private var mBinding: ViewEmptyDataBinding
 
+    private var emptyAnimationPath: String = "empty_data.json"
+    private var mEmptyText: String = resources.getString(R.string.default_no_data)
     init {
         orientation = VERTICAL
         gravity = Gravity.CENTER
@@ -35,7 +37,7 @@ class EmptyDataView @JvmOverloads constructor(
         attrs?.let {
             val ta = context.obtainStyledAttributes(attrs, R.styleable.EmptyDataView)
             val emptyText = ta.getString(R.styleable.EmptyDataView_emptyText)
-            val emptyImage = ta.getResourceId(R.styleable.EmptyDataView_emptyImage, R.mipmap.ic_data_empty)
+            val emptyAnim = ta.getString(R.styleable.EmptyDataView_emptyAnim)
             val bgColor = ta.getColor(
                 R.styleable.EmptyDataView_bg_color,
                 ContextCompat.getColor(context, R.color.white)
@@ -44,14 +46,13 @@ class EmptyDataView @JvmOverloads constructor(
                 R.styleable.EmptyDataView_emptyPaddingBottom,
                 0.0f
             ).toInt()
-            ta.recycle()
 
-            if (!emptyText.isNullOrEmpty()) {
-                mBinding.tvNoData.text = emptyText
-            }
-            mBinding.ivNoData.setImageResource(emptyImage)
+            mBinding.tvNoData.text =if(!emptyText.isNullOrEmpty()) emptyText else mEmptyText
+            mBinding.lottieEmpty.setAnimation(if(!emptyAnim.isNullOrEmpty()) emptyAnim else emptyAnimationPath)
             setBackgroundColor(bgColor)
             setPadding(0, 0, 0, emptyPaddingBottom)
+
+            ta.recycle()
         }
     }
 
@@ -74,14 +75,10 @@ class EmptyDataView @JvmOverloads constructor(
      *
      * @return
      */
-    fun setImageResource(resId: Int): EmptyDataView {
-        if (resId == 0) {
-            mBinding.ivNoData.visibility = GONE
-            return this
-        }
-        mBinding.ivNoData.visibility = VISIBLE
-        mBinding.ivNoData.setImageResource(resId)
-        return this
+
+    fun setAnimPath(path: String) {
+        if(path.isNullOrEmpty() || !path.endsWith(".json")) return
+        mBinding.lottieEmpty.setAnimation(path)
     }
 
     /**

@@ -19,7 +19,7 @@ abstract class BaseViewModel: ViewModel() {
     val loadingChange: UiLoadingChange by lazy { UiLoadingChange() }
 
     /**
-     * 内置封装好的可通知Activity/fragment 显示隐藏加载框 因为需要跟网络请求显示隐藏loading配套才加的，不然我加他个鸡儿加
+     * 内置封装好的可通知Activity/fragment 显示隐藏加载框,需要跟网络请求显示隐藏loading
      */
     inner class UiLoadingChange {
         //加载提示框
@@ -56,6 +56,9 @@ abstract class BaseViewModel: ViewModel() {
         return null
     }
 
+    /**
+     * 通用网络请求
+     */
     fun <T> request(
         requestCall: suspend () -> BaseResponse<T>?,
         calllback: IHttpCallBack<T>

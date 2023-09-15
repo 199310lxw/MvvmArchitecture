@@ -36,6 +36,7 @@
         <attr name="bg_color" format="color" />
         <attr name="emptyImage" format="reference" />
         <attr name="emptyText" format="string" />
+        <attr name="emptyAnim" format="string" />
         <!-- 下边距 -->
         <attr name="emptyPaddingBottom" format="dimension" />
     </declare-styleable>

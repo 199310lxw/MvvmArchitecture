@@ -22,7 +22,8 @@ import kotlinx.coroutines.flow.flow
 class FlashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
-        object: CountDownTimer(1000,1000) {
+        mViewBinding.lottieAnimationView.setAnimation("no_network.json")
+        object: CountDownTimer(3000,1000) {
             override fun onTick(millisUntilFinished: Long) {
 
             }
@@ -39,5 +40,10 @@ class FlashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() {
 
     override fun initData() {
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mViewBinding.lottieAnimationView.pauseAnimation()
     }
 }

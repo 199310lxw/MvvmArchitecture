@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.HomeActivity">
-
-  <androidx.appcompat.widget.AppCompatImageView
-      android:id="@+id/img"
-      android:layout_width="@dimen/dimen_size_dp_100"
-      android:layout_height="@dimen/dimen_size_dp_100"
+  <com.xwl.common_base.views.EmptyDataView
+      android:id="@+id/emptyView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"/>
+      app:layout_constraintEnd_toEndOf="parent"
+      app:emptyAnim="empty_data.json"/>
+
 
     <Button
         android:id="@+id/btn"
