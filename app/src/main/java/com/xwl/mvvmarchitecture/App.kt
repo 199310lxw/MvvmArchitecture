@@ -7,8 +7,10 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import com.alibaba.android.arouter.launcher.ARouter
+import com.orhanobut.logger.Logger
 import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.manager.ActivityManager
+import com.xwl.common_lib.manager.AppStatusManager
 
 /**
  * @author  lxw
@@ -31,9 +33,23 @@ class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        registerActivityCallback()
+//        registerActivityCallback()
+        Logger.init("xwl")
         initArouter()
+        registerAppStatus()
         TipsToast.init(this)
+    }
+
+    private fun registerAppStatus() {
+        AppStatusManager.register(this,object :AppStatusManager.IAppStatusListener{
+            override fun onBack() {
+                Logger.i("当前应用在后台")
+            }
+
+            override fun onFront() {
+                Logger.i("当前应用在前台")
+            }
+        })
     }
 
     /**

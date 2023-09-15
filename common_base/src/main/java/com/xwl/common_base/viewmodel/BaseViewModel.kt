@@ -2,6 +2,7 @@ package com.xwl.common_base.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lib_net.error.ExceptionHandler
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.response.BaseResponse
@@ -21,10 +22,38 @@ abstract class BaseViewModel: ViewModel() {
      * 内置封装好的可通知Activity/fragment 显示隐藏加载框 因为需要跟网络请求显示隐藏loading配套才加的，不然我加他个鸡儿加
      */
     inner class UiLoadingChange {
-        //显示加载框
-//        val showDialog by lazy { UnPeekLiveData<String>() }
-        //隐藏
+        //加载提示框
         val showDialog by lazy { UnPeekLiveData<Boolean>() }
+    }
+
+    /**
+     * 运行在主线程中，可直接调用
+     * @param errorBlock 错误回调
+     * @param responseBlock 请求函数
+     */
+    fun launchUI(errorBlock: (Int?, String?) -> Unit, responseBlock: suspend () -> Unit) {
+        viewModelScope.launch(Dispatchers.Main) {
+            safeApiCall(errorBlock = errorBlock, responseBlock)
+        }
+    }
+
+    /**
+     * 需要运行在协程作用域中
+     * @param errorBlock 错误回调
+     * @param responseBlock 请求函数
+     */
+    suspend fun <T> safeApiCall(
+        errorBlock: suspend (Int?, String?) -> Unit,
+        responseBlock: suspend () -> T?
+    ): T? {
+        try {
+            return responseBlock()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            val exception = ExceptionHandler.handleException(e)
+            errorBlock(exception.errCode, exception.errMsg)
+        }
+        return null
     }
 
     fun <T> request(

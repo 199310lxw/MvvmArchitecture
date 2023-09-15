@@ -1,7 +1,4 @@
-package com.xwl.common_base.net
-
-import com.xwl.common_lib.net.Api
-import com.xwl.common_lib.net.ApiService
+package com.example.lib_net.api
 
 /**
  * @author  lxw

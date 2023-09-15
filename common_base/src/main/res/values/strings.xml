@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">common_base</string>
+    <string name="default_no_data">暂无数据</string>
 </resources>

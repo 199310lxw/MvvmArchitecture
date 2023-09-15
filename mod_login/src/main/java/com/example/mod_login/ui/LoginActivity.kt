@@ -23,9 +23,9 @@ class LoginActivity : BaseVmVbActivity<LoginViewModel,ActivityLoginBinding>() {
 
     override fun initData() {
         val map = HashMap<String,Any>()
-        map["username"] = "mrliudasfafasd"
-        map["password"] = "mrliu123456"
-        map["repassword"] = "mrliu123456"
+        map["username"] = "fasasdasfafasd"
+        map["password"] = "fasf123456"
+        map["repassword"] = "fasf123456"
         mViewBinding.tv.onClick {
             mViewModel.register(map)?.observe(this){
                   it?.let {

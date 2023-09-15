@@ -2,6 +2,7 @@ package com.xwl.common_lib.manager
 
 import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.os.Build
 
 /**
@@ -45,6 +46,19 @@ object ActivityManager {
     }
 
     /**
+     * Activity是否销毁
+     * @param context
+     */
+    fun isActivityDestroy(context: Context): Boolean {
+        val activity = findActivity(context)
+        return if (activity != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                activity.isDestroyed || activity.isFinishing
+            } else activity.isFinishing
+        } else true
+    }
+
+    /**
      * 关闭其它activity
      */
     fun finishOtherActivity(clazz: Class<out Activity>, callback: (() ->Unit)? = null) {
@@ -57,6 +71,21 @@ object ActivityManager {
             }
         }
         callback?.invoke()
+    }
+
+    /**
+     * ContextWrapper是context的包装类，AppcompatActivity，service，application实际上都是ContextWrapper的子类
+     * AppcompatXXX类的context都会被包装成TintContextWrapper
+     * @param context
+     */
+    private fun findActivity(context: Context): Activity? {
+        // 怎么判断context是不是Activity
+        if (context is Activity) { // 这种方法不够严谨
+            return context
+        } else if (context is ContextWrapper) {
+            return findActivity(context.baseContext)
+        }
+        return null
     }
 
 

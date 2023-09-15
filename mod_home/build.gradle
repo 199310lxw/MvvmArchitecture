@@ -54,8 +54,4 @@ dependencies {
         //集成模式下需要编译器生成路由通信的代码
         kapt rootProject.ext.dependencies.arouter_compiler
     }
-
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 }

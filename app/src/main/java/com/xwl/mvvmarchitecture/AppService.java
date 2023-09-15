@@ -13,7 +13,7 @@ import com.xwl.common_lib.service.IContextService;
  * descripe
  */
 @Route(path = RoutMap.APP_SERVICE_CONTEXT)
-public class ContextServiceImpl implements IContextService {
+public class AppService implements IContextService {
     @Override
     public Context getApplicationContext() {
         return App.Companion.getApplicationContext();

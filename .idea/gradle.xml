@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common_base" />
             <option value="$PROJECT_DIR$/common_lib" />
+            <option value="$PROJECT_DIR$/lib_net" />
             <option value="$PROJECT_DIR$/mod_home" />
             <option value="$PROJECT_DIR$/mod_login" />
           </set>

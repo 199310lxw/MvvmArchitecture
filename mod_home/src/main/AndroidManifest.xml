@@ -3,7 +3,7 @@
     package="com.example.mod_home">
 
     <application>
-        <activity android:name=".ui.HomeActivity"
+        <activity android:name=".ui.activity.HomeActivity"
             android:launchMode="singleTask"/>
     </application>
 

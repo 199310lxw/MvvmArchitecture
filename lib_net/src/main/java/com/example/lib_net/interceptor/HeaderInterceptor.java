@@ -1,8 +1,7 @@
-package com.xwl.common_base.net;
+package com.example.lib_net.interceptor;
 
+import com.example.lib_net.BuildConfig;
 import com.orhanobut.logger.Logger;
-import com.xwl.common_base.BuildConfig;
-
 import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,11 +18,11 @@ import okhttp3.ResponseBody;
  * time: 2022/8/9
  * desc: 自定义header拦截器
  */
-public class InjectHeaderInterceptor implements Interceptor {
+public class HeaderInterceptor implements Interceptor {
 
     private final HashMap<String, String> map;
 
-    public InjectHeaderInterceptor() {
+    public HeaderInterceptor() {
         map = new HashMap<>();
     }
 
@@ -52,7 +51,6 @@ public class InjectHeaderInterceptor implements Interceptor {
             assert response.body() != null;
             MediaType mediaType = Objects.requireNonNull(response.body()).contentType();
             String content = Objects.requireNonNull(response.body()).string();
-            Logger.i("----------Request Start----------------");
             Logger.i("| request = " + request + ", headers = " + request.headers().toString());
             Logger.i("| Response:" + content);
             Logger.i("----------Request End:" + duration + "毫秒----------");
