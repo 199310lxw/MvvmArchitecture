@@ -38,11 +38,27 @@ abstract class BaseViewModel: ViewModel() {
     }
 
     /**
+     * 通用网络请求
+     */
+    fun <T> request(
+        requestCall: suspend () -> BaseResponse<T>?,
+        calllback: IHttpCallBack<T>
+    ) {
+        sendRequest(requestCall,showLoading =  {
+            loadingChange.showDialog.value = it
+        }, errorBlock = {
+            calllback.onFailure(it)
+        }, successBlock = {
+            calllback.onSuccess(it)
+        })
+    }
+
+    /**
      * 需要运行在协程作用域中
      * @param errorBlock 错误回调
      * @param responseBlock 请求函数
      */
-    suspend fun <T> safeApiCall(
+    private suspend fun <T> safeApiCall(
         errorBlock: suspend (Int?, String?) -> Unit,
         responseBlock: suspend () -> T?
     ): T? {
@@ -56,21 +72,6 @@ abstract class BaseViewModel: ViewModel() {
         return null
     }
 
-    /**
-     * 通用网络请求
-     */
-    fun <T> request(
-        requestCall: suspend () -> BaseResponse<T>?,
-        calllback: IHttpCallBack<T>
-    ) {
-        sendRequest(requestCall,showLoading =  {
-                loadingChange.showDialog.value = it
-        }, errorBlock = {
-            calllback.onFailure(it)
-        }, successBlock = {
-            calllback.onSuccess(it)
-        })
-    }
 
     private fun <T>  sendRequest(
        requestCall: suspend () -> BaseResponse<T>?,
@@ -143,7 +144,6 @@ abstract class BaseViewModel: ViewModel() {
             .onStart {
                 //4.请求开始，展示加载框
                 showLoading?.invoke(true)
-//                delay(2000)
             }
             //5.捕获异常
             .catch { e ->

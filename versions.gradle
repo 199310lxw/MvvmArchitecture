@@ -1,10 +1,10 @@
 ext {
     isApplication = false
     android = [
-            compileSdkVersion        : 32,
+            compileSdkVersion        : 33,
             buildToolsVersion        : "32.0.0",
             minSdkVersion            : 24,
-            targetSdkVersion         : 32,
+            targetSdkVersion         : 33,
             versionCode              : 1,
             versionName              : "1.0.0",
             applicationId            : "com.xwl.mvvmarchitecture",
@@ -21,12 +21,13 @@ ext {
             rxjavaVerson             = "2.1.1",
             retrofit_version         = "2.9.0",//2.6.0以上版本才支持协程
             eventbus                 = "3.0.0",
-            okhttp3                  = "3.8.1",
+            okhttp3_version          = "4.11.0",
             lifecycle_version        = "2.5.1",
             immersionbar             = "3.2.1",
             kotlin_version           = '1.6.10',
             glideVersion             = '4.15.0',
-            lottieVersion            = '3.1.0'
+            lottieVersion            = '3.1.0',
+            baseRecyclerViewAdapter  = '4.0.1'
     ]
 
     dependencies = [
@@ -36,10 +37,10 @@ ext {
 
             lifecycle_runtime_ktx     : "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.lifecycle_version",
             lifecycle_common_java8    : "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycle_version",
-            viewModelKtx              : "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycle_version",
-            liveDataKtx               : "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycle_version",
+            lifecycle_viewModelKtx    : "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycle_version",
+            lifecycle_liveDataKtx     : "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycle_version",
 
-            okhttp3                   : "com.squareup.okhttp3:okhttp:$rootProject.retrofit_version",
+            okhttp3                   : "com.squareup.okhttp3:okhttp:$rootProject.okhttp3_version",
             retrofit                  : "com.squareup.retrofit2:retrofit:$rootProject.retrofit_version",
             retrofit_adapter_rxjava2  : "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit_version",
             retrofit_converter_gson   : "com.squareup.retrofit2:converter-gson:$rootProject.retrofit_version",
@@ -54,5 +55,6 @@ ext {
             eventBus                  : "org.greenrobot:eventbus:$rootProject.eventbus",
             gson                      : "com.google.code.gson:gson:$rootProject.gsonVersion",
             logger                    : "com.orhanobut:logger:$rootProject.loggerVersion",
+            baseRecyclerViewAdapter   : "io.github.cymchad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecyclerViewAdapter"
     ]
 }

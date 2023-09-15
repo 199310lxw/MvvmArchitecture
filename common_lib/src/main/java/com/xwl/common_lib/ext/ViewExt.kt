@@ -20,3 +20,22 @@ fun View.visible() {
 fun View.gone() {
     visibility = View.GONE
 }
+
+fun View.invisible() {
+    visibility = View.INVISIBLE
+}
+
+val View.isGone: Boolean
+    get() {
+        return visibility == View.GONE
+    }
+
+val View.isVisible: Boolean
+    get() {
+        return visibility == View.VISIBLE
+    }
+
+val View.isInvisible: Boolean
+    get() {
+        return visibility == View.INVISIBLE
+    }
