@@ -8,7 +8,7 @@
     <com.xwl.common_base.views.TitleBar
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_parent"
+        android:layout_height="wrap_content"
         app:middleText="首页"
         app:leftVisible="false"
         app:layout_constraintTop_toTopOf="parent"/>
