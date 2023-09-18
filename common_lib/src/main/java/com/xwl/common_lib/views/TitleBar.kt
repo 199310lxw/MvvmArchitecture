@@ -1,4 +1,4 @@
-package com.xwl.common_base.views
+package com.xwl.common_lib.views
 
 import android.app.Activity
 import android.content.Context
@@ -11,8 +11,8 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.xwl.common_base.R
-import com.xwl.common_base.databinding.LayoutTitleBarBinding
+import com.xwl.common_lib.R
+import com.xwl.common_lib.databinding.LayoutTitleBarBinding
 import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.utils.ScreenUtil
 

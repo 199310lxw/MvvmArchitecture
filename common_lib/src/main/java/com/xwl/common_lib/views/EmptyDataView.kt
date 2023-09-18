@@ -1,4 +1,4 @@
-package com.xwl.common_base.views
+package com.xwl.common_lib.views
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import com.xwl.common_base.R
-import com.xwl.common_base.databinding.ViewEmptyDataBinding
+import com.xwl.common_lib.R
+import com.xwl.common_lib.databinding.ViewEmptyDataBinding
 
 /**
- * @author mingyan.su
+ * @author lxw
  * @date 2022/01/11 16:11
  * @desc 空数据view
  */

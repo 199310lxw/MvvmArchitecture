@@ -57,6 +57,7 @@ ext {
             gson                      : "com.google.code.gson:gson:$rootProject.gsonVersion",
             logger                    : "com.orhanobut:logger:$rootProject.loggerVersion",
             baseRecyclerViewAdapter   : "io.github.cymchad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecyclerViewAdapter",
+            //腾讯X5
             tbssdk                    : "com.tencent.tbs:tbssdk:$rootProject.tbssdkVersion",
     ]
 }
