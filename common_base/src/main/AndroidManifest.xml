@@ -3,6 +3,7 @@
     package="com.xwl.common_base">
 
     <application>
+        <activity android:name=".activity.WebViewActivity" />
     </application>
 
 </manifest>

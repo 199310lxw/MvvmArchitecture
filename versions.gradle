@@ -27,7 +27,8 @@ ext {
             kotlin_version           = '1.6.10',
             glideVersion             = '4.15.0',
             lottieVersion            = '3.1.0',
-            baseRecyclerViewAdapter  = '4.0.1'
+            baseRecyclerViewAdapter  = '4.0.1',
+            tbssdkVersion            = '44132',
     ]
 
     dependencies = [
@@ -55,6 +56,7 @@ ext {
             eventBus                  : "org.greenrobot:eventbus:$rootProject.eventbus",
             gson                      : "com.google.code.gson:gson:$rootProject.gsonVersion",
             logger                    : "com.orhanobut:logger:$rootProject.loggerVersion",
-            baseRecyclerViewAdapter   : "io.github.cymchad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecyclerViewAdapter"
+            baseRecyclerViewAdapter   : "io.github.cymchad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecyclerViewAdapter",
+            tbssdk                    : "com.tencent.tbs:tbssdk:$rootProject.tbssdkVersion",
     ]
 }

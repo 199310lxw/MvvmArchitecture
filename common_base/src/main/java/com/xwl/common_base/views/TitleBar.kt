@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.xwl.common_base.R
 import com.xwl.common_base.databinding.LayoutTitleBarBinding
@@ -142,7 +143,7 @@ class TitleBar @JvmOverloads constructor(
         mBinding.tvMiddle.setText(resId)
     }
 
-    fun getTitleRootView(): FrameLayout {
+    fun getTitleRootView(): LinearLayout {
         return mBinding.root
     }
 

@@ -28,9 +28,14 @@ abstract class BaseVmVbByLazyFragment<VM: BaseViewModel,VB: ViewBinding>: BaseLa
     ): View? {
         mViewBinding = inflateBindingWithGeneric(inflater,container,false)
         mViewModel = createViewModel()
-        initView(savedInstanceState,mViewBinding.root)
         registerUiChange()
+        initView(savedInstanceState,mViewBinding.root)
         return mViewBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
     private fun createViewModel():VM {

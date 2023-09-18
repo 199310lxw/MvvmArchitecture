@@ -39,7 +39,7 @@ class HomeActivity : BaseVmVbActivity<HomeViewModel,ActivityHomeBinding>() {
         mViewBinding.viewPager.setCurrentItem(0, false)
         mViewBinding.viewPager.offscreenPageLimit = 4
 
-
+        mViewBinding.viewPager.isUserInputEnabled = false //是否可以滑动
         mViewBinding.viewPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -48,7 +48,8 @@ class HomeActivity : BaseVmVbActivity<HomeViewModel,ActivityHomeBinding>() {
                 mViewBinding.navView.menu.getItem(position).isChecked = true
             }
         })
-        mViewBinding.navView.itemIconTintList = null
+
+//        mViewBinding.navView.itemIconTintList = null
         mViewBinding.navView.setOnItemSelectedListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.nav_home -> mViewBinding.viewPager.setCurrentItem(0, false)
