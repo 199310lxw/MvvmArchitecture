@@ -11,18 +11,14 @@ import com.example.mod_home.R
  * @date 2023/9/15
  * descripe
  */
-class MyAdapter(): BaseQuickAdapter<String, QuickViewHolder>() {
+class MyAdapter: BaseQuickAdapter<String, QuickViewHolder>() {
 
-    override fun onCreateViewHolder(
-        context: Context,
-        parent: ViewGroup,
-        viewType: Int
-    ): QuickViewHolder {
+    override fun onCreateViewHolder(context: Context, parent: ViewGroup, viewType: Int): QuickViewHolder {
         return QuickViewHolder(R.layout.item_view,parent)
     }
 
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: String?) {
-        if(holder == null) return
         holder.setText(R.id.tv,item)
     }
+
 }

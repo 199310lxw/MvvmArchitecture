@@ -28,6 +28,7 @@ abstract class BaseVmVbByLazyFragment<VM: BaseViewModel,VB: ViewBinding>: BaseLa
     ): View? {
         mViewBinding = inflateBindingWithGeneric(inflater,container,false)
         mViewModel = createViewModel()
+        initView(savedInstanceState,mViewBinding.root)
         registerUiChange()
         return mViewBinding.root
     }
@@ -46,5 +47,10 @@ abstract class BaseVmVbByLazyFragment<VM: BaseViewModel,VB: ViewBinding>: BaseLa
             }
         }
     }
+
+    /**
+     * 初始化视图
+     */
+    protected abstract fun initView(savedInstanceState: Bundle?, view: View?)
 
 }

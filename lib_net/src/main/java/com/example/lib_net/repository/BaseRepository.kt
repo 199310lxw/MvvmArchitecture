@@ -15,18 +15,18 @@ import kotlinx.coroutines.withTimeout
 open class BaseRepository {
     suspend fun <T> requestResponse(loadingDialog:(Boolean) -> Unit,requestCall: suspend() -> BaseResponse<T>?): T? {
         val response =  withContext(Dispatchers.IO) {
-            withContext(Dispatchers.Main) {
-                loadingDialog.invoke(true)
-            }
+//            withContext(Dispatchers.Main) {
+//                loadingDialog.invoke(true)
+//            }
 
            withTimeout(8 * 1000) {
                requestCall()
            }
         } ?: return null
 
-         withContext(Dispatchers.Main) {
-            loadingDialog.invoke(false)
-        }
+//         withContext(Dispatchers.Main) {
+//            loadingDialog.invoke(false)
+//        }
         if(!response.isSuccess()){
            throw ApiException(response.errorCode,response.errorMsg)
         }
