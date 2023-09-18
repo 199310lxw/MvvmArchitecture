@@ -17,5 +17,6 @@ fun BaseQuickAdapter<*, *>.setAdapterAnimation(mode: BaseQuickAdapter.AnimationT
 }
 
 fun  BaseQuickAdapter<*, *>.setEmptyView(context: Context) {
+    this.isEmptyViewEnable = true
     this.setEmptyViewLayout(context, R.layout.view_empty_data)
 }
