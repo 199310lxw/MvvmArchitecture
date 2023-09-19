@@ -2,11 +2,9 @@ package com.example.mod_login.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.lib_net.api.ApiManager
 import com.example.mod_login.repository.LoginRepostory
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.viewmodel.BaseViewModel
-import com.xwl.common_lib.callback.IHttpCallBack
 
 /**
  * @author  lxw

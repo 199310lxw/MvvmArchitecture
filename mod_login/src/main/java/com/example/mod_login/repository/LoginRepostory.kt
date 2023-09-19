@@ -1,6 +1,6 @@
 package com.example.mod_login.repository
 
-import com.example.lib_net.api.ApiManager
+import com.example.lib_net.manager.ApiManager
 import com.example.lib_net.repository.BaseRepository
 
 /**

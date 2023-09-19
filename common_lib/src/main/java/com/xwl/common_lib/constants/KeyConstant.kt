@@ -1,5 +1,7 @@
 package com.xwl.common_lib.constants
 
+import android.os.Environment
+
 /**
  * @author  lxw
  * @date 2023/9/12
@@ -9,4 +11,6 @@ object KeyConstant {
     const val KEY_USER_PHONE = "user_phone"
     const val KEY_URL = "key_url"
     const val KEY_TITLE = "key_title"
+    const val KEY_DOWNLOAD_URL = "key_download_url"
+    val APP_UPDATE_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path + "/mvvmarchiteture"
 }

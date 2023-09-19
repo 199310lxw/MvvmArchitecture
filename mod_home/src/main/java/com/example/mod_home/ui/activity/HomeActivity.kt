@@ -16,7 +16,9 @@ import com.example.mod_home.ui.fragment.MineFragment
 import com.example.mod_home.ui.fragment.NewsFragment
 import com.example.mod_home.viewmodel.HomeViewModel
 import com.xwl.common_base.activity.BaseVmVbActivity
+import com.xwl.common_base.dialog.UpdateDialog
 import com.xwl.common_lib.constants.RoutMap
+import com.xwl.common_lib.constants.UrlConstants
 import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.provider.LoginServiceProvider
@@ -26,7 +28,14 @@ import com.xwl.common_lib.utils.AppExit
 class HomeActivity : BaseVmVbActivity<HomeViewModel,ActivityHomeBinding>() {
    private val fragmentList = arrayListOf<Fragment>()
     override fun initView(savedInstanceState: Bundle?) {
+        checkVersion()
         initTab()
+    }
+
+    private fun checkVersion() {
+        val mUpdateDialog = UpdateDialog(this@HomeActivity,UrlConstants.BASE_URL +UrlConstants.APK_URL)
+        mUpdateDialog.setVersionName("v1.1.0")
+        mUpdateDialog.show()
     }
 
     private fun initTab() {

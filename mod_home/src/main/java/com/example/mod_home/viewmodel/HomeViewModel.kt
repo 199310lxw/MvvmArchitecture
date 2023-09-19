@@ -2,7 +2,7 @@ package com.example.mod_home.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.lib_net.api.ApiManager
+import com.example.lib_net.manager.ApiManager
 import com.example.mod_home.repostory.HomeRepostory
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.viewmodel.BaseViewModel

@@ -34,7 +34,7 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
 //        registerActivityCallback()
-        Logger.init("xwl")
+        Logger.init("lxw")
         initArouter()
         registerAppStatus()
         TipsToast.init(this)

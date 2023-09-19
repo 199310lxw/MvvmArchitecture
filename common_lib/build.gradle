@@ -83,4 +83,5 @@ dependencies {
 //        exclude group: 'androidx.recyclerview', module: 'recyclerview'
 //    }
     api 'com.kunminx.archi:unpeek-livedata:4.4.1-beta1'
+    api 'com.github.getActivity:XXPermissions:18.3'
 }
