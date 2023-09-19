@@ -46,6 +46,7 @@ android {
 
 
 dependencies {
+
     implementation project(':common_lib')
     implementation project(':common_base')
     if (!rootProject.ext.isApplication) {

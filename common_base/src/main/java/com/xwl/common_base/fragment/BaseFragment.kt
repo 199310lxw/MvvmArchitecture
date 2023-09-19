@@ -15,7 +15,7 @@ import com.xwl.common_lib.ext.showLoadingExt
  * descripe
  */
 abstract class BaseFragment: Fragment() {
-    protected var mContext: Context? = null
+    protected lateinit var mContext: Context
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -42,6 +42,5 @@ abstract class BaseFragment: Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         dismissLoadingDialog()
-        mContext = null
     }
 }

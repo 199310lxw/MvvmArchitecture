@@ -19,7 +19,7 @@ class FlashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         mViewBinding.lottieAnimationView.setAnimation("no_network.json")
-        object: CountDownTimer(3000,1000) {
+        object: CountDownTimer(2000,1000) {
             override fun onTick(millisUntilFinished: Long) {
 
             }
