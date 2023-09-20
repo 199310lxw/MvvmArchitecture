@@ -22,7 +22,6 @@ import java.util.*
 object DownloadManager {
     suspend fun download(url: String,file: File): Flow<DownloadState> {
         val mFlow =  flow {
-
            val range = String.format(Locale.CHINESE, "bytes=%d-", file.length())
             Logger.e(range)
 //           val response = ApiManager.downloadApi.downloadFile(range,url)
@@ -31,7 +30,6 @@ object DownloadManager {
                 .client(OkHttpClient())
                 .build()
             val response = retrofit.create(DownloadAPiService::class.java).downloadFile(range,url)
-
                 if(response.isSuccessful) {
                      saveToFile(response.body()!!,file,progress = {
                          emit(DownloadState.InProgress(it))
@@ -48,10 +46,9 @@ object DownloadManager {
             Logger.e("retrying cause: $cause")
             true
         }.catch {
-            Logger.e("请求错误:${it.stackTraceToString()}")
+            Logger.e("${it.stackTraceToString()}")
             emit(DownloadState.Error(it))
         }.flowOn(Dispatchers.IO)
-
         return mFlow
     }
 
