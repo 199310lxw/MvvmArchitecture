@@ -46,7 +46,7 @@ class DownloadService: LifecycleService() {
     private fun startDownload() {
         val file: File
         try {
-            file = File(KeyConstant.APP_UPDATE_PATH,"date.apk")
+            file = File(KeyConstant.APP_UPDATE_PATH,"mvvmarchitecture.apk")
             if(!file.exists()) {
                 file.createNewFile()
             }
