@@ -42,7 +42,7 @@ object DownloadManager {
                          emit(DownloadState.Error(IOException(response.toString())))
                      }
                  }
-        }.retry(3) { cause ->
+        }.retry(1) { cause ->
             Logger.e("retrying cause: $cause")
             true
         }.catch {
