@@ -2,7 +2,7 @@ package com.example.lib_net.manager
 
 import com.example.lib_net.api.Api
 import com.example.lib_net.api.ApiService
-import com.example.lib_net.api.DownloadService
+import com.example.lib_net.api.DownloadAPiService
 
 /**
  * @author  lxw
@@ -11,5 +11,5 @@ import com.example.lib_net.api.DownloadService
  */
 object ApiManager {
     val api by lazy { Api.create(ApiService::class.java) }
-    val downloadApi by lazy { Api.create(DownloadService::class.java) }
+    val downloadApi by lazy { Api.create(DownloadAPiService::class.java) }
 }

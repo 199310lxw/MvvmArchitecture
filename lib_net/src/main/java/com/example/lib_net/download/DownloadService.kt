@@ -27,86 +27,57 @@ class DownloadService: LifecycleService() {
     private var mDownloadUrl = ""
 
     private var mBinder: ServiceBinder? = null
-
+    private var mDownloadListener:DownloadListener? = null
     init {
         mBinder = ServiceBinder(this)
+    }
+
+    fun setOnDownloadListener(downloadListener: DownloadListener) {
+        this.mDownloadListener = downloadListener
     }
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if(intent != null) {
             mDownloadUrl = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_URL).toString()
+            startDownload()
         }
         return super.onStartCommand(intent, flags, startId)
     }
 
-    fun setOnProgressListener(downloadListener: DownloadListener) {
-        if(mDownloadUrl.isNullOrEmpty()) return
-        lifecycleScope.launch{
-            download(mDownloadUrl, onProgressChange =  {
-                downloadListener.onProgress(it.toInt())
-            })
-        }
-    }
-
-    /**
-     * 下载比较简单的写法：可取消
-     * @param onProgressChange 返回简单 [0.0-1.0】
-     * @return true 下载成功
-     */
-    suspend fun download(url: String,onProgressChange: ((Double) -> Unit)? = null): Boolean = withContext(
-        Dispatchers.IO) {
-        val fileName = "date.apk"
-        val file = File(KeyConstant.APP_UPDATE_PATH,fileName)
-        var downloadLength: Long = 0
-        if (file.exists()) {
-            downloadLength = file.length()
-        } else {
-            try {
-                file.createNewFile()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
-
-        val range = String.format(Locale.CHINESE, "bytes=%d-", downloadLength)
-        Logger.e(range)
+    private fun startDownload() {
+        val file: File
         try {
-            Logger.e("11111111111")
-            val body = ApiManager.downloadApi.downloadFile(range,url).body() ?:return@withContext  false
-            Logger.e(body.toString())
-            val totalSize =  body.contentLength().toDouble()
-
-            body.byteStream().use {
-                FileOutputStream(file).use { out ->
-                    //it.copyTo(targetOutputStream) 如果不需要任务取消可以用 copyTo
-                    var bytesCopied: Long = 0
-                    val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
-                    var bytes = it.read(buffer)
-                    while (bytes >= 0 && isActive) {
-                        out.write(buffer, 0, bytes)
-                        bytesCopied += bytes
-                        bytes = it.read(buffer)
-                        val percent = bytesCopied / totalSize
-                        Logger.e(percent.toString())
-                        onProgressChange?.invoke(percent)
+            file = File(KeyConstant.APP_UPDATE_PATH,"date.apk")
+            if(!file.exists()) {
+                file.createNewFile()
+            }
+            lifecycleScope.launch {
+                DownloadManager.download(mDownloadUrl,file).collect {
+                    when(it) {
+                        is DownloadState.InProgress -> {
+                            mDownloadListener?.onDownload(it.progress)
+                        }
+                        is DownloadState.Success -> {
+                            mDownloadListener?.onSuccess(it.file.absolutePath)
+                            Logger.e("下载成功")
+                        }
+                        is DownloadState.Error -> {
+                            mDownloadListener?.onError("下载失败：${it.throwable.message}")
+                            Logger.e("下载失败：${it.throwable.message}")
+                        }
+                        else -> {}
                     }
-
                 }
             }
-            return@withContext  true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            file.delete()//删除失败的文件
-            return@withContext  false
+        } catch (e: IOException) {
+            Logger.e(e.message)
         }
-    }
 
+    }
 
     override fun onBind(intent: Intent): IBinder? {
         super.onBind(intent)
         return mBinder
     }
-
-
 
     class ServiceBinder(downloadService: DownloadService) :
         Binder() {
@@ -121,17 +92,19 @@ class DownloadService: LifecycleService() {
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
-        Logger.e("UpdateService onUnbind")
+        Logger.e("DownloadService onUnbind")
         return super.onUnbind(intent)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Logger.e("UpdateService onDestroy")
+        Logger.e("DownloadService onDestroy")
         mBinder = null
     }
 
-    interface DownloadListener {
-        fun onProgress(progress: Int)
+    interface DownloadListener{
+        fun onSuccess(path: String)
+        fun onDownload(progress: Int)
+        fun onError(msg: String)
     }
 }

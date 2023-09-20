@@ -2,6 +2,8 @@ package com.xwl.common_base.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lib_net.download.DownloadManager
+import com.example.lib_net.download.DownloadState
 import com.example.lib_net.error.ExceptionHandler
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.orhanobut.logger.Logger
@@ -9,6 +11,7 @@ import com.xwl.common_base.response.BaseResponse
 import com.xwl.common_lib.callback.IHttpCallBack
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import java.io.File
 
 /**
  * @author  lxw
@@ -157,5 +160,13 @@ abstract class BaseViewModel: ViewModel() {
             }
 
         return flow
+    }
+
+    fun downloadFile(url: String, file: File,downloadState: (DownloadState) -> Unit) {
+        viewModelScope.launch(Dispatchers.Main) {
+            DownloadManager.download(url,file).collect{
+                downloadState.invoke(it)
+            }
+        }
     }
 }

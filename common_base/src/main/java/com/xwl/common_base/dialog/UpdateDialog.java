@@ -23,6 +23,8 @@ import com.xwl.common_base.R;
 import com.xwl.common_lib.constants.KeyConstant;
 import com.xwl.common_lib.dialog.TipsToast;
 import com.xwl.common_lib.provider.ContextServiceProvider;
+import com.xwl.common_lib.utils.AppUtils;
+
 import java.io.File;
 import java.util.List;
 import io.reactivex.Observable;
@@ -86,7 +88,7 @@ public class UpdateDialog extends Dialog {
                 .request(new OnPermissionCallback() {
                     @Override
                     public void onGranted(List<String> permissions, boolean all) {
-                        deleteFile(KeyConstant.INSTANCE.getAPP_UPDATE_PATH());
+                        checkFile(KeyConstant.INSTANCE.getAPP_UPDATE_PATH());
                     }
 
                     @Override
@@ -99,7 +101,7 @@ public class UpdateDialog extends Dialog {
                 });
     }
 
-    private void deleteFile(String path) {
+    private void checkFile(String path) {
         Observable.create((ObservableOnSubscribe<File>) emitter -> {
                     Logger.e(path);
                     File file = new File(path);
@@ -136,7 +138,6 @@ public class UpdateDialog extends Dialog {
                     public void onComplete() {
                         Logger.e("开始启动更新服务");
                         Logger.e("mDownloadUrl-->" + mDownloadUrl);
-                        Logger.e("conn-->" + conn);
                         intent = new Intent(ContextServiceProvider.service.getApplicationContext(), DownloadService.class);
                         intent.putExtra(KeyConstant.KEY_DOWNLOAD_URL, mDownloadUrl);
                         mContext.startService(intent);
@@ -152,14 +153,25 @@ public class UpdateDialog extends Dialog {
                 DownloadService.ServiceBinder binder = (DownloadService.ServiceBinder) iBinder;
                 if (binder != null) {
                     DownloadService service = binder.getService();
-                    Logger.e(service.toString());
                     btnDownload.setVisibility(View.GONE);
                     progressBar.setVisibility(View.VISIBLE);
                     tvProgress.setVisibility(View.VISIBLE);
-                    service.setOnProgressListener(new DownloadService.DownloadListener() {
+                    service.setOnDownloadListener(new DownloadService.DownloadListener() {
                         @Override
-                        public void onProgress(int progress) {
+                        public void onSuccess(String path) {
+                            AppUtils.installApk(mContext, path);
+                            dismiss();
+                        }
+
+                        @Override
+                        public void onDownload(int progress) {
                             progressBar.setProgress(progress);
+                            tvProgress.setText(String.format("%d%%", progress));
+                        }
+
+                        @Override
+                        public void onError(@NonNull String msg) {
+                            TipsToast.INSTANCE.showTips(msg);
                         }
                     });
                 } else {
