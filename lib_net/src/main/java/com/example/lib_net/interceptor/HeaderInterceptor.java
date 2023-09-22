@@ -40,7 +40,8 @@ public class HeaderInterceptor implements Interceptor {
                 builder.header(entry.getKey(), entry.getValue());
             }
         }
-        builder.addHeader("Terminal-Type", "ANDROID");
+//        builder.addHeader("Terminal-Type", "ANDROID");
+//        builder.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         request = builder.build();
 
         if (BuildConfig.DEBUG) {

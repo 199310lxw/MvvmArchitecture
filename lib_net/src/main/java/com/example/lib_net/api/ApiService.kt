@@ -24,9 +24,7 @@ interface ApiService {
     /**
      * 用户注册
      */
-    @POST(UrlConstants.USER_REGISTER)
-    suspend fun register(
-        @QueryMap map: Map<String, @JvmSuppressWildcards Any>
-    ): BaseResponse<Any>?
+    @POST(UrlConstants.URL_REGISTER)
+    suspend fun register(@QueryMap map: Map<String, @JvmSuppressWildcards Any>): BaseResponse<Any>?
 
 }
