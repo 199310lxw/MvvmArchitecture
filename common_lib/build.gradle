@@ -77,11 +77,8 @@ dependencies {
     api rootProject.ext.dependencies.lottie
 
 
-    api rootProject.ext.dependencies.baseRecyclerViewAdapter
-//    api "io.github.cymchad:BaseRecyclerViewAdapterHelper:4.0.1"
-//    api(rootProject.ext.dependencies.baseRecyclerViewAdapter) {
-//        exclude group: 'androidx.recyclerview', module: 'recyclerview'
-//    }
+    api(rootProject.ext.dependencies.baseRecyclerViewAdapter)
+
     api 'com.kunminx.archi:unpeek-livedata:4.4.1-beta1'
     api 'com.github.getActivity:XXPermissions:18.3'
 }

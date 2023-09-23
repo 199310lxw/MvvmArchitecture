@@ -10,4 +10,6 @@
     <color name="colorAccent">#5367D8</color>
     <color name="color_4f5356">#4f5356</color>
     <color name="black_222">#222222</color>
+    <color name="line_color">#f0f2f4</color>
+    <color name="common_blue">#5573E7</color>
 </resources>

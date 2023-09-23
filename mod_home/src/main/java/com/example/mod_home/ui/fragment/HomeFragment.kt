@@ -2,24 +2,21 @@ package com.example.mod_home.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import com.example.mod_home.adapters.MyAdapter
 import com.example.mod_home.databinding.FragmentHomeBinding
 import com.example.mod_home.viewmodel.HomeViewModel
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
 import com.xwl.common_lib.dialog.TipsToast
-import com.xwl.common_lib.ext.setEmptyView
 
 class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel,FragmentHomeBinding>() {
-    private var myAdapter: MyAdapter = MyAdapter()
     private var dataLists: ArrayList<String> = arrayListOf()
     companion object {
         fun newInstance() = HomeFragment()
     }
 
     private fun initRv() {
-        mContext?.let { myAdapter?.setEmptyView(it) }
+//        mContext?.let { myAdapter?.setEmptyView(it) }
 //        myAdapter.submitList(dataLists)
-        mViewBinding.rv.adapter = myAdapter
+//        mViewBinding.rv.adapter = myAdapter
     }
 
     private fun requestData() {

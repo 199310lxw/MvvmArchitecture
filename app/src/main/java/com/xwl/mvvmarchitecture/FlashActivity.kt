@@ -2,6 +2,7 @@ package com.xwl.mvvmarchitecture
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
@@ -15,6 +16,13 @@ import com.xwl.common_lib.constants.KeyConstant.APP_UPDATE_PATH
 import com.xwl.common_lib.constants.RoutMap
 import com.xwl.common_lib.dialog.TipsToast.showTips
 import com.xwl.mvvmarchitecture.databinding.ActivityFlashBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.launch
 
 /**
  * @author  lxw
@@ -25,7 +33,7 @@ class FlashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         mViewBinding.lottieAnimationView.setAnimation("no_network.json")
-       checkPermission()
+        checkPermission()
     }
 
     override fun initData() {
@@ -33,6 +41,7 @@ class FlashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() {
     }
 
     private fun checkPermission() {
+
         XXPermissions.with(this@FlashActivity)
             .permission(Permission.WRITE_EXTERNAL_STORAGE)
             .permission(Permission.READ_MEDIA_IMAGES)
@@ -41,20 +50,45 @@ class FlashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() {
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: List<String>, all: Boolean) {
                     if(all) {
-                        object: CountDownTimer(2000,1000) {
-                            override fun onTick(millisUntilFinished: Long) {
+                        lifecycleScope.launch {
+                            flow {
+                                delay(2000)
+                                emit(true)
+                            }.flowOn(Dispatchers.Main)
+                                .onCompletion {
+                                    if(true) {
 
-                            }
-                            override fun onFinish() {
-                                ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
-                                    .navigation(this@FlashActivity, object : NavCallback() {
-                                        override fun onArrival(postcard: Postcard?) {
-                                            finish()
-                                        }
-                                    })
-                            }
-                        }.start()
+                                    }
+                                    ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
+                                        .navigation(this@FlashActivity, object : NavCallback() {
+                                            override fun onArrival(postcard: Postcard?) {
+                                                finish()
+                                            }
+                                        })
+                                }.collect()
+                        }
+                    } else {
+
                     }
+
+
+
+
+//                    if(all) {
+//                        object: CountDownTimer(2000,1000) {
+//                            override fun onTick(millisUntilFinished: Long) {
+//
+//                            }
+//                            override fun onFinish() {
+//                                ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
+//                                    .navigation(this@FlashActivity, object : NavCallback() {
+//                                        override fun onArrival(postcard: Postcard?) {
+//                                            finish()
+//                                        }
+//                                    })
+//                            }
+//                        }.start()
+//                    }
                 }
 
                 override fun onDenied(permissions: List<String>, never: Boolean) {
@@ -63,7 +97,6 @@ class FlashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() {
                     }
                 }
             })
-
     }
 
     override fun onStop() {

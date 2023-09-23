@@ -1,28 +1,22 @@
 package com.example.mod_home.ui.activity
 
 import android.os.Bundle
-import android.util.SparseArray
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.mod_home.R
 import com.example.mod_home.adapters.FragmentAdapter
-import com.example.mod_home.adapters.MyAdapter
 import com.example.mod_home.databinding.ActivityHomeBinding
 import com.example.mod_home.ui.fragment.HomeFragment
 import com.example.mod_home.ui.fragment.MessageFragment
 import com.example.mod_home.ui.fragment.MineFragment
 import com.example.mod_home.ui.fragment.NewsFragment
 import com.example.mod_home.viewmodel.HomeViewModel
-import com.orhanobut.logger.Logger
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_base.dialog.UpdateDialog
 import com.xwl.common_lib.constants.RoutMap
 import com.xwl.common_lib.constants.UrlConstants
-import com.xwl.common_lib.dialog.TipsToast
-import com.xwl.common_lib.ext.onClick
-import com.xwl.common_lib.provider.LoginServiceProvider
 import com.xwl.common_lib.utils.AppExit
 
 @Route(path = RoutMap.HOME_ACTIVITY_HOME)

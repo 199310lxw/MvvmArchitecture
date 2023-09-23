@@ -11,4 +11,24 @@
         <item name="android:backgroundDimEnabled">false</item><!--屏幕背景是否变暗-->
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
+
+    <style name="customerDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
+        <item name="android:windowIsFloating">true</item>  <!--是否悬浮activity上面-->
+        <item name="android:backgroundDimEnabled">true</item>  <!--是否模糊-->
+    </style>
+
+
+    <style name="line_horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/line_color</item>
+    </style>
+
+    <style name="line_vertical">
+        <item name="android:layout_width">0.5dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/line_color</item>
+    </style>
 </resources>

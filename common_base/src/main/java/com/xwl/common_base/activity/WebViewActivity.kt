@@ -14,7 +14,9 @@ import com.xwl.common_base.databinding.ActivityWebviewBinding
 import com.xwl.common_base.viewmodel.EmptyViewModel
 import com.xwl.common_lib.constants.KeyConstant
 import com.xwl.common_lib.ext.dismissLoadingExt
+import com.xwl.common_lib.ext.gone
 import com.xwl.common_lib.ext.showLoadingExt
+import com.xwl.common_lib.ext.visible
 
 /**
  * @author mingyan.su
@@ -85,7 +87,7 @@ class WebViewActivity : BaseVmVbActivity<EmptyViewModel,ActivityWebviewBinding>(
          */
         override fun onProgressChanged(webView: WebView?, process: Int) {
             super.onProgressChanged(webView, process)
-            if (process == 100) {
+            if(process == 100) {
                 dismissLoadingExt()
             }
         }
