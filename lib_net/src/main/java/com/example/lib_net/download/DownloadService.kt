@@ -62,6 +62,7 @@ class DownloadService: LifecycleService() {
                         }
                         is DownloadState.Error -> {
                             mDownloadListener?.onError("下载失败：${it.throwable.message}")
+                            file?.delete()
                             Logger.e("下载失败：${it.throwable.message}")
                         }
                         else -> {}
