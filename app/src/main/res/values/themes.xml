@@ -12,4 +12,15 @@
         <item name="android:windowBackground">@color/white</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>
+<!--    <style name="Theme.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+    <style name="Theme.Splash" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!--    设置背景，解决白屏的关键    -->
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+        <!-- 设置状态栏为白色的，状态栏文字为黑的 -->
+<!--        <item name="android:statusBarColor">@color/transparent</item>-->
+<!--        <item name="android:windowFullscreen">true</item>-->
+<!--        <item name="android:statusBarColor">@color/white</item>-->
+<!--        <item name="android:windowLightStatusBar">true</item>-->
+    </style>
 </resources>

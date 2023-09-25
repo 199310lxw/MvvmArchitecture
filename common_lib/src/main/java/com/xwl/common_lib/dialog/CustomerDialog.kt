@@ -85,6 +85,7 @@ class CustomerDialog private constructor(builder: Builder) : DialogFragment() {
         tvTitle.visibility =  if (mIsTitleVisible) View.VISIBLE else View.GONE
 
        tvCancel.onClick {
+           mOnItemClickListener?.onCancel()
            dismiss()
        }
 
@@ -93,10 +94,6 @@ class CustomerDialog private constructor(builder: Builder) : DialogFragment() {
         }
     }
 
-    fun show(parentFragmentManager: FragmentManager) {
-        if(requireActivity() == null  ||  requireActivity().isFinishing) return
-        show(parentFragmentManager,"CustomerDialog")
-    }
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

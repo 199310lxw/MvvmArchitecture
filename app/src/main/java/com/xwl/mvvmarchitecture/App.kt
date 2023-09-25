@@ -33,7 +33,6 @@ class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-//        registerActivityCallback()
         Logger.init("lxw")
         initArouter()
         registerAppStatus()
