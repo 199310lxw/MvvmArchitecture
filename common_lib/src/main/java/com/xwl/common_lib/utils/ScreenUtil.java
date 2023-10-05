@@ -8,6 +8,8 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.Nullable;
+
 import com.xwl.common_lib.provider.ContextServiceProvider;
 
 /**
@@ -17,11 +19,12 @@ import com.xwl.common_lib.provider.ContextServiceProvider;
  */
 
 public class ScreenUtil {
-
+    @Nullable
     public static int dip2px(float dipValue) {
         final float scale = ContextServiceProvider.INSTANCE.getApplicationContext().getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
+
 
     public static int px2dip(float pxValue) {
         final float scale = ContextServiceProvider.INSTANCE.getApplicationContext().getResources().getDisplayMetrics().density;

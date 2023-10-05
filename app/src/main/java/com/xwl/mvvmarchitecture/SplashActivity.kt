@@ -11,6 +11,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
+import com.orhanobut.logger.Logger
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_base.viewmodel.EmptyViewModel
 import com.xwl.common_lib.constants.RoutMap
@@ -60,19 +61,20 @@ class SplashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() 
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: List<String>, all: Boolean) {
                     if(all) {
-                        lifecycleScope.launch {
+                        lifecycleScope.launchWhenResumed {
                             flow {
-                                delay(2000)
+                                delay(5000)
+                                Logger.e("1111111")
                                 emit(true)
-                            }.flowOn(Dispatchers.Main)
-                                .onCompletion {
+                            }.flowOn(Dispatchers.IO)
+                                .collect{
                                     ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
                                         .navigation(this@SplashActivity, object : NavCallback() {
                                             override fun onArrival(postcard: Postcard?) {
                                                 finish()
                                             }
                                         })
-                                }.collect()
+                                }
                         }
                     } else {
                         if(!hasShowWarning) {
