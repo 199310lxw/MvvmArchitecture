@@ -1,7 +1,7 @@
 ext {
     isApplication = false
     android = [
-            compileSdkVersion        : 32,
+            compileSdkVersion        : 33,
             buildToolsVersion        : "32.0.0",
             minSdkVersion            : 24,
             targetSdkVersion         : 33,
@@ -27,7 +27,7 @@ ext {
             kotlin_version           = '1.6.10',
             glideVersion             = '4.15.0',
             lottieVersion            = '3.1.0',
-            baseRecyclerViewAdapter  = '3.0.4',
+            baseRecyclerViewAdapter  = '4.0.1',
             tbssdkVersion            = '44132',
     ]
 
