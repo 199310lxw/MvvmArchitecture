@@ -17,6 +17,7 @@
         <item name="android:windowSplashScreenBackground">@android:color/white</item>
         <item name="android:windowSplashScreenIconBackgroundColor">@android:color/white</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/news_avd_v02</item>
+<!--        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/logo</item>-->
         <item name="windowSplashScreenAnimationDuration">1000</item>
         <item name="postSplashScreenTheme">@style/Theme.AppCompat.Light.NoActionBar</item>
     </style>
