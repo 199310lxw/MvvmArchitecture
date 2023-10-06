@@ -1,9 +1,15 @@
 package com.xwl.mvvmarchitecture
 
-import android.graphics.Color
+import android.animation.ObjectAnimator
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.AnticipateInterpolator
+import android.window.SplashScreenView
+import androidx.annotation.RequiresApi
+import androidx.core.animation.doOnEnd
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.callback.NavCallback
@@ -11,7 +17,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
-import com.orhanobut.logger.Logger
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_base.viewmodel.EmptyViewModel
 import com.xwl.common_lib.constants.RoutMap
@@ -19,12 +24,8 @@ import com.xwl.common_lib.dialog.CustomerDialog
 import com.xwl.common_lib.dialog.TipsToast.showTips
 import com.xwl.mvvmarchitecture.databinding.ActivityFlashBinding
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.*
+
 
 /**
  * @author  lxw
@@ -35,17 +36,45 @@ class SplashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() 
 
     private var hasShowWarning: Boolean = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+        super.onCreate(savedInstanceState)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun initView(savedInstanceState: Bundle?) {
+
         //设置虚拟按键为全透明
 //        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
 //        window.decorView
 //            .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
 //        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 //        window.navigationBarColor = Color.TRANSPARENT
+
+//        mViewBinding.lottieAnimationView.setAnimation("no_network.json")
         //设置虚拟按键为半透明
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
-//        mViewBinding.lottieAnimationView.setAnimation("no_network.json")
-        checkPermission()
+
+        splashScreen.setOnExitAnimationListener { splashScreenView ->
+
+            checkPermission()
+            // Create your custom animation.
+            val slideUp = ObjectAnimator.ofFloat(
+                splashScreenView,
+                View.TRANSLATION_Y,
+                0f,
+                splashScreenView.height.toFloat()
+            )
+//            slideUp.interpolator = AnticipateInterpolator()
+            slideUp.duration = 1000L
+
+            // Call SplashScreenView.remove at the end of your custom animation.
+            slideUp.doOnEnd { splashScreenView.remove() }
+
+            // Run your animation.
+            slideUp.start()
+        }
+
     }
 
     override fun initData() {
@@ -63,8 +92,7 @@ class SplashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() 
                     if(all) {
                         lifecycleScope.launchWhenResumed {
                             flow {
-                                delay(5000)
-                                Logger.e("1111111")
+//                                delay(2000)
                                 emit(true)
                             }.flowOn(Dispatchers.IO)
                                 .collect{
