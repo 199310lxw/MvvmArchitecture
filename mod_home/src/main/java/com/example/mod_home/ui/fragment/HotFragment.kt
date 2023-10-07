@@ -14,6 +14,7 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
     private var mList = arrayListOf<HotBean>()
 
     private var mCurrentPage = 1
+    private var size = 10
     private var mIsRefresh = true
 
     companion object {
@@ -22,24 +23,25 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
 
     override fun initView(savedInstanceState: Bundle?, view: View?) {
         initRv()
+        mViewBinding.refreshLayout.setEnableLoadMore(false)
         mViewBinding.refreshLayout.setOnRefreshListener {
             mIsRefresh = true
             mCurrentPage = 1
-            getData(mCurrentPage)
+            getData(mCurrentPage, size)
         }
         mViewBinding.refreshLayout.setOnLoadMoreListener {
             mIsRefresh = false
             mCurrentPage++
-            getData(mCurrentPage)
+            getData(mCurrentPage, size)
         }
     }
 
     override fun onLazyLoadData() {
-        getData(1)
+        getData(1, size)
     }
 
-    private fun getData(page: Int) {
-        mViewModel.getHotList(page).observe(this) {
+    private fun getData(page: Int, size: Int) {
+        mViewModel.getHotList(page, size).observe(this) {
 
             it?.let {
                 if (mIsRefresh) {
@@ -48,6 +50,8 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
                             mContext,
                             com.xwl.common_lib.R.layout.view_empty_data
                         )
+                    } else if (it.size >= size) {
+                        mViewBinding.refreshLayout.setEnableLoadMore(true)
                     }
                     mAdapter.submitList(it)
                     mViewBinding.refreshLayout.finishRefresh()

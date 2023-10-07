@@ -53,11 +53,11 @@ class HomeViewModel : BaseViewModel() {
     /**
      * 获取热门列表
      */
-    fun getHotList(page: Int): LiveData<ArrayList<HotBean>> {
+    fun getHotList(page: Int, size: Int): LiveData<ArrayList<HotBean>> {
         val hotLiveData: MutableLiveData<ArrayList<HotBean>> = MutableLiveData<ArrayList<HotBean>>()
 
         request(
-            requestCall = { ApiManager.api.getHotList(page, 10) },
+            requestCall = { ApiManager.api.getHotList(page, size) },
             object : IHttpCallBack<ArrayList<HotBean>> {
                 override fun onSuccess(result: ArrayList<HotBean>) {
                     hotLiveData.value = result
