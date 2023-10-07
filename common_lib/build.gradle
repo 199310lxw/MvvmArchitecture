@@ -79,6 +79,10 @@ dependencies {
 
     api rootProject.ext.dependencies.baseRecyclerViewAdapter
 
-    api 'com.kunminx.archi:unpeek-livedata:4.4.1-beta1'
-    api 'com.github.getActivity:XXPermissions:18.3'
+
+    api rootProject.ext.dependencies.smartRefresh
+    api rootProject.ext.dependencies.smartRefresh_header
+
+    api rootProject.ext.dependencies.unpeek_livedata
+    api rootProject.ext.dependencies.XXPermissions
 }

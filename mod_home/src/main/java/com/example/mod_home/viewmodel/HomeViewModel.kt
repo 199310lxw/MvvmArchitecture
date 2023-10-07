@@ -6,6 +6,7 @@ import com.example.lib_net.manager.ApiManager
 import com.example.mod_home.repostory.HomeRepostory
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.viewmodel.BaseViewModel
+import com.xwl.common_lib.bean.HotBean
 import com.xwl.common_lib.callback.IHttpCallBack
 
 /**
@@ -13,14 +14,14 @@ import com.xwl.common_lib.callback.IHttpCallBack
  * @date 2023/9/12
  * descripe
  */
-class HomeViewModel: BaseViewModel() {
+class HomeViewModel : BaseViewModel() {
     private val homeRepostory by lazy { HomeRepostory() }
 
-    fun register(map: Map<String,Any>): LiveData<String> {
+    fun register(map: Map<String, Any>): LiveData<String> {
         val liveData: MutableLiveData<String> = MutableLiveData<String>()
 
         //方法一
-        request(requestCall = { ApiManager.api.register(map)},object: IHttpCallBack<Any> {
+        request(requestCall = { ApiManager.api.register(map) }, object : IHttpCallBack<Any> {
             override fun onSuccess(result: Any) {
                 Logger.e(result.toString())
                 liveData.value = "注册成功"
@@ -46,5 +47,27 @@ class HomeViewModel: BaseViewModel() {
 //        return registerLiveData
 
         return liveData
+    }
+
+
+    /**
+     * 获取热门列表
+     */
+    fun getHotList(page: Int): LiveData<ArrayList<HotBean>> {
+        val hotLiveData: MutableLiveData<ArrayList<HotBean>> = MutableLiveData<ArrayList<HotBean>>()
+
+        request(
+            requestCall = { ApiManager.api.getHotList(page, 10) },
+            object : IHttpCallBack<ArrayList<HotBean>> {
+                override fun onSuccess(result: ArrayList<HotBean>) {
+                    hotLiveData.value = result
+                }
+
+                override fun onFailure(obj: Any?) {
+
+                }
+            })
+
+        return hotLiveData
     }
 }

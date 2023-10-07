@@ -11,24 +11,27 @@ ext {
             testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner"
     ]
 
-    abiFilters = ['armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'] //['armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64']
+    abiFilters = ['armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64']
+    //['armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64']
 
     // 第三方库版本号的管理
     libsVersion = [
-            arouterVersion           = "1.5.2",
-            loggerVersion            = "1.15",
-            gsonVersion              = "2.8.0",
-            rxjavaVerson             = "2.1.1",
-            retrofit_version         = "2.9.0",//2.6.0以上版本才支持协程
-            eventbus                 = "3.0.0",
-            okhttp3_version          = "4.11.0",
-            lifecycle_version        = "2.5.1",
-            immersionbar             = "3.2.1",
-            kotlin_version           = '1.6.10',
-            glideVersion             = '4.15.0',
-            lottieVersion            = '3.1.0',
-            baseRecyclerViewAdapter  = '4.0.1',
-            tbssdkVersion            = '44132',
+            arouterVersion = "1.5.2",
+            loggerVersion = "1.15",
+            gsonVersion = "2.8.0",
+            rxjavaVerson = "2.1.1",
+            retrofit_version = "2.9.0",//2.6.0以上版本才支持协程
+            eventbus = "3.0.0",
+            okhttp3_version = "4.11.0",
+            lifecycle_version = "2.5.1",
+            immersionbar = "3.2.1",
+            kotlin_version = '1.6.10',
+            glideVersion = '4.15.0',
+            lottieVersion = '3.1.0',
+            baseRecyclerViewAdapter = '4.0.1',
+            tbssdkVersion = '44132',
+            smartRefreshVersion = '2.0.5',
+            XXPermissionsVersion = '18.3',
     ]
 
     dependencies = [
@@ -59,5 +62,11 @@ ext {
             baseRecyclerViewAdapter   : "io.github.cymchad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecyclerViewAdapter",
             //腾讯X5
             tbssdk                    : "com.tencent.tbs:tbssdk:$rootProject.tbssdkVersion",
+
+            smartRefresh              : "io.github.scwang90:refresh-layout-kernel:$rootProject.smartRefreshVersion",      //核心必须依赖
+            smartRefresh_header       : "io.github.scwang90:refresh-header-classics:$rootProject.smartRefreshVersion",    //经典刷新头
+
+            unpeek_livedata           : "com.kunminx.archi:unpeek-livedata:4.4.1-beta1",
+            XXPermissions             : "com.github.getActivity:XXPermissions:$rootProject.XXPermissionsVersion",
     ]
 }

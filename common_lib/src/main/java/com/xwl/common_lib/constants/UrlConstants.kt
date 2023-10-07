@@ -6,11 +6,13 @@ package com.xwl.common_lib.constants
  * descripe
  */
 class UrlConstants {
-    companion object{
+    companion object {
         const val BASE_URL = "http://192.168.10.87/"
 
         const val URL_REGISTER = "user/register"
 
         const val APK_URL = "apk/date.apk"
+
+        const val HOT_URL = "hot/hot"
     }
 }
