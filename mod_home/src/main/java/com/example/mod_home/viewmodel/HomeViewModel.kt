@@ -8,6 +8,7 @@ import com.orhanobut.logger.Logger
 import com.xwl.common_base.viewmodel.BaseViewModel
 import com.xwl.common_lib.bean.HotBean
 import com.xwl.common_lib.callback.IHttpCallBack
+import com.xwl.common_lib.dialog.TipsToast
 
 /**
  * @author  lxw
@@ -53,8 +54,9 @@ class HomeViewModel : BaseViewModel() {
     /**
      * 获取热门列表
      */
-    fun getHotList(page: Int, size: Int): LiveData<ArrayList<HotBean>> {
-        val hotLiveData: MutableLiveData<ArrayList<HotBean>> = MutableLiveData<ArrayList<HotBean>>()
+    fun getHotList(page: Int, size: Int): MutableLiveData<ArrayList<HotBean>?> {
+        val hotLiveData: MutableLiveData<ArrayList<HotBean>?> =
+            MutableLiveData<ArrayList<HotBean>?>()
 
         request(
             requestCall = { ApiManager.api.getHotList(page, size) },
@@ -64,7 +66,8 @@ class HomeViewModel : BaseViewModel() {
                 }
 
                 override fun onFailure(obj: Any?) {
-
+                    hotLiveData.value = null
+                    TipsToast.showTips(obj.toString())
                 }
             })
 

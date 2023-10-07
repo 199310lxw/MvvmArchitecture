@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.QuickAdapterHelper
 import com.example.mod_home.adapters.HotAdapter
 import com.example.mod_home.databinding.FragmentHotBinding
 import com.example.mod_home.viewmodel.HomeViewModel
+import com.orhanobut.logger.Logger
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
 import com.xwl.common_lib.bean.HotBean
 
@@ -32,6 +33,7 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
         mViewBinding.refreshLayout.setOnLoadMoreListener {
             mIsRefresh = false
             mCurrentPage++
+            Logger.e("----->${mCurrentPage}")
             getData(mCurrentPage, size)
         }
     }
@@ -42,22 +44,33 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
 
     private fun getData(page: Int, size: Int) {
         mViewModel.getHotList(page, size).observe(this) {
-
-            it?.let {
-                if (mIsRefresh) {
-                    if (it.isEmpty()) {
-                        mAdapter.setEmptyViewLayout(
-                            mContext,
-                            com.xwl.common_lib.R.layout.view_empty_data
-                        )
-                    } else if (it.size >= size) {
-                        mViewBinding.refreshLayout.setEnableLoadMore(true)
+            if (it != null) {
+                it.let {
+                    if (mIsRefresh) {
+                        if (it.isEmpty()) {
+                            mAdapter.setEmptyViewLayout(
+                                mContext,
+                                com.xwl.common_lib.R.layout.view_empty_data
+                            )
+                        } else if (it.size >= size) {
+                            mViewBinding.refreshLayout.setEnableLoadMore(true)
+                        }
+                        mAdapter.submitList(it)
+                        mViewBinding.refreshLayout.finishRefresh()
+                    } else {
+                        mAdapter.addAll(it)
+                        mViewBinding.refreshLayout.finishLoadMore()
                     }
-                    mAdapter.submitList(it)
+                }
+            } else {
+                if (mIsRefresh) {
+                    mAdapter.setEmptyViewLayout(
+                        mContext,
+                        com.xwl.common_lib.R.layout.view_empty_data
+                    )
                     mViewBinding.refreshLayout.finishRefresh()
                 } else {
-                    mAdapter.addAll(it)
-                    mViewBinding.refreshLayout.finishLoadMore()
+                    mViewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
                 }
             }
         }
