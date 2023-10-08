@@ -9,8 +9,11 @@ import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.response.BaseResponse
 import com.xwl.common_lib.callback.IHttpCallBack
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 import java.io.File
 
 /**
@@ -18,7 +21,7 @@ import java.io.File
  * @date 2023/9/11
  * descripe
  */
-abstract class BaseViewModel: ViewModel() {
+abstract class BaseViewModel : ViewModel() {
     val loadingChange: UiLoadingChange by lazy { UiLoadingChange() }
 
     /**
@@ -47,7 +50,7 @@ abstract class BaseViewModel: ViewModel() {
         requestCall: suspend () -> BaseResponse<T>?,
         calllback: IHttpCallBack<T>
     ) {
-        sendRequest(requestCall,showLoading =  {
+        sendRequest(requestCall, showLoading = {
             loadingChange.showDialog.value = it
         }, errorBlock = {
             calllback.onFailure(it)
@@ -76,22 +79,21 @@ abstract class BaseViewModel: ViewModel() {
     }
 
 
-    private fun <T>  sendRequest(
-       requestCall: suspend () -> BaseResponse<T>?,
-       showLoading: ((Boolean) -> Unit)? = null,
-       errorBlock: (String?) -> Unit,
-       successBlock: (T) -> Unit
-   ) {
+    private fun <T> sendRequest(
+        requestCall: suspend () -> BaseResponse<T>?,
+        showLoading: ((Boolean) -> Unit)? = null,
+        errorBlock: (String?) -> Unit,
+        successBlock: (T) -> Unit
+    ) {
         viewModelScope.launch(Dispatchers.Main) {
-            val data = requestFlow(requestCall, errorBlock = errorBlock,showLoading = showLoading)
+            val data = requestFlow(requestCall, errorBlock = errorBlock, showLoading = showLoading)
             withContext(Dispatchers.Main) {
                 if (data != null) {
                     successBlock.invoke(data)
                 }
             }
         }
-   }
-
+    }
 
 
     /**
@@ -107,7 +109,7 @@ abstract class BaseViewModel: ViewModel() {
         showLoading: ((Boolean) -> Unit)? = null
     ): T? {
         var data: T? = null
-        val flow = requestFlowResponse(requestCall,errorBlock, showLoading)
+        val flow = requestFlowResponse(requestCall, errorBlock, showLoading)
         //7.调用collect获取emit()回调的结果，就是请求最后的结果
         flow.collect {
             data = it?.data
@@ -130,7 +132,7 @@ abstract class BaseViewModel: ViewModel() {
         //1.执行请求
         val flow = flow {
             //设置超时时间
-            val response = withTimeout(10 * 1000) {
+            val response = withTimeout(8 * 1000) {
                 requestCall()
             }
 
@@ -152,7 +154,7 @@ abstract class BaseViewModel: ViewModel() {
             .catch { e ->
                 e.printStackTrace()
                 Logger.e(e.message)
-                errorBlock?.invoke(e.message)
+                errorBlock.invoke(e.message)
             }
             //6.请求完成，包括成功和失败
             .onCompletion {
@@ -162,9 +164,9 @@ abstract class BaseViewModel: ViewModel() {
         return flow
     }
 
-    fun downloadFile(url: String, file: File,downloadState: (DownloadState) -> Unit) {
+    fun downloadFile(url: String, file: File, downloadState: (DownloadState) -> Unit) {
         viewModelScope.launch(Dispatchers.Main) {
-            DownloadManager.download(url,file).collect{
+            DownloadManager.download(url, file).collect {
                 downloadState.invoke(it)
             }
         }

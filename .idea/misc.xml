@@ -5,8 +5,8 @@
       <map>
         <entry key="..\:/Code/Android/mvvmArchitecture/app/src/main/res/layout/activity_main.xml" value="0.18020833333333333" />
         <entry key="..\:/Code/Android/mvvmArchitecture/common_base/src/main/res/layout/activity_base.xml" value="0.20153985507246377" />
-        <entry key="..\:/MyCode/Android/MvvmArchitecture/app/src/main/res/drawable/bg_splash.xml" value="0.22" />
-        <entry key="..\:/MyCode/Android/MvvmArchitecture/app/src/main/res/drawable/news_avd_v02.xml" value="0.175" />
+        <entry key="..\:/Code/Android/mvvmArchitecture/common_lib/src/main/res/layout/view_empty_data.xml" value="0.13385416666666666" />
+        <entry key="..\:/Code/Android/mvvmArchitecture/mod_home/src/main/res/layout/fragment_hot.xml" value="0.1" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/app/src/main/res/layout/activity_flash.xml" value="0.265625" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/app/src/main/res/layout/activity_main.xml" value="0.334375" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/common_base/src/main/res/drawable/tip_toast_bg_conner_4.xml" value="0.118" />
@@ -32,22 +32,14 @@
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/ic_launcher_background.xml" value="0.215" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_home.xml" value="0.215" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_home_press.xml" value="0.215" />
-        <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_message.xml" value="0.198" />
-        <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_message_press.xml" value="0.194" />
-        <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_mine.xml" value="0.198" />
-        <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_mine_press.xml" value="0.194" />
-        <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_news.xml" value="0.198" />
-        <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_news_press.xml" value="0.194" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/news_selector.xml" value="0.2215" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/selector_message.xml" value="0.2215" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/selector_mine.xml" value="0.2215" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/activity_home.xml" value="0.3125" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/fragment_home.xml" value="0.35" />
-        <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/fragment_hot.xml" value="0.365625" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/fragment_message.xml" value="0.35" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/fragment_mine.xml" value="0.35" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/fragment_news.xml" value="0.35" />
-        <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/item_hot.xml" value="0.35" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/item_view.xml" value="0.30416666666666664" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/menu/bottom_nav_menu.xml" value="0.35" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_login/src/main/res/drawable/ic_launcher_background.xml" value="0.192" />

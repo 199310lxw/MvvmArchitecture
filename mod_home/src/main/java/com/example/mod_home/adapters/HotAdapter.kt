@@ -23,8 +23,8 @@ class HotAdapter : BaseQuickAdapter<HotBean, QuickViewHolder>() {
         val params = LinearLayout.LayoutParams(imgWidth, imgWidth * 3 / 4)
         img.layoutParams = params
         item?.let {
-            holder.setText(R.id.tvName, it.name)
-            img.setUrlRound(it.url)
+            holder.setText(R.id.tvName, it.title)
+            img.setUrlRound(it.mainPicUrl)
         }
     }
 
