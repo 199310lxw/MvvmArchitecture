@@ -19,7 +19,7 @@ import com.xwl.common_lib.utils.ScreenUtil
 class HotAdapter : BaseQuickAdapter<HotBean, QuickViewHolder>() {
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: HotBean?) {
         val img = holder.getView<ImageView>(R.id.img)
-        val imgWidth = ScreenUtil.getScreenWidth() / 2 - 100
+        val imgWidth = ScreenUtil.getScreenWidth() / 2 - 60
         val params = LinearLayout.LayoutParams(imgWidth, imgWidth * 3 / 4)
         img.layoutParams = params
         item?.let {

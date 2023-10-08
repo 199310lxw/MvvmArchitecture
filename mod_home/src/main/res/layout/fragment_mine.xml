@@ -3,18 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.HomeFragment">
 
-    <TextView
-        android:id="@+id/tv"
+    <com.xwl.common_lib.views.HeadZoomScrollView
+        android:id="@+id/dampView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="mine fragment"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgTopBg"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/topbg" />
+
+            <TextView
+                android:id="@+id/tv"
+                android:text="哈哈哈哈"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </com.xwl.common_lib.views.HeadZoomScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

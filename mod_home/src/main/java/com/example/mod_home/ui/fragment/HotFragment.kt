@@ -2,12 +2,14 @@ package com.example.mod_home.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.mod_home.adapters.HotAdapter
 import com.example.mod_home.databinding.FragmentHotBinding
 import com.example.mod_home.viewmodel.HomeViewModel
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
 import com.xwl.common_lib.bean.HotBean
+import com.xwl.common_lib.dialog.TipsToast
 
 class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() {
     private lateinit var mAdapter: HotAdapter
@@ -87,5 +89,11 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
 //            .setConfig(ConcatAdapter.Config.DEFAULT)
 //            .build()
         mViewBinding.rv.adapter = mAdapter
+
+        mAdapter.setOnItemClickListener(object : BaseQuickAdapter.OnItemClickListener<HotBean> {
+            override fun onClick(adapter: BaseQuickAdapter<HotBean, *>, view: View, position: Int) {
+                TipsToast.showTips("点击了第${position + 1}项")
+            }
+        })
     }
 }
