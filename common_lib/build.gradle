@@ -76,13 +76,13 @@ dependencies {
     kapt rootProject.ext.dependencies.glideCompiler
     api rootProject.ext.dependencies.lottie
 
-
     api rootProject.ext.dependencies.baseRecyclerViewAdapter
-
 
     api rootProject.ext.dependencies.smartRefresh
     api rootProject.ext.dependencies.smartRefresh_header
 
     api rootProject.ext.dependencies.unpeek_livedata
     api rootProject.ext.dependencies.XXPermissions
+
+//    api rootProject.ext.dependencies.exoplayer
 }

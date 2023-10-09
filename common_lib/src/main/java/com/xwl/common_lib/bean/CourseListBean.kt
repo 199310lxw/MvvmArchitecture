@@ -5,10 +5,10 @@ package com.xwl.common_lib.bean
  * @date 2023/10/7
  * descripe
  */
-data class HotBean(
+data class CourseListBean(
     var id: Int,
-    var mainPicUrl: String = "",
-    var title: String = "",
-    var type: Int = 0
+    var name: String = "",
+    var videoUrl: String,
+    var bgColor: String
 ) {
 }

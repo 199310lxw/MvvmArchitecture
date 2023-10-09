@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mod_home">
+
     <application>
-        <activity android:name=".ui.activity.HomeActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".ui.activity.HomeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.activity.CourseListActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.CourseDetailActivity" />
     </application>
 
 </manifest>

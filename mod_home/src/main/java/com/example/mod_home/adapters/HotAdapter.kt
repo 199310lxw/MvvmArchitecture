@@ -17,6 +17,7 @@ import com.xwl.common_lib.utils.ScreenUtil
  * descripe
  */
 class HotAdapter : BaseQuickAdapter<HotBean, QuickViewHolder>() {
+    
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: HotBean?) {
         val img = holder.getView<ImageView>(R.id.img)
         val imgWidth = ScreenUtil.getScreenWidth() / 2 - 60
@@ -27,6 +28,7 @@ class HotAdapter : BaseQuickAdapter<HotBean, QuickViewHolder>() {
             img.setUrlRound(it.mainPicUrl)
         }
     }
+
 
     override fun onCreateViewHolder(
         context: Context,

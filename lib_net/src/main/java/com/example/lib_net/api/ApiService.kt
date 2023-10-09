@@ -1,6 +1,7 @@
 package com.example.lib_net.api
 
 import com.xwl.common_base.response.BaseResponse
+import com.xwl.common_lib.bean.CourseListBean
 import com.xwl.common_lib.bean.HotBean
 import com.xwl.common_lib.constants.UrlConstants
 import retrofit2.http.GET
@@ -14,17 +15,6 @@ import retrofit2.http.QueryMap
  * descripe
  */
 interface ApiService {
-//    /**
-//     * 首页资讯
-//     * @param page    页码
-//     * @param pageSize 每页数量
-//     */
-//    @GET(UrlConstants.ARTICLE_LIST)
-//    suspend fun getHomeList(
-//        @Path("page") page: Int,
-//        @Query("page_size") pageSize: Int
-//    ): BaseResponse<ArticleList>?
-
     /**
      * 用户注册
      */
@@ -39,5 +29,16 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("size") size: Int
     ): BaseResponse<ArrayList<HotBean>>?
+
+
+    /**
+     * 获取热门列表
+     */
+    @GET(UrlConstants.COURSE_LIST_URL)
+    suspend fun getCourseList(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("type") type: Int
+    ): BaseResponse<ArrayList<CourseListBean>>?
 
 }

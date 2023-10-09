@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_bg_orange_corner_6"
+    android:layout_margin="@dimen/dimen_size_dp_10"
+    android:orientation="horizontal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clLeft"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_bg_left_6"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dimen_size_dp_20"
+            android:textSize="@dimen/dimen_size_sp_14"
+            android:textColor="@color/white"
+            android:background="@drawable/shape_bg_left_6"
+            android:text="自制木工工具"
+            android:gravity="center" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="立即学习"
+        android:gravity="center"
+        android:textColor="@color/black_222"
+        android:textSize="@dimen/dimen_size_sp_14" />
+
+</LinearLayout>
