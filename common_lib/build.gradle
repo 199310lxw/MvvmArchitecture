@@ -84,5 +84,5 @@ dependencies {
     api rootProject.ext.dependencies.unpeek_livedata
     api rootProject.ext.dependencies.XXPermissions
 
-//    api rootProject.ext.dependencies.exoplayer
+    api 'cn.jzvd:jiaozivideoplayer:7.7.0'
 }

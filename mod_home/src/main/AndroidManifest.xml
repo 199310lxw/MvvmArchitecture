@@ -9,7 +9,10 @@
         <activity
             android:name=".ui.activity.CourseListActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.CourseDetailActivity" />
+        <activity
+            android:name=".ui.activity.CourseDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
