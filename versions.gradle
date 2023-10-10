@@ -32,7 +32,7 @@ ext {
             tbssdkVersion = '44132',
             smartRefreshVersion = '2.0.5',
             XXPermissionsVersion = '18.3',
-            exoplayer_version = '2.19.1'
+            exoplayer_version = '2.12.1'
     ]
 
     dependencies = [
@@ -70,7 +70,9 @@ ext {
             unpeek_livedata           : "com.kunminx.archi:unpeek-livedata:4.4.1-beta1",
             XXPermissions             : "com.github.getActivity:XXPermissions:$rootProject.XXPermissionsVersion",
 
-            exoplayer                 : "com.google.android.exoplayer:exoplayer:$rootProject.exoplayer_version"
+            exoplayer                 : "com.google.android.exoplayer:exoplayer:$rootProject.exoplayer_version",
+            AliyunPlayer              : "com.aliyun.sdk.android:AliyunPlayer:4.5.0-full",
+            AlivcConan                : "com.alivc.conan:AlivcConan:0.9.5"
 
     ]
 }

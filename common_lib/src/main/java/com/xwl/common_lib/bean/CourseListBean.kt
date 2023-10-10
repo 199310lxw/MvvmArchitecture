@@ -9,6 +9,7 @@ data class CourseListBean(
     var id: Int,
     var name: String = "",
     var videoUrl: String,
+    var posterImgUrl: String,
     var bgColor: String
 ) {
 }

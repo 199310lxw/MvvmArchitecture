@@ -115,7 +115,8 @@ class CourseListActivity : BaseVmVbActivity<CourseListViewModel, ActivityCourseL
                     ?.let {
                         CourseDetailActivity.startActivity(
                             this@CourseListActivity,
-                            it.videoUrl
+                            it.videoUrl,
+                            it.posterImgUrl
                         )
                     }
             }

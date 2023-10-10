@@ -5,29 +5,25 @@ import android.os.Binder
 import android.os.IBinder
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
-import com.example.lib_net.manager.ApiManager
 import com.orhanobut.logger.Logger
 import com.xwl.common_lib.constants.KeyConstant
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 import java.lang.ref.WeakReference
-import java.util.*
 
 /**
  * @author  lxw
  * @date 2023/9/19
  * descripe
  */
-class DownloadService: LifecycleService() {
+class DownloadService : LifecycleService() {
     private var mDownloadUrl = ""
 
     private var mBinder: ServiceBinder? = null
-    private var mDownloadListener:DownloadListener? = null
+    private var mDownloadListener: DownloadListener? = null
+    private var mFilePath: String? = null
+    private lateinit var mDownloadFile: File
+
     init {
         mBinder = ServiceBinder(this)
     }
@@ -35,44 +31,42 @@ class DownloadService: LifecycleService() {
     fun setOnDownloadListener(downloadListener: DownloadListener) {
         this.mDownloadListener = downloadListener
     }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if(intent != null) {
+        if (intent != null) {
             mDownloadUrl = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_URL).toString()
-            startDownload()
+            mFilePath = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_FILE).toString()
+            if (mFilePath != null) {
+                mDownloadFile = File(mFilePath)
+                if (!mDownloadFile.exists()) {
+                    mDownloadFile.createNewFile()
+                }
+                startDownload(mDownloadFile)
+            }
         }
         return super.onStartCommand(intent, flags, startId)
     }
 
-    private fun startDownload() {
-        val file: File
-        try {
-            file = File(KeyConstant.APP_UPDATE_PATH,"mvvmarchitecture.apk")
-            if(!file.exists()) {
-                file.createNewFile()
-            }
-            lifecycleScope.launch {
-                DownloadManager.download(mDownloadUrl,file).collect {
-                    when(it) {
-                        is DownloadState.InProgress -> {
-                            mDownloadListener?.onDownload(it.progress)
-                        }
-                        is DownloadState.Success -> {
-                            mDownloadListener?.onSuccess(it.file.absolutePath)
-                            Logger.e("下载成功")
-                        }
-                        is DownloadState.Error -> {
-                            mDownloadListener?.onError("下载失败：${it.throwable.message}")
-                            file?.delete()
-                            Logger.e("下载失败：${it.throwable.message}")
-                        }
-                        else -> {}
+    private fun startDownload(file: File) {
+        lifecycleScope.launch {
+            DownloadManager.download(mDownloadUrl, file).collect {
+                when (it) {
+                    is DownloadState.InProgress -> {
+                        mDownloadListener?.onDownload(it.progress)
                     }
+                    is DownloadState.Success -> {
+                        mDownloadListener?.onSuccess(it.file.absolutePath)
+                        Logger.e("下载成功")
+                    }
+                    is DownloadState.Error -> {
+                        mDownloadListener?.onError("下载失败：${it.throwable.message}")
+                        file?.delete()
+                        Logger.e("下载失败：${it.throwable.message}")
+                    }
+                    else -> {}
                 }
             }
-        } catch (e: IOException) {
-            Logger.e(e.message)
         }
-
     }
 
     override fun onBind(intent: Intent): IBinder? {
@@ -103,7 +97,7 @@ class DownloadService: LifecycleService() {
         mBinder = null
     }
 
-    interface DownloadListener{
+    interface DownloadListener {
         fun onSuccess(path: String)
         fun onDownload(progress: Int)
         fun onError(msg: String)

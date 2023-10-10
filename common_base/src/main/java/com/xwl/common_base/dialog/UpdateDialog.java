@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 
 import com.example.lib_net.download.DownloadService;
@@ -27,6 +28,7 @@ import com.xwl.common_lib.utils.AppUtils;
 
 import java.io.File;
 import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
@@ -105,7 +107,7 @@ public class UpdateDialog extends Dialog {
         Observable.create((ObservableOnSubscribe<File>) emitter -> {
                     Logger.e(path);
                     File file = new File(path);
-                    if(!file.exists()) {
+                    if (!file.exists()) {
                         file.mkdirs();
                     }
                     emitter.onNext(file);
@@ -140,6 +142,7 @@ public class UpdateDialog extends Dialog {
                         Logger.e("mDownloadUrl-->" + mDownloadUrl);
                         intent = new Intent(ContextServiceProvider.service.getApplicationContext(), DownloadService.class);
                         intent.putExtra(KeyConstant.KEY_DOWNLOAD_URL, mDownloadUrl);
+                        intent.putExtra(KeyConstant.KEY_DOWNLOAD_FILE, path + "/mvvmArchitecture.apk");
                         mContext.startService(intent);
                         mContext.bindService(intent, conn, Service.BIND_AUTO_CREATE);
                     }

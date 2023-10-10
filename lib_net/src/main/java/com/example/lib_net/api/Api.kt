@@ -6,7 +6,14 @@ import com.xwl.common_lib.constants.UrlConstants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.security.SecureRandom
+import java.security.cert.CertificateException
+import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
+import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLSocketFactory
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
 
 /**
  * @author  lxw
@@ -16,7 +23,7 @@ import java.util.concurrent.TimeUnit
 object Api {
     private val mRetrofit: Retrofit
 
-    init{
+    init {
         mRetrofit = Retrofit.Builder()
             .client(initOkHttpClient())
             .baseUrl(UrlConstants.BASE_URL)
@@ -41,7 +48,40 @@ object Api {
             .writeTimeout(12, TimeUnit.SECONDS)
             .readTimeout(12, TimeUnit.SECONDS)
         // 添加参数拦截器
-        build.addInterceptor(HeaderInterceptor())
+        createSSLSocketFactory()?.let {
+            build
+                .sslSocketFactory(it, MyTrustManager())
+                .addInterceptor(HeaderInterceptor())
+        }
         return build.build()
     }
+
+    private fun createSSLSocketFactory(): SSLSocketFactory? {
+        var ssfFactory: SSLSocketFactory? = null
+        try {
+            val sc: SSLContext = SSLContext.getInstance("TLS")
+            sc.init(null, arrayOf<TrustManager>(MyTrustManager()), SecureRandom())
+            ssfFactory = sc.getSocketFactory()
+        } catch (ignored: Exception) {
+            ignored.printStackTrace()
+        }
+        return ssfFactory
+    }
+
+    //实现X509TrustManager接口
+    class MyTrustManager : X509TrustManager {
+        @Throws(CertificateException::class)
+        override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
+        }
+
+        @Throws(CertificateException::class)
+        override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
+        }
+
+        override fun getAcceptedIssuers(): Array<X509Certificate?> {
+            return arrayOfNulls(0)
+        }
+    }
+
+
 }

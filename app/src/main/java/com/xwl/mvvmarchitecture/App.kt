@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import com.alibaba.android.arouter.launcher.ARouter
+import com.danikula.videocache.HttpProxyCacheServer
 import com.orhanobut.logger.Logger
 import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.manager.ActivityManager
@@ -17,12 +18,14 @@ import com.xwl.common_lib.manager.AppStatusManager
  * @date 2023/9/11
  * descripe
  */
-class App: Application() {
+class App : Application() {
 
-    companion object{
+    private val proxy: HttpProxyCacheServer? = null
+
+    companion object {
         @SuppressLint("StaticFieldLeak")
         private lateinit var mContext: Context
-        fun getApplicationContext():Context {
+        fun getApplicationContext(): Context {
             return mContext
         }
     }
@@ -39,8 +42,17 @@ class App: Application() {
         TipsToast.init(this)
     }
 
+
+    fun getProxy(context: Context): HttpProxyCacheServer? {
+        return if (this.proxy == null) newProxy() else proxy
+    }
+
+    private fun newProxy(): HttpProxyCacheServer? {
+        return HttpProxyCacheServer(this)
+    }
+
     private fun registerAppStatus() {
-        AppStatusManager.register(this,object :AppStatusManager.IAppStatusListener{
+        AppStatusManager.register(this, object : AppStatusManager.IAppStatusListener {
             override fun onBack() {
                 Logger.i("当前应用在后台")
             }
@@ -74,7 +86,7 @@ class App: Application() {
     }
 
     private fun registerActivityCallback() {
-        registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks{
+        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 ActivityManager.addActivity(activity)
             }
