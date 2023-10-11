@@ -162,33 +162,25 @@ object DownloadUtil {
         conn = object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName, iBinder: IBinder) {
                 val binder = iBinder as ServiceBinder
-                if (binder != null) {
-                    val service = binder.service
-                    service!!.setOnDownloadListener(object : DownloadService.DownloadListener {
-                        override fun onSuccess(path: String) {
-                            showTips("下载完成")
-                            success.invoke(path)
-                        }
+                val service = binder.service
+                service!!.setOnDownloadListener(object : DownloadService.DownloadListener {
+                    override fun onSuccess(path: String) {
+                        showTips("下载完成")
+                        success.invoke(path)
+                    }
 
-                        override fun onDownload(pro: Int) {
-                            progress.invoke(pro)
-//                            mViewBinding.progressBar.progress = progress
-//                            mViewBinding.tvProgress.text = String.format("%d%%", progress)
-                        }
+                    override fun onDownload(pro: Int) {
+                        progress.invoke(pro)
+                    }
 
-                        override fun onError(msg: String) {
-                            showTips(msg)
-                            failure?.invoke(msg)
-                        }
-                    })
-                } else {
-                    showTips("服务错误")
-                }
+                    override fun onError(msg: String) {
+                        failure.invoke(msg)
+                    }
+                })
             }
 
             override fun onServiceDisconnected(name: ComponentName) {
-                Logger.e("service is disconnected")
-                showTips("服务已关闭")
+                Logger.e("download service is disconnected")
             }
         }
     }

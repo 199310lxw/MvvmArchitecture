@@ -6,7 +6,7 @@ package com.xwl.common_lib.bean
  * descripe
  */
 data class HotBean(
-    var id: Int,
+    var id: Int = 0,
     var mainPicUrl: String = "",
     var title: String = "",
     var type: Int = 0

@@ -70,6 +70,24 @@ class HomeViewModel : BaseViewModel() {
         return bannerLiveData
     }
 
+    fun getSortList(): MutableLiveData<ArrayList<HotBean>?> {
+        val sortLiveData: MutableLiveData<ArrayList<HotBean>?> =
+            MutableLiveData<ArrayList<HotBean>?>()
+        request(
+            requestCall = { ApiManager.api.getSortList() },
+            object : IHttpCallBack<ArrayList<HotBean>> {
+                override fun onSuccess(result: ArrayList<HotBean>) {
+                    sortLiveData.value = result
+                }
+
+                override fun onFailure(obj: Any?) {
+                    sortLiveData.value = null
+                    TipsToast.showTips(obj.toString())
+                }
+            })
+        return sortLiveData
+    }
+
     /**
      * 获取热门列表
      */

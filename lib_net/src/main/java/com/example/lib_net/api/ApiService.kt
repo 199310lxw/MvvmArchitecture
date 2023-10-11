@@ -29,6 +29,12 @@ interface ApiService {
     suspend fun getBannerList(): BaseResponse<ArrayList<BannerBean>>?
 
     /**
+     * 获取分类列表
+     */
+    @GET(UrlConstants.SORT_LIST_URL)
+    suspend fun getSortList(): BaseResponse<ArrayList<HotBean>>?
+
+    /**
      * 获取热门列表
      */
     @GET(UrlConstants.HOT_LIST_URL)

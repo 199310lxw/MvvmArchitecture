@@ -55,14 +55,16 @@ class CourseDetailActivity : BaseVmVbActivity<CourseListViewModel, ActivityCours
         ScreenRotateUtils.getInstance(this.applicationContext).setOrientationChangeListener(this)
         mViewBinding.imgDownload.onClick {
             mVideoUrl?.let { it1 ->
-                DownloadUtil.startDownload(this, it1, "data", progress = {
-                    mViewBinding.progressBar.progress = it
-                    mViewBinding.tvProgress.text = String.format("%d%%", it)
-                }, success = {
-                    showTips("下载成功")
-                }, failure = {
-                    showTips(it)
-                })
+                mVideoName?.let { it2 ->
+                    DownloadUtil.startDownload(this, it1, it2, progress = {
+                        mViewBinding.progressBar.progress = it
+                        mViewBinding.tvProgress.text = String.format("%d%%", it)
+                    }, success = {
+                        showTips("下载成功")
+                    }, failure = {
+                        showTips(it)
+                    })
+                }
             }
         }
     }

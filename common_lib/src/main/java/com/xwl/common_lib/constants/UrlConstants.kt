@@ -15,10 +15,12 @@ class UrlConstants {
 
         const val APK_URL = "server/apk/mvvmarchitecture.apk"
 
-        const val HOT_LIST_URL = "server/hot/hot"
+        const val HOT_LIST_URL = "server/home/hot"
 
 
-        const val BANNER_LIST_URL = "server/banner/"
+        const val BANNER_LIST_URL = "server/home/banner/"
+
+        const val SORT_LIST_URL = "server/home/sort/"
 
         const val COURSE_LIST_URL = "server/course"
     }
