@@ -12,7 +12,6 @@ ext {
     ]
 
     abiFilters = ['armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64']
-    //['armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64']
 
     // 第三方库版本号的管理
     libsVersion = [
@@ -32,7 +31,8 @@ ext {
             tbssdkVersion = '44132',
             smartRefreshVersion = '2.0.5',
             XXPermissionsVersion = '18.3',
-            exoplayer_version = '2.12.1'
+            exoplayer_version = '2.12.1',
+            banner_version = '2.2.2'
     ]
 
     dependencies = [
@@ -72,7 +72,8 @@ ext {
 
             exoplayer                 : "com.google.android.exoplayer:exoplayer:$rootProject.exoplayer_version",
             AliyunPlayer              : "com.aliyun.sdk.android:AliyunPlayer:4.5.0-full",
-            AlivcConan                : "com.alivc.conan:AlivcConan:0.9.5"
+            AlivcConan                : "com.alivc.conan:AlivcConan:0.9.5",
 
+            banner                    : "io.github.youth5201314:banner:$rootProject.banner_version"
     ]
 }

@@ -9,6 +9,7 @@ import com.orhanobut.logger.Logger
 import com.xwl.common_lib.constants.KeyConstant
 import kotlinx.coroutines.launch
 import java.io.File
+import java.io.IOException
 import java.lang.ref.WeakReference
 
 /**
@@ -22,6 +23,7 @@ class DownloadService : LifecycleService() {
     private var mBinder: ServiceBinder? = null
     private var mDownloadListener: DownloadListener? = null
     private var mFilePath: String? = null
+    private var mFileName = ""
     private lateinit var mDownloadFile: File
 
     init {
@@ -36,10 +38,29 @@ class DownloadService : LifecycleService() {
         if (intent != null) {
             mDownloadUrl = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_URL).toString()
             mFilePath = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_FILE).toString()
+            mFileName = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_FILE_NAME).toString()
             if (mFilePath != null) {
-                mDownloadFile = File(mFilePath)
-                if (!mDownloadFile.exists()) {
-                    mDownloadFile.createNewFile()
+                if (mDownloadUrl.endsWith(".apk")) {
+                    mDownloadFile = File(mFilePath, "${mFileName}.apk")
+                } else if (mDownloadUrl.endsWith(".mp4")) {
+                    mDownloadFile = File(mFilePath, "${mFileName}.mp4")
+                } else if (mDownloadUrl.endsWith(".m3u8")) {
+                    mDownloadFile = File(mFilePath, "${mFileName}.txt")
+                } else if (mDownloadUrl.endsWith(".jpg")) {
+                    mDownloadFile = File(mFilePath, "${mFileName}.jpg")
+                } else if (mDownloadUrl.endsWith(".png")) {
+                    mDownloadFile = File(mFilePath, "${mFileName}.png")
+                } else if (mDownloadUrl.endsWith(".webp")) {
+                    mDownloadFile = File(mFilePath, "${mFileName}.webp")
+                } else if (mDownloadUrl.endsWith(".svg")) {
+                    mDownloadFile = File(mFilePath, "${mFileName}.svg")
+                }
+                try {
+                    if (!mDownloadFile.exists()) {
+                        mDownloadFile.createNewFile()
+                    }
+                } catch (e: IOException) {
+                    Logger.e(e.message)
                 }
                 startDownload(mDownloadFile)
             }

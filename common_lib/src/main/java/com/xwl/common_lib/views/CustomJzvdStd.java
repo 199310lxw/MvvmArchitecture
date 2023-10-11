@@ -10,9 +10,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.xwl.common_lib.CustomMedia.JZMediaAliyun;
+import com.xwl.common_lib.CustomMedia.JZMediaExo;
+import com.xwl.common_lib.CustomMedia.JZMediaIjk;
 import com.xwl.common_lib.R;
+import com.xwl.common_lib.dialog.TipsToast;
 
 import cn.jzvd.JZDataSource;
+import cn.jzvd.JZMediaSystem;
 import cn.jzvd.JZUtils;
 import cn.jzvd.JzvdStd;
 
@@ -61,32 +66,36 @@ public class CustomJzvdStd extends JzvdStd {
     @Override
     public void setScreenNormal() {
         super.setScreenNormal();
-        shareButton.setVisibility(View.INVISIBLE);
+        shareButton.setVisibility(GONE);
     }
 
     @Override
     public void setUp(JZDataSource jzDataSource, int screen) {
         super.setUp(jzDataSource, screen);
-        titleTextView.setVisibility(View.INVISIBLE);
+        titleTextView.setVisibility(GONE);
     }
 
     @Override
     public void setScreenFullscreen() {
         super.setScreenFullscreen();
-        shareButton.setVisibility(View.VISIBLE);
+        shareButton.setVisibility(VISIBLE);
     }
 
     @Override
     public void gotoFullscreen() {
         super.gotoFullscreen();
         titleTextView.setVisibility(View.VISIBLE);
-
     }
 
     @Override
     public void gotoNormalScreen() {
         super.gotoNormalScreen();
         titleTextView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onStatePreparing() {
+        super.onStatePreparing();
     }
 
     protected void clickPlay() {
@@ -169,5 +178,53 @@ public class CustomJzvdStd extends JzvdStd {
         //添加滑动事件等
         vgg.addView(this, lp);
         setScreenTiny();
+    }
+
+    /**
+     * 切换到exoplayer引擎
+     *
+     * @param mVideoUrl
+     */
+    public void ChangeToExo(String mVideoUrl, String title) {
+        releaseAllVideos();
+        setUp(mVideoUrl, title, JzvdStd.SCREEN_NORMAL, JZMediaExo.class);
+        startVideo();
+        TipsToast.INSTANCE.showTips("Change to ExoPlayer Engine");
+    }
+
+    /**
+     * 切换到Aliyun引擎
+     */
+    public void ChangeToAliyunEngine() {
+        releaseAllVideos();
+        setMediaInterface(JZMediaAliyun.class);
+        startVideo();
+        TipsToast.INSTANCE.showTips("Change to Aliyun Engine");
+    }
+
+    /**
+     * 切换到系统引擎
+     *
+     * @param mVideoUrl
+     * @param title
+     */
+    public void ChangeToSystemEngine(String mVideoUrl, String title) {
+        releaseAllVideos();
+        setUp(mVideoUrl, title, JzvdStd.SCREEN_NORMAL, JZMediaSystem.class);
+        startVideo();
+        TipsToast.INSTANCE.showTips("Change to System Engine");
+    }
+
+    /**
+     * 切换到系统引擎
+     *
+     * @param mVideoUrl
+     * @param title
+     */
+    public void ChangeToIjkPlayerEngine(String mVideoUrl, String title) {
+        releaseAllVideos();
+        setUp(mVideoUrl, title, JzvdStd.SCREEN_NORMAL, JZMediaIjk.class);
+        startVideo();
+        TipsToast.INSTANCE.showTips("Change to IjkPlayer Engine");
     }
 }

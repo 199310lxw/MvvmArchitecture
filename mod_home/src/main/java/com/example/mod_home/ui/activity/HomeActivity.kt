@@ -28,7 +28,8 @@ class HomeActivity : BaseVmVbActivity<HomeViewModel, ActivityHomeBinding>() {
     }
 
     private fun checkVersion() {
-        val mUpdateDialog = UpdateDialog(this@HomeActivity, UrlConstants.APK_URL)
+        val mUpdateDialog =
+            UpdateDialog(this@HomeActivity, UrlConstants.APK_URL, "mvvmArchitecture")
         mUpdateDialog.setVersionName("v1.1.0")
         mUpdateDialog.show()
     }

@@ -6,6 +6,7 @@ import com.example.lib_net.manager.ApiManager
 import com.example.mod_home.repostory.HomeRepostory
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.viewmodel.BaseViewModel
+import com.xwl.common_lib.bean.BannerBean
 import com.xwl.common_lib.bean.HotBean
 import com.xwl.common_lib.callback.IHttpCallBack
 import com.xwl.common_lib.dialog.TipsToast
@@ -50,6 +51,24 @@ class HomeViewModel : BaseViewModel() {
         return liveData
     }
 
+    fun getBannerList(): MutableLiveData<ArrayList<BannerBean>?> {
+
+        val bannerLiveData: MutableLiveData<ArrayList<BannerBean>?> =
+            MutableLiveData<ArrayList<BannerBean>?>()
+        request(
+            requestCall = { ApiManager.api.getBannerList() },
+            object : IHttpCallBack<ArrayList<BannerBean>> {
+                override fun onSuccess(result: ArrayList<BannerBean>) {
+                    bannerLiveData.value = result
+                }
+
+                override fun onFailure(obj: Any?) {
+                    bannerLiveData.value = null
+                    TipsToast.showTips(obj.toString())
+                }
+            })
+        return bannerLiveData
+    }
 
     /**
      * 获取热门列表

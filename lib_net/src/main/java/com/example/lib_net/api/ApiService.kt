@@ -1,6 +1,7 @@
 package com.example.lib_net.api
 
 import com.xwl.common_base.response.BaseResponse
+import com.xwl.common_lib.bean.BannerBean
 import com.xwl.common_lib.bean.CourseListBean
 import com.xwl.common_lib.bean.HotBean
 import com.xwl.common_lib.constants.UrlConstants
@@ -24,15 +25,20 @@ interface ApiService {
     /**
      * 获取热门列表
      */
-    @GET(UrlConstants.HOT_URL)
+    @GET(UrlConstants.BANNER_LIST_URL)
+    suspend fun getBannerList(): BaseResponse<ArrayList<BannerBean>>?
+
+    /**
+     * 获取热门列表
+     */
+    @GET(UrlConstants.HOT_LIST_URL)
     suspend fun getHotList(
         @Query("page") page: Int,
         @Query("size") size: Int
     ): BaseResponse<ArrayList<HotBean>>?
 
-
     /**
-     * 获取热门列表
+     * 获取课程列表
      */
     @GET(UrlConstants.COURSE_LIST_URL)
     suspend fun getCourseList(
