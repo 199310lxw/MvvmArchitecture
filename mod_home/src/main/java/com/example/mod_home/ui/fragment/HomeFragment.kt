@@ -62,9 +62,7 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
 
     private fun getSortData(sortList: ArrayList<HotBean>) {
         val lists = arrayListOf<Int>()
-        for (index in 0 until 1) {
-            lists.add(1)
-        }
+        lists.add(1)
         mSortAdapter.setData(sortList)
         mSortAdapter.submitList(lists)
     }
@@ -97,7 +95,7 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
 
     private fun getData() {
         getListData()
-        
+
         mViewModel.getSortList().observe(this) {
             it?.let {
                 getSortData(it)
