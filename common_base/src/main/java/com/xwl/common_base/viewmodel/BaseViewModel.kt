@@ -1,5 +1,6 @@
 package com.xwl.common_base.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lib_net.download.DownloadManager
@@ -14,6 +15,9 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 /**
@@ -24,12 +28,19 @@ import java.io.File
 abstract class BaseViewModel : ViewModel() {
     val loadingChange: UiLoadingChange by lazy { UiLoadingChange() }
 
+    val error: MutableLiveData<String> = MutableLiveData<String>()
+
     /**
      * 内置封装好的可通知Activity/fragment 显示隐藏加载框,需要跟网络请求显示隐藏loading
      */
     inner class UiLoadingChange {
         //加载提示框
         val showDialog by lazy { UnPeekLiveData<Boolean>() }
+    }
+
+    protected open fun getRequestBody(json: String): RequestBody {
+//        return RequestBody.create("application/json".toMediaTypeOrNull(), json!!)
+        return json.toRequestBody("application/json".toMediaTypeOrNull())
     }
 
     /**
@@ -138,7 +149,7 @@ abstract class BaseViewModel : ViewModel() {
 
             if (response?.isSuccess() == false) {
                 withContext(Dispatchers.Main) {
-                    errorBlock?.invoke(response.errorMsg)
+                    errorBlock.invoke(response.errorMsg)
                 }
                 return@flow
             }

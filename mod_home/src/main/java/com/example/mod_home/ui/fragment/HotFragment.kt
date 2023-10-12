@@ -10,7 +10,9 @@ import com.example.mod_home.viewmodel.HomeViewModel
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
 import com.xwl.common_lib.bean.HotBean
+import com.xwl.common_lib.provider.LoginServiceProvider
 import com.xwl.common_lib.utils.ClickUtil
+import com.xwl.common_lib.utils.LoginDialogUtil
 
 class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() {
     private lateinit var mAdapter: HotAdapter
@@ -102,10 +104,14 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
                     Logger.e("点击速度太快了")
                     return
                 }
-                adapter.getItem(position)
-                    ?.let { CourseListActivity.startActivity(mContext, it.type) }
-//                CourseListActivity.startActivity(mContext, 100)
+                if (LoginServiceProvider.isLogin()) {
+                    adapter.getItem(position)
+                        ?.let { CourseListActivity.startActivity(mContext, it.type) }
+                } else {
+                    activity?.let { LoginDialogUtil.show(it, "用户未登陆，是否跳转登陆页登陆") }
+                }
             }
         })
     }
+
 }

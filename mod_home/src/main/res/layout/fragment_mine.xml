@@ -34,12 +34,25 @@
                 app:layout_constraintEnd_toEndOf="@+id/imgTopBg" />
 
             <TextView
-                android:id="@+id/tv"
-                android:text="哈哈哈哈"
-                android:layout_width="match_parent"
-                android:gravity="center"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgTopBg" />
+                android:id="@+id/tcNickName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_size_sp_14"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="@+id/imgHeader"
+                app:layout_constraintEnd_toEndOf="@+id/imgHeader"
+                android:layout_marginTop="@dimen/dimen_size_dp_10"
+                app:layout_constraintTop_toBottomOf="@+id/imgHeader" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.xwl.common_lib.views.HeadZoomScrollView>
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="退出登陆"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/dimen_size_dp_90" />
 </androidx.constraintlayout.widget.ConstraintLayout>

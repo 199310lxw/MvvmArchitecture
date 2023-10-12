@@ -1,17 +1,20 @@
 package com.example.mod_login.ui
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
+import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.facade.callback.NavCallback
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.mod_login.databinding.ActivityLoginBinding
 import com.example.mod_login.viewmodel.LoginViewModel
+import com.orhanobut.logger.Logger
 import com.xwl.common_base.activity.BaseVmVbActivity
+import com.xwl.common_lib.constants.KeyConstant
 import com.xwl.common_lib.constants.RoutMap
-import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.ext.onClick
-import com.xwl.common_lib.utils.BiometricUtils
+import com.xwl.common_lib.utils.SharedPreferenceUtil
 
 /**
  * @author  lxw
@@ -19,11 +22,11 @@ import com.xwl.common_lib.utils.BiometricUtils
  * descripe
  */
 @Route(path = RoutMap.LOGIN_ACTIVITY_LOGIN)
-class LoginActivity : BaseVmVbActivity<LoginViewModel,ActivityLoginBinding>() {
+class LoginActivity : BaseVmVbActivity<LoginViewModel, ActivityLoginBinding>() {
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun initView(savedInstanceState: Bundle?) {
-        mViewBinding.imgFingure.onClick {
+//        mViewBinding.imgFingure.onClick {
 //            BiometricUtils.startRecognize(this@LoginActivity, recognizeResult = {code, msg ->
 //                if(code == 0) {
 //                    TipsToast.showTips("指纹识别成功")
@@ -34,9 +37,35 @@ class LoginActivity : BaseVmVbActivity<LoginViewModel,ActivityLoginBinding>() {
 //                }
 //            })
 
-            startActivity(Intent(this@LoginActivity,RegisterActivity::class.java))
+//            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+//        }
+
+        mViewBinding.btnLogin.onClick {
+            val phone = mViewBinding.editPhone.text.toString().trim()
+            val password = mViewBinding.editPassword.text.toString().trim()
+            login(phone, password)
         }
     }
+
+    private fun login(phone: String, password: String) {
+        mViewModel.login(phone, password).observe(this) {
+            it?.let {
+                Logger.e("${it.phone} ---${it.session}---${it.name}")
+                SharedPreferenceUtil.getInstance().putString(KeyConstant.KEY_SESSSION, it.session)
+                SharedPreferenceUtil.getInstance().putString(KeyConstant.KEY_USER_PHONE, it.phone)
+                SharedPreferenceUtil.getInstance().putString(KeyConstant.KEY_USER_NAME, it.name)
+                SharedPreferenceUtil.getInstance()
+                    .putString(KeyConstant.KEY_USER_HEADURL, it.headUrl)
+            }
+            ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
+                .navigation(this@LoginActivity, object : NavCallback() {
+                    override fun onArrival(postcard: Postcard?) {
+                        finish()
+                    }
+                })
+        }
+    }
+
 
     override fun initData() {
     }

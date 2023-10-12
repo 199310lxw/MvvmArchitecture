@@ -13,6 +13,8 @@ class UrlConstants {
 
         const val URL_REGISTER = "server/user/register"
 
+        const val LOGIN_URL = "server/user/login/index.php"
+
         const val APK_URL = "server/apk/mvvmarchitecture.apk"
 
         const val HOT_LIST_URL = "server/home/hot"

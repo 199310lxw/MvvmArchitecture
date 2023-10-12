@@ -27,7 +27,7 @@ class HomeSortAdapter : BaseQuickAdapter<Int, QuickViewHolder>() {
         mLists?.let {
             mAdapter.submitList(it)
         }
-        mAdapter.setOnItemClickListener(object : BaseQuickAdapter.OnItemClickListener<HotBean> {
+        mAdapter.setOnItemClickListener(object : OnItemClickListener<HotBean> {
             override fun onClick(adapter: BaseQuickAdapter<HotBean, *>, view: View, position: Int) {
                 if (ClickUtil.isFastClick()) {
                     Logger.e("点击速度太快了")

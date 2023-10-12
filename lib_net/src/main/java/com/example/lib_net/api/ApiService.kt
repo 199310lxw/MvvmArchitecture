@@ -4,11 +4,9 @@ import com.xwl.common_base.response.BaseResponse
 import com.xwl.common_lib.bean.BannerBean
 import com.xwl.common_lib.bean.CourseListBean
 import com.xwl.common_lib.bean.HotBean
+import com.xwl.common_lib.bean.UserBean
 import com.xwl.common_lib.constants.UrlConstants
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 /**
  * @author  lxw
@@ -21,6 +19,16 @@ interface ApiService {
      */
     @POST(UrlConstants.URL_REGISTER)
     suspend fun register(@QueryMap map: Map<String, @JvmSuppressWildcards Any>): BaseResponse<Any>?
+
+    /**
+     * 用户登陆
+     */
+    @FormUrlEncoded
+    @POST(UrlConstants.LOGIN_URL)
+    suspend fun login(
+        @Field("phone") phone: String,
+        @Field("password") password: String
+    ): BaseResponse<UserBean>?
 
     /**
      * 获取热门列表

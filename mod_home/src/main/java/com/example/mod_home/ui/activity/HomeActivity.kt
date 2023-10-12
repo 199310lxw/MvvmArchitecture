@@ -23,7 +23,7 @@ import com.xwl.common_lib.utils.AppExit
 class HomeActivity : BaseVmVbActivity<HomeViewModel, ActivityHomeBinding>() {
     private val fragmentList = arrayListOf<Fragment>()
     override fun initView(savedInstanceState: Bundle?) {
-        checkVersion()
+//        checkVersion()
         initTab()
     }
 
@@ -65,6 +65,7 @@ class HomeActivity : BaseVmVbActivity<HomeViewModel, ActivityHomeBinding>() {
             false
         }
     }
+    
 
     override fun onResume() {
         super.onResume()

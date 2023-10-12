@@ -8,7 +8,10 @@ import android.os.Environment
  * descripe
  */
 object KeyConstant {
-    const val KEY_USER_PHONE = "user_phone"
+    const val KEY_SESSSION = "key_session"
+    const val KEY_USER_PHONE = "key_user_phone"
+    const val KEY_USER_HEADURL = "key_user_headurl"
+    const val KEY_USER_NAME = "key_user_name"
     const val KEY_URL = "key_url"
     const val KEY_COURSE_TYPE = "key_course_type"
     const val KEY_COURSE_VIDEO_URL = "key_course_video_url"

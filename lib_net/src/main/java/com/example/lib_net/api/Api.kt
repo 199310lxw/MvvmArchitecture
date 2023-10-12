@@ -47,12 +47,8 @@ object Api {
             .connectTimeout(6, TimeUnit.SECONDS)
             .writeTimeout(12, TimeUnit.SECONDS)
             .readTimeout(12, TimeUnit.SECONDS)
-        // 添加参数拦截器
-        createSSLSocketFactory()?.let {
-            build
-                .sslSocketFactory(it, MyTrustManager())
-                .addInterceptor(HeaderInterceptor())
-        }
+            // 添加参数拦截器
+            .addInterceptor(HeaderInterceptor())
         return build.build()
     }
 

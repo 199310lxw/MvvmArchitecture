@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.xwl.common_base.viewmodel.BaseViewModel
+import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.ext.dismissLoadingExt
 import com.xwl.common_lib.ext.getVmClazz
 import com.xwl.common_lib.ext.showLoadingExt
@@ -13,12 +14,12 @@ import com.xwl.common_lib.ext.showLoadingExt
  * @date 2023/9/11
  * descripe
  */
-abstract class BaseVmActivity<VM: BaseViewModel>:BaseActivity() {
+abstract class BaseVmActivity<VM : BaseViewModel> : BaseActivity() {
     protected lateinit var mViewModel: VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(setLayout() != null) setContentView(setLayout()) else setContentView(layoutId())
+        if (setLayout() != null) setContentView(setLayout()) else setContentView(layoutId())
         init(savedInstanceState)
     }
 
@@ -29,18 +30,21 @@ abstract class BaseVmActivity<VM: BaseViewModel>:BaseActivity() {
         registerUiChange()
     }
 
-    private fun createViewModel():VM {
+    private fun createViewModel(): VM {
         return ViewModelProvider(this)[getVmClazz(this)]
     }
 
     private fun registerUiChange() {
         //显示弹窗
-        mViewModel.loadingChange.showDialog.observeInActivity(this){
-            if(it) {
+        mViewModel.loadingChange.showDialog.observeInActivity(this) {
+            if (it) {
                 showLoadingExt()
             } else {
                 dismissLoadingExt()
             }
+        }
+        mViewModel.error.observe(this) {
+            TipsToast.showTips(it)
         }
     }
 

@@ -2,11 +2,16 @@ package com.example.lib_net.interceptor;
 
 import com.example.lib_net.BuildConfig;
 import com.orhanobut.logger.Logger;
+import com.xwl.common_lib.constants.KeyConstant;
+import com.xwl.common_lib.utils.SharedPreferenceUtil;
+
 import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -40,8 +45,9 @@ public class HeaderInterceptor implements Interceptor {
                 builder.header(entry.getKey(), entry.getValue());
             }
         }
-//        builder.addHeader("Terminal-Type", "ANDROID");
+        builder.addHeader("session", SharedPreferenceUtil.getInstance().getString(KeyConstant.KEY_SESSSION));
 //        builder.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+//        builder.addHeader("Content-Type", "application/json;charset=UTF-8");
         request = builder.build();
 
         if (BuildConfig.DEBUG) {

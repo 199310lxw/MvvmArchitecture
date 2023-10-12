@@ -21,6 +21,11 @@ enum class ERROR(val code: Int, val errMsg: String) {
     NOT_FOUND(404, "无法找到指定位置的资源"),
 
     /**
+     * 无法找到指定位置的资源
+     */
+    WRONG_REQUEST_METHOD(405, "错误的请求方式"),
+
+    /**
      * 在服务器许可的等待时间内，客户一直没有发出任何请求
      */
     REQUEST_TIMEOUT(408, "请求超时"),
@@ -79,6 +84,12 @@ enum class ERROR(val code: Int, val errMsg: String) {
      * 未登录
      */
     UNLOGIN(-1001, "未登录"),
+
+
+    USER_IS_NOT_EXIST(-1002, "用户不存在"),
+
+
+    PASWORD_IS_ERROR(-1003, "密码错误"),
 
     /**
      * 未知Host
