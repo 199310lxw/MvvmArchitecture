@@ -146,7 +146,7 @@ class UserInfoActivity : BaseVmVbActivity<UserInfoViewModel, ActivityUserInfoBin
             saveAvatarPath?.let {
                 mViewModel.uploadUserIcon(File(it)).observe(this) {
                     it?.let {
-                        user.icon = "${UrlConstants.BASE_URL}/${it}"
+                        user.icon = "${UrlConstants.BASE_URL}${it}"
                         mViewModel.updateUserInfo(user).observe(this) {
                             Logger.e(it.toString())
                             UserServiceProvider.saveUserInfo(user)
