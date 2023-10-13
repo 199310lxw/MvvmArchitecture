@@ -143,16 +143,26 @@ class UserInfoActivity : BaseVmVbActivity<UserInfoViewModel, ActivityUserInfoBin
             user.signature = mViewBinding.etSignature.text.toString()
             user.birthday = mViewBinding.tvBirthday.text.toString()
             Logger.e(saveAvatarPath)
-            mViewModel.uploadUserIcon(File(saveAvatarPath)).observe(this) {
-                it?.let {
-                    user.icon = "${UrlConstants.BASE_URL}/${it}"
+            saveAvatarPath?.let {
+                mViewModel.uploadUserIcon(File(it)).observe(this) {
+                    it?.let {
+                        user.icon = "${UrlConstants.BASE_URL}/${it}"
+                        mViewModel.updateUserInfo(user).observe(this) {
+                            Logger.e(it.toString())
+                            UserServiceProvider.saveUserInfo(user)
+                            TipsToast.showTips(R.string.default_save_success)
+                        }
+                    }
+
+                }
+            } ?: kotlin.run {
+                if (user != null) {
                     mViewModel.updateUserInfo(user).observe(this) {
                         Logger.e(it.toString())
                         UserServiceProvider.saveUserInfo(user)
                         TipsToast.showTips(R.string.default_save_success)
                     }
                 }
-
             }
         } ?: kotlin.run {
             LoginServiceProvider.skipLoginActivity(this@UserInfoActivity)
