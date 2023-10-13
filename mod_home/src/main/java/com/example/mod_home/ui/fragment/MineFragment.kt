@@ -1,19 +1,19 @@
 package com.example.mod_home.ui.fragment
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.example.mod_home.R
 import com.example.mod_home.databinding.FragmentMineBinding
+import com.example.mod_home.ui.activity.UserInfoActivity
 import com.example.mod_home.viewmodel.HomeViewModel
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
-import com.xwl.common_lib.constants.KeyConstant
 import com.xwl.common_lib.dialog.CustomerDialog
-import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.ext.setUrlCircleBorder
 import com.xwl.common_lib.provider.LoginServiceProvider
-import com.xwl.common_lib.utils.SharedPreferenceUtil
+import com.xwl.common_lib.provider.UserServiceProvider
 
 class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>() {
 
@@ -25,8 +25,8 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
         mViewBinding.dampView.setTransverse(false)
 
         mViewBinding.imgHeader.onClick {
-            if (LoginServiceProvider.isLogin()) {
-                TipsToast.showTips("用户已登陆")
+            if (UserServiceProvider.isLogin()) {
+                startActivity(Intent(mContext, UserInfoActivity::class.java))
             } else {
                 LoginServiceProvider.skipLoginActivity(mContext)
             }
@@ -38,13 +38,7 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
     }
 
     override fun onLazyLoadData() {
-        mViewBinding.imgHeader.setUrlCircleBorder(
-            SharedPreferenceUtil.getInstance().getString(KeyConstant.KEY_USER_HEADURL),
-            6f,
-            R.color.white
-        )
-        mViewBinding.tcNickName.text =
-            SharedPreferenceUtil.getInstance().getString(KeyConstant.KEY_USER_NAME).ifEmpty { "游客" }
+        setView()
     }
 
     private fun showLogoutDialog() {
@@ -62,25 +56,29 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
             }
 
             override fun onConfirm() {
-                clearUserInfo()
-                mViewBinding.imgHeader.setUrlCircleBorder(
-                    SharedPreferenceUtil.getInstance().getString(KeyConstant.KEY_USER_HEADURL),
-                    6f,
-                    R.color.white
-                )
-                mViewBinding.tcNickName.text =
-                    SharedPreferenceUtil.getInstance().getString(KeyConstant.KEY_USER_NAME)
-                        .ifEmpty { "游客" }
+                UserServiceProvider.clearUserInfo()
+                setView()
 
                 doalog.dismiss()
             }
         })
     }
 
-    private fun clearUserInfo() {
-        SharedPreferenceUtil.getInstance().remove(KeyConstant.KEY_USER_PHONE)
-        SharedPreferenceUtil.getInstance().remove(KeyConstant.KEY_USER_HEADURL)
-        SharedPreferenceUtil.getInstance().remove(KeyConstant.KEY_USER_NAME)
-        SharedPreferenceUtil.getInstance().remove(KeyConstant.KEY_SESSSION)
+    private fun setView() {
+        UserServiceProvider.getUserInfo()?.let {
+            mViewBinding.imgHeader.setUrlCircleBorder(
+                it.icon,
+                6f,
+                R.color.white
+            )
+            mViewBinding.tcNickName.text = it.getName()?.ifEmpty { "游客" }
+        } ?: kotlin.run {
+            mViewBinding.imgHeader.setUrlCircleBorder(
+                "",
+                6f,
+                R.color.white
+            )
+            mViewBinding.tcNickName.text = "游客"
+        }
     }
 }

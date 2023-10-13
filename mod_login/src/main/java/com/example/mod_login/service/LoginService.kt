@@ -4,11 +4,10 @@ import android.content.Context
 import android.content.Intent
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.mod_login.ui.LoginActivity
-import com.xwl.common_lib.constants.KeyConstant
 import com.xwl.common_lib.constants.RoutMap
 import com.xwl.common_lib.manager.ActivityManager
+import com.xwl.common_lib.manager.UserManager
 import com.xwl.common_lib.service.ILoginService
-import com.xwl.common_lib.utils.SharedPreferenceUtil
 
 /**
  * @author  lxw
@@ -18,8 +17,7 @@ import com.xwl.common_lib.utils.SharedPreferenceUtil
 @Route(path = RoutMap.LOGIN_SERVICE_LOGIN)
 class LoginService : ILoginService {
     override fun isLogin(): Boolean {
-        val userPhone = SharedPreferenceUtil.getInstance().getString(KeyConstant.KEY_USER_PHONE, "")
-        return userPhone != null && userPhone.isNotEmpty()
+        return UserManager.getUserInfo() != null
     }
 
     /**

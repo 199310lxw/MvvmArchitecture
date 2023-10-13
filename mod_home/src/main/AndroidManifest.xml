@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mod_home">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <application>
         <activity
             android:name=".ui.activity.HomeActivity"
@@ -13,6 +14,7 @@
             android:name=".ui.activity.CourseDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.UserInfoActivity" />
     </application>
 
 </manifest>

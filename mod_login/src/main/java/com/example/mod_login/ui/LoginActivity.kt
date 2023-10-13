@@ -11,10 +11,9 @@ import com.example.mod_login.databinding.ActivityLoginBinding
 import com.example.mod_login.viewmodel.LoginViewModel
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.activity.BaseVmVbActivity
-import com.xwl.common_lib.constants.KeyConstant
 import com.xwl.common_lib.constants.RoutMap
 import com.xwl.common_lib.ext.onClick
-import com.xwl.common_lib.utils.SharedPreferenceUtil
+import com.xwl.common_lib.provider.UserServiceProvider
 
 /**
  * @author  lxw
@@ -50,19 +49,16 @@ class LoginActivity : BaseVmVbActivity<LoginViewModel, ActivityLoginBinding>() {
     private fun login(phone: String, password: String) {
         mViewModel.login(phone, password).observe(this) {
             it?.let {
-                Logger.e("${it.phone} ---${it.session}---${it.name}")
-                SharedPreferenceUtil.getInstance().putString(KeyConstant.KEY_SESSSION, it.session)
-                SharedPreferenceUtil.getInstance().putString(KeyConstant.KEY_USER_PHONE, it.phone)
-                SharedPreferenceUtil.getInstance().putString(KeyConstant.KEY_USER_NAME, it.name)
-                SharedPreferenceUtil.getInstance()
-                    .putString(KeyConstant.KEY_USER_HEADURL, it.headUrl)
+                UserServiceProvider.saveUserInfo(it)
+                Logger.e("${it.username} ---${it.session}---${it.nickname}")
+
+                ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
+                    .navigation(this@LoginActivity, object : NavCallback() {
+                        override fun onArrival(postcard: Postcard?) {
+                            finish()
+                        }
+                    })
             }
-            ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
-                .navigation(this@LoginActivity, object : NavCallback() {
-                    override fun onArrival(postcard: Postcard?) {
-                        finish()
-                    }
-                })
         }
     }
 

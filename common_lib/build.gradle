@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
 }
 
@@ -71,6 +72,9 @@ dependencies {
     api rootProject.ext.dependencies.logger
     api rootProject.ext.dependencies.okhttp3
     api rootProject.ext.dependencies.immersionbar
+
+
+    api rootProject.ext.dependencies.mmkv
 
     api rootProject.ext.dependencies.glide
     kapt rootProject.ext.dependencies.glideCompiler

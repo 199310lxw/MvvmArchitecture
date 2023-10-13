@@ -5,4 +5,24 @@
     <string name="tab_hot">热门</string>
     <string name="tab_message">消息</string>
     <string name="tab_mine">我的</string>
+    <string name="setting_user_info">个人信息</string>
+    <string name="default_cancel">取消</string>
+    <string name="default_confirm">确认</string>
+    <string name="user_pictures">拍照</string>
+    <string name="user_album">相册</string>
+    <string name="user_sex_boy">男</string>
+    <string name="user_sex_girl">女</string>
+    <string name="default_save">保存</string>
+    <string name="user_info_head">头像</string>
+    <string name="user_info_name">昵称</string>
+    <string name="user_info_input_name">输入用户名称</string>
+    <string name="user_info_phone">手机号</string>
+    <string name="user_info_sex">性别</string>
+    <string name="user_info_birthday">生日</string>
+    <string name="user_info_input_birthday">点击设置生日</string>
+    <string name="user_info_signature">签名</string>
+    <string name="user_info_input_signature">请输入您的个性签名</string>
+    <string name="default_save_success">保存成功</string>
+
+
 </resources>

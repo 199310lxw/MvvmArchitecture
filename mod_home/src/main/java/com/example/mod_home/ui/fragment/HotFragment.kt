@@ -10,7 +10,7 @@ import com.example.mod_home.viewmodel.HomeViewModel
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
 import com.xwl.common_lib.bean.HotBean
-import com.xwl.common_lib.provider.LoginServiceProvider
+import com.xwl.common_lib.provider.UserServiceProvider
 import com.xwl.common_lib.utils.ClickUtil
 import com.xwl.common_lib.utils.LoginDialogUtil
 
@@ -104,7 +104,7 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
                     Logger.e("点击速度太快了")
                     return
                 }
-                if (LoginServiceProvider.isLogin()) {
+                if (UserServiceProvider.isLogin()) {
                     adapter.getItem(position)
                         ?.let { CourseListActivity.startActivity(mContext, it.type) }
                 } else {

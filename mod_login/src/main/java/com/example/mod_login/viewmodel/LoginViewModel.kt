@@ -6,7 +6,7 @@ import com.example.lib_net.manager.ApiManager
 import com.example.mod_login.repository.LoginRepostory
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.viewmodel.BaseViewModel
-import com.xwl.common_lib.bean.UserBean
+import com.xwl.common_lib.bean.User
 import com.xwl.common_lib.callback.IHttpCallBack
 import org.json.JSONException
 import org.json.JSONObject
@@ -19,13 +19,13 @@ import org.json.JSONObject
 class LoginViewModel : BaseViewModel() {
     var registerLiveData: MutableLiveData<String>
         private set
-    var loginLiveData: MutableLiveData<UserBean>
+    var loginLiveData: MutableLiveData<User>
         private set
     private val loginRepostory by lazy { LoginRepostory() }
 
     init {
         registerLiveData = MutableLiveData<String>()
-        loginLiveData = MutableLiveData<UserBean>()
+        loginLiveData = MutableLiveData<User>()
     }
 
 
@@ -56,7 +56,7 @@ class LoginViewModel : BaseViewModel() {
         return registerLiveData
     }
 
-    fun login(phone: String, password: String): LiveData<UserBean?> {
+    fun login(phone: String, password: String): LiveData<User?> {
         val jsonObject = JSONObject()
         try {
             jsonObject.put("phone", phone)
@@ -68,8 +68,8 @@ class LoginViewModel : BaseViewModel() {
         //方法一
         request(
             requestCall = { ApiManager.api.login(phone, password) },
-            object : IHttpCallBack<UserBean> {
-                override fun onSuccess(result: UserBean) {
+            object : IHttpCallBack<User> {
+                override fun onSuccess(result: User) {
                     Logger.e(result.toString())
                     loginLiveData.value = result
                 }

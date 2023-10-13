@@ -1,16 +1,15 @@
 package com.xwl.mvvmarchitecture
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.pm.ApplicationInfo
-import android.os.Bundle
 import com.alibaba.android.arouter.launcher.ARouter
 import com.danikula.videocache.HttpProxyCacheServer
 import com.orhanobut.logger.Logger
+import com.tencent.mmkv.MMKV
+import com.tencent.mmkv.MMKVLogLevel
 import com.xwl.common_lib.dialog.TipsToast
-import com.xwl.common_lib.manager.ActivityManager
 import com.xwl.common_lib.manager.AppStatusManager
 
 /**
@@ -38,6 +37,7 @@ class App : Application() {
         super.onCreate()
         Logger.init("lxw")
         initArouter()
+        initMMKv()
         registerAppStatus()
         TipsToast.init(this)
     }
@@ -74,6 +74,17 @@ class App : Application() {
         ARouter.init(this)
     }
 
+    private fun initMMKv() {
+        val rootDir: String = MMKV.initialize(this)
+        MMKV.setLogLevel(
+            if (BuildConfig.DEBUG) {
+                MMKVLogLevel.LevelDebug
+            } else {
+                MMKVLogLevel.LevelError
+            }
+        )
+    }
+
     /**
      * 是否debug模式
      *
@@ -83,37 +94,5 @@ class App : Application() {
     private fun isDebug(context: Context): Boolean {
         return context.applicationInfo != null &&
                 context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
-    }
-
-    private fun registerActivityCallback() {
-        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
-            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                ActivityManager.addActivity(activity)
-            }
-
-            override fun onActivityStarted(activity: Activity) {
-
-            }
-
-            override fun onActivityResumed(activity: Activity) {
-
-            }
-
-            override fun onActivityPaused(activity: Activity) {
-
-            }
-
-            override fun onActivityStopped(activity: Activity) {
-
-            }
-
-            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-
-            }
-
-            override fun onActivityDestroyed(activity: Activity) {
-                ActivityManager.removeActivity(activity)
-            }
-        })
     }
 }

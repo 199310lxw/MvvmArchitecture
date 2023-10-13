@@ -10,6 +10,7 @@ import android.os.Environment
 object KeyConstant {
     const val KEY_SESSSION = "key_session"
     const val KEY_USER_PHONE = "key_user_phone"
+    const val USER_INFO_DATA = "user_info_data"
     const val KEY_USER_HEADURL = "key_user_headurl"
     const val KEY_USER_NAME = "key_user_name"
     const val KEY_URL = "key_url"

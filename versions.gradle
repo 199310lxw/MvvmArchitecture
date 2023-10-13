@@ -32,7 +32,8 @@ ext {
             smartRefreshVersion = '2.0.5',
             XXPermissionsVersion = '18.3',
             exoplayer_version = '2.12.1',
-            banner_version = '2.2.2'
+            banner_version = '2.2.2',
+            mmkv_version = '1.2.15',
     ]
 
     dependencies = [
@@ -74,6 +75,8 @@ ext {
             AliyunPlayer              : "com.aliyun.sdk.android:AliyunPlayer:4.5.0-full",
             AlivcConan                : "com.alivc.conan:AlivcConan:0.9.5",
 
-            banner                    : "io.github.youth5201314:banner:$rootProject.banner_version"
+            banner                    : "io.github.youth5201314:banner:$rootProject.banner_version",
+
+            mmkv                      : "com.tencent:mmkv:$rootProject.mmkv_version"
     ]
 }

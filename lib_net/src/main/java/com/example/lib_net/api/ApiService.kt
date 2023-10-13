@@ -4,7 +4,7 @@ import com.xwl.common_base.response.BaseResponse
 import com.xwl.common_lib.bean.BannerBean
 import com.xwl.common_lib.bean.CourseListBean
 import com.xwl.common_lib.bean.HotBean
-import com.xwl.common_lib.bean.UserBean
+import com.xwl.common_lib.bean.User
 import com.xwl.common_lib.constants.UrlConstants
 import retrofit2.http.*
 
@@ -28,7 +28,16 @@ interface ApiService {
     suspend fun login(
         @Field("phone") phone: String,
         @Field("password") password: String
-    ): BaseResponse<UserBean>?
+    ): BaseResponse<User>?
+
+    /**
+     * 更新用户信息
+     */
+    @POST(UrlConstants.LOGIN_URL)
+    suspend fun updateUserInfo(
+        @Field("phone") phone: String,
+        @Field("password") password: String
+    ): BaseResponse<User>?
 
     /**
      * 获取热门列表
