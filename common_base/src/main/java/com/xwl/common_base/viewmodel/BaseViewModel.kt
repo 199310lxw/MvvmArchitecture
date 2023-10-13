@@ -17,6 +17,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
@@ -41,6 +42,10 @@ abstract class BaseViewModel : ViewModel() {
     protected open fun getRequestBody(json: String): RequestBody {
 //        return RequestBody.create("application/json".toMediaTypeOrNull(), json!!)
         return json.toRequestBody("application/json".toMediaTypeOrNull())
+    }
+
+    protected open fun getRequestBody(file: File): RequestBody {
+        return file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
     }
 
     /**

@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.mod_home.R
 import com.example.mod_home.databinding.ActivityUserInfoBinding
@@ -24,6 +23,7 @@ import com.sum.user.dialog.ChoosePhotoDialog
 import com.sum.user.dialog.ChooseSexDialog
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_lib.constants.RoutMap
+import com.xwl.common_lib.constants.UrlConstants
 import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.ext.loadFile
 import com.xwl.common_lib.ext.onClick
@@ -33,8 +33,6 @@ import com.xwl.common_lib.provider.LoginServiceProvider
 import com.xwl.common_lib.provider.UserServiceProvider
 import com.xwl.common_lib.utils.ScreenUtil
 import com.xwl.common_lib.utils.ViewUtils
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.io.File
 
 /**
@@ -144,12 +142,17 @@ class UserInfoActivity : BaseVmVbActivity<UserInfoViewModel, ActivityUserInfoBin
             user.sex = mViewBinding.tvSex.text.toString()
             user.signature = mViewBinding.etSignature.text.toString()
             user.birthday = mViewBinding.tvBirthday.text.toString()
+            Logger.e(saveAvatarPath)
+            mViewModel.uploadUserIcon(File(saveAvatarPath)).observe(this) {
+                it?.let {
+                    user.icon = "${UrlConstants.BASE_URL}/${it}"
+                    mViewModel.updateUserInfo(user).observe(this) {
+                        Logger.e(it.toString())
+                        UserServiceProvider.saveUserInfo(user)
+                        TipsToast.showTips(R.string.default_save_success)
+                    }
+                }
 
-            lifecycleScope.launch {
-                UserServiceProvider.saveUserInfo(user)
-                delay(500)
-//                dismissLoading()
-                TipsToast.showTips(R.string.default_save_success)
             }
         } ?: kotlin.run {
             LoginServiceProvider.skipLoginActivity(this@UserInfoActivity)

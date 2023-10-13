@@ -6,6 +6,7 @@ import com.xwl.common_lib.bean.CourseListBean
 import com.xwl.common_lib.bean.HotBean
 import com.xwl.common_lib.bean.User
 import com.xwl.common_lib.constants.UrlConstants
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 /**
@@ -33,11 +34,26 @@ interface ApiService {
     /**
      * 更新用户信息
      */
-    @POST(UrlConstants.LOGIN_URL)
+    @FormUrlEncoded
+    @POST(UrlConstants.SAVE_USER_INFO_URL)
     suspend fun updateUserInfo(
         @Field("phone") phone: String,
-        @Field("password") password: String
+        @Field("password") password: String,
+        @Field("sex") sex: String,
+        @Field("nickname") nickname: String,
+        @Field("birthday") birthday: String,
+        @Field("icon") icon: String,
+        @Field("signature") signature: String,
     ): BaseResponse<User>?
+
+    /**
+     * 更新用户头像
+     */
+    @Multipart
+    @POST(UrlConstants.UPDATE_USER_ICON_URL)
+    suspend fun updateUserIcon(
+        @Part file: MultipartBody.Part
+    ): BaseResponse<String>?
 
     /**
      * 获取热门列表

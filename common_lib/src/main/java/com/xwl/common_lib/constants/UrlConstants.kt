@@ -15,6 +15,11 @@ class UrlConstants {
 
         const val LOGIN_URL = "server/user/login/index.php"
 
+
+        const val UPDATE_USER_ICON_URL = "server/user/upload/uploadicon.php"
+
+        const val SAVE_USER_INFO_URL = "server/user/updateUserInfo.php"
+
         const val APK_URL = "server/apk/mvvmarchitecture.apk"
 
         const val HOT_LIST_URL = "server/home/hot"
