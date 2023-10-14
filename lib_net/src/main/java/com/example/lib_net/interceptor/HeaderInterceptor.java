@@ -2,8 +2,6 @@ package com.example.lib_net.interceptor;
 
 import com.example.lib_net.BuildConfig;
 import com.orhanobut.logger.Logger;
-import com.xwl.common_lib.constants.KeyConstant;
-import com.xwl.common_lib.utils.SharedPreferenceUtil;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -45,7 +43,7 @@ public class HeaderInterceptor implements Interceptor {
                 builder.header(entry.getKey(), entry.getValue());
             }
         }
-        builder.addHeader("session", SharedPreferenceUtil.getInstance().getString(KeyConstant.KEY_SESSSION));
+//        builder.addHeader("session", SharedPreferenceUtil.getInstance().getString(KeyConstant.KEY_SESSSION));
 //        builder.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 //        builder.addHeader("Content-Type", "application/json;charset=UTF-8");
         request = builder.build();

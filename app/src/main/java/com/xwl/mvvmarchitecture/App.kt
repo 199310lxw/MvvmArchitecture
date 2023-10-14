@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.pm.ApplicationInfo
+import androidx.databinding.ktx.BuildConfig
 import com.alibaba.android.arouter.launcher.ARouter
-import com.danikula.videocache.HttpProxyCacheServer
 import com.orhanobut.logger.Logger
 import com.tencent.mmkv.MMKV
 import com.tencent.mmkv.MMKVLogLevel
@@ -19,7 +19,6 @@ import com.xwl.common_lib.manager.AppStatusManager
  */
 class App : Application() {
 
-    private val proxy: HttpProxyCacheServer? = null
 
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -40,15 +39,6 @@ class App : Application() {
         initMMKv()
         registerAppStatus()
         TipsToast.init(this)
-    }
-
-
-    fun getProxy(context: Context): HttpProxyCacheServer? {
-        return if (this.proxy == null) newProxy() else proxy
-    }
-
-    private fun newProxy(): HttpProxyCacheServer? {
-        return HttpProxyCacheServer(this)
     }
 
     private fun registerAppStatus() {
@@ -83,6 +73,7 @@ class App : Application() {
                 MMKVLogLevel.LevelError
             }
         )
+        Logger.d("mmkv root: $rootDir")
     }
 
     /**

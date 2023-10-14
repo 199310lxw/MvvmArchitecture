@@ -49,8 +49,13 @@ class LoginActivity : BaseVmVbActivity<LoginViewModel, ActivityLoginBinding>() {
     private fun login(phone: String, password: String) {
         mViewModel.login(phone, password).observe(this) {
             it?.let {
-                UserServiceProvider.saveUserInfo(it)
                 Logger.e("${it.username} ---${it.session}---${it.nickname}")
+                UserServiceProvider.saveUserInfo(it)
+                if (UserServiceProvider.getUserInfo() != null) {
+                    Logger.e(UserServiceProvider.getUserInfo()?.username.toString())
+                } else {
+                    Logger.e("11111111111111111111111111")
+                }
 
                 ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
                     .navigation(this@LoginActivity, object : NavCallback() {
