@@ -16,7 +16,6 @@ import com.xwl.common_lib.utils.LoginDialogUtil
 
 class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() {
     private lateinit var mAdapter: HotAdapter
-    private var mList = arrayListOf<HotBean>()
 
     private var mCurrentPage = 1
     private var size = 10

@@ -35,6 +35,10 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
         mViewBinding.btnLogout.onClick {
             showLogoutDialog()
         }
+
+        UserServiceProvider.getUserLiveData().observe(this) {
+            setView()
+        }
     }
 
     override fun onLazyLoadData() {

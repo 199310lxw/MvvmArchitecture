@@ -147,9 +147,10 @@ class UserInfoActivity : BaseVmVbActivity<UserInfoViewModel, ActivityUserInfoBin
                 mViewModel.uploadUserIcon(File(it)).observe(this) { path ->
                     path?.let {
                         user.icon = "${UrlConstants.BASE_URL}${path}"
-                        mViewModel.updateUserInfo(user).observe(this) { userInfo ->
-                            Logger.e(userInfo.toString())
-                            UserServiceProvider.saveUserInfo(userInfo)
+                        Logger.e(user.toString())
+                        mViewModel.updateUserInfo(user).observe(this) { user ->
+                            Logger.e(user.toString())
+                            UserServiceProvider.saveUserInfo(user)
                             TipsToast.showTips(R.string.default_save_success)
                         }
                     }
@@ -159,7 +160,7 @@ class UserInfoActivity : BaseVmVbActivity<UserInfoViewModel, ActivityUserInfoBin
                 if (user != null) {
                     mViewModel.updateUserInfo(user).observe(this) {
                         Logger.e(it.toString())
-                        UserServiceProvider.saveUserInfo(it)
+                        UserServiceProvider.saveUserInfo(user)
                         TipsToast.showTips(R.string.default_save_success)
                     }
                 }

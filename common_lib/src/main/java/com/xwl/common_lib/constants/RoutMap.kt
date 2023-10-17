@@ -16,15 +16,16 @@ class RoutMap {
          */
         const val APP_SERVICE_CONTEXT = "/app/service/context"
 
+
+        const val USER_SERVICE_USER = "/user/service/user"
+
         /**
          * 登录模块-登录服务
          */
         const val LOGIN_SERVICE_LOGIN = "/login/service/login"
 
-        const val USER_SERVICE_USER = "/user/service/user"
 
-
-        const val HOME_ACTIVITY_USER_INFO = "/home/activity/userinfo"
+        const val HOME_ACTIVITY_USER_INFO = "/home/activity/UserInfoActivity"
 
 
     }
