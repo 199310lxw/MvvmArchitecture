@@ -64,7 +64,7 @@ abstract class BaseViewModel : ViewModel() {
      */
     fun <T> request(
         requestCall: suspend () -> BaseResponse<T>?,
-        calllback: IHttpCallBack<T>,
+        calllback: IHttpCallBack<T?>,
         showLoading: Boolean = true
     ) {
         sendRequest(requestCall, showLoading = {
@@ -104,14 +104,14 @@ abstract class BaseViewModel : ViewModel() {
         requestCall: suspend () -> BaseResponse<T>?,
         showLoading: ((Boolean) -> Unit)? = null,
         errorBlock: (String?) -> Unit,
-        successBlock: (T) -> Unit
+        successBlock: (T?) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.Main) {
             val data = requestFlow(requestCall, errorBlock = errorBlock, showLoading = showLoading)
             withContext(Dispatchers.Main) {
-                if (data != null) {
-                    successBlock.invoke(data)
-                }
+
+                successBlock.invoke(data)
+
             }
         }
     }

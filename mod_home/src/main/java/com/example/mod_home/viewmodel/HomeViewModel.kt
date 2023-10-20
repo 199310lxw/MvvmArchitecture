@@ -1,15 +1,12 @@
 package com.example.mod_home.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.lib_net.manager.ApiManager
 import com.example.mod_home.repostory.HomeRepostory
-import com.orhanobut.logger.Logger
 import com.xwl.common_base.viewmodel.BaseViewModel
 import com.xwl.common_lib.bean.BannerBean
 import com.xwl.common_lib.bean.HotBean
 import com.xwl.common_lib.callback.IHttpCallBack
-import com.xwl.common_lib.dialog.TipsToast
 
 /**
  * @author  lxw
@@ -19,23 +16,23 @@ import com.xwl.common_lib.dialog.TipsToast
 class HomeViewModel : BaseViewModel() {
     private val homeRepostory by lazy { HomeRepostory() }
 
-    fun register(map: Map<String, Any>): LiveData<String> {
-        val liveData: MutableLiveData<String> = MutableLiveData<String>()
+//    fun register(map: Map<String, Any>): LiveData<String> {
+//        val liveData: MutableLiveData<String> = MutableLiveData<String>()
+//
+//        //方法一
+//        request(requestCall = { ApiManager.api.register(map) }, object : IHttpCallBack<Any> {
+//            override fun onSuccess(result: Any) {
+//                Logger.e(result.toString())
+//                liveData.value = "注册成功"
+//            }
+//
+//            override fun onFailure(obj: Any?) {
+//                liveData.value = obj.toString()
+//            }
+//        })
 
-        //方法一
-        request(requestCall = { ApiManager.api.register(map) }, object : IHttpCallBack<Any> {
-            override fun onSuccess(result: Any) {
-                Logger.e(result.toString())
-                liveData.value = "注册成功"
-            }
 
-            override fun onFailure(obj: Any?) {
-                liveData.value = obj.toString()
-            }
-        })
-
-
-        //方法二
+    //方法二
 //        launchUI(errorBlock = {code, msg ->
 //            liveData.value = msg
 //        }) {
@@ -48,8 +45,8 @@ class HomeViewModel : BaseViewModel() {
 //
 //        return registerLiveData
 
-        return liveData
-    }
+//    return liveData
+//}
 
     fun getBannerList(): MutableLiveData<ArrayList<BannerBean>?> {
 
@@ -57,14 +54,13 @@ class HomeViewModel : BaseViewModel() {
             MutableLiveData<ArrayList<BannerBean>?>()
         request(
             requestCall = { ApiManager.api.getBannerList() },
-            object : IHttpCallBack<ArrayList<BannerBean>> {
-                override fun onSuccess(result: ArrayList<BannerBean>) {
+            object : IHttpCallBack<ArrayList<BannerBean>?> {
+                override fun onSuccess(result: ArrayList<BannerBean>?) {
                     bannerLiveData.value = result
                 }
 
                 override fun onFailure(obj: Any?) {
-                    bannerLiveData.value = null
-                    TipsToast.showTips(obj.toString())
+                    error.value = obj.toString()
                 }
             })
         return bannerLiveData
@@ -75,14 +71,13 @@ class HomeViewModel : BaseViewModel() {
             MutableLiveData<ArrayList<HotBean>?>()
         request(
             requestCall = { ApiManager.api.getSortList() },
-            object : IHttpCallBack<ArrayList<HotBean>> {
-                override fun onSuccess(result: ArrayList<HotBean>) {
+            object : IHttpCallBack<ArrayList<HotBean>?> {
+                override fun onSuccess(result: ArrayList<HotBean>?) {
                     sortLiveData.value = result
                 }
 
                 override fun onFailure(obj: Any?) {
-                    sortLiveData.value = null
-                    TipsToast.showTips(obj.toString())
+                    error.value = obj.toString()
                 }
             })
         return sortLiveData
@@ -97,14 +92,13 @@ class HomeViewModel : BaseViewModel() {
 
         request(
             requestCall = { ApiManager.api.getHotList(page, size) },
-            object : IHttpCallBack<ArrayList<HotBean>> {
-                override fun onSuccess(result: ArrayList<HotBean>) {
+            object : IHttpCallBack<ArrayList<HotBean>?> {
+                override fun onSuccess(result: ArrayList<HotBean>?) {
                     hotLiveData.value = result
                 }
 
                 override fun onFailure(obj: Any?) {
-                    hotLiveData.value = null
-                    TipsToast.showTips(obj.toString())
+                    error.value = obj.toString()
                 }
             })
 

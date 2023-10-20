@@ -29,8 +29,8 @@ class CourseListViewModel : BaseViewModel() {
 
         request(
             requestCall = { ApiManager.api.getCourseList(page, size, type) },
-            object : IHttpCallBack<ArrayList<CourseListBean>> {
-                override fun onSuccess(result: ArrayList<CourseListBean>) {
+            object : IHttpCallBack<ArrayList<CourseListBean>?> {
+                override fun onSuccess(result: ArrayList<CourseListBean>?) {
                     courseListLiveData.value = result
                 }
 

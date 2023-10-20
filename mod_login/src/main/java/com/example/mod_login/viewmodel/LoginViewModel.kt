@@ -19,20 +19,20 @@ import org.json.JSONObject
 class LoginViewModel : BaseViewModel() {
     var registerLiveData: MutableLiveData<String>
         private set
-    var loginLiveData: MutableLiveData<User>
+    var loginLiveData: MutableLiveData<User?>
         private set
     private val loginRepostory by lazy { LoginRepostory() }
 
     init {
         registerLiveData = MutableLiveData<String>()
-        loginLiveData = MutableLiveData<User>()
+        loginLiveData = MutableLiveData<User?>()
     }
 
 
     fun register(map: Map<String, Any>): LiveData<String?> {
         //方法一
-        request(requestCall = { ApiManager.api.register(map) }, object : IHttpCallBack<Any> {
-            override fun onSuccess(result: Any) {
+        request(requestCall = { ApiManager.api.register(map) }, object : IHttpCallBack<Any?> {
+            override fun onSuccess(result: Any?) {
                 Logger.e(result.toString())
                 registerLiveData.value = "注册成功"
             }
@@ -68,10 +68,11 @@ class LoginViewModel : BaseViewModel() {
         //方法一
         request(
             requestCall = { ApiManager.api.login(phone, password) },
-            object : IHttpCallBack<User> {
-                override fun onSuccess(result: User) {
-                    Logger.e(result.toString())
-                    loginLiveData.value = result
+            object : IHttpCallBack<User?> {
+                override fun onSuccess(result: User?) {
+                    if (result != null) {
+                        loginLiveData.value = result
+                    }
                 }
 
                 override fun onFailure(obj: Any?) {

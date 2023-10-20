@@ -30,8 +30,8 @@ class UserInfoViewModel : BaseViewModel() {
             MultipartBody.Part.createFormData("file", file.name, requestFile)
         request(
             requestCall = { ApiManager.api.updateUserIcon(body) },
-            object : IHttpCallBack<String> {
-                override fun onSuccess(result: String) {
+            object : IHttpCallBack<String?> {
+                override fun onSuccess(result: String?) {
                     Logger.e(result)
                     uploadListLiveData.value = result
                 }
@@ -64,8 +64,8 @@ class UserInfoViewModel : BaseViewModel() {
                     user.signature
                 )
             },
-            object : IHttpCallBack<User> {
-                override fun onSuccess(result: User) {
+            object : IHttpCallBack<User?> {
+                override fun onSuccess(result: User?) {
                     userListLiveData.value = result
                 }
 
