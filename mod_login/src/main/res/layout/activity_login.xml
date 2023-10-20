@@ -1,41 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.LoginActivity">
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:layoutAnimation="@anim/layout_from_bottom"
+    android:orientation="vertical"
+    tools:layoutAnimation="@null">
 
-    <EditText
-        android:id="@+id/editPhone"
-        android:layout_width="200dp"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_login_logo"
+        android:layout_width="@dimen/dimen_size_dp_120"
+        android:layout_height="@dimen/dimen_size_dp_120"
+        android:layout_marginVertical="@dimen/dimen_size_dp_60"
+        app:srcCompat="@drawable/logo_big_ic" />
+
+    <LinearLayout
+        android:id="@+id/ll_login_body"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:inputType="phone"
-        android:hint="请输入手机号" />
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editPassword"
-        android:layout_width="200dp"
+        <com.xwl.common_lib.views.ClearEditText
+            android:id="@+id/et_login_phone"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_size_dp_40"
+            android:layout_marginTop="@dimen/dimen_size_dp_10"
+            android:hint="@string/common_phone_input_hint"
+            android:inputType="textVisiblePassword"
+            android:singleLine="true"
+            app:regexType="mobile" />
+
+        <View
+            style="@style/line_horizontal"
+            android:layout_marginHorizontal="@dimen/dimen_size_dp_40" />
+
+        <com.xwl.common_lib.views.PasswordEditText
+            android:id="@+id/et_login_password"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_size_dp_40"
+            android:layout_marginTop="@dimen/dimen_size_dp_20"
+            android:hint="@string/common_password_input_hint"
+            android:imeOptions="actionDone"
+            android:maxLength="20"
+            android:singleLine="true" />
+
+        <View
+            style="@style/line_horizontal"
+            android:layout_marginHorizontal="@dimen/dimen_size_dp_40" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_login_forget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginStart="@dimen/dimen_size_dp_40"
+            android:layout_marginTop="@dimen/dimen_size_dp_15"
+            android:layout_marginEnd="@dimen/dimen_size_dp_60"
+            android:text="@string/forget_password"
+            android:textColor="@color/common_accent_color" />
+
+        <com.xwl.common_lib.views.SubmitButton
+            android:id="@+id/btn_login_commit"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_size_dp_40"
+            android:layout_marginTop="@dimen/dimen_size_dp_30"
+            android:text="@string/default_login" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0px"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/ll_login_other"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPhone"
-        android:inputType="textPassword"
-        android:layout_marginTop="@dimen/dimen_size_dp_10"
-        android:hint="请输入密码" />
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="200dp"
-        android:layout_height="@dimen/dimen_size_dp_40"
-        app:layout_constraintTop_toBottomOf="@+id/editPassword"
-        android:layout_marginTop="@dimen/dimen_size_dp_20"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="登陆" />
+        <View
+            style="@style/line_horizontal"
+            android:layout_width="@dimen/dimen_size_dp_60"
+            android:layout_weight="1" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_size_dp_15"
+            android:text="@string/login_other"
+            android:textColor="@color/black50" />
+
+        <View
+            style="@style/line_horizontal"
+            android:layout_width="@dimen/dimen_size_dp_60"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.xwl.common_lib.views.ScaleImageView
+            android:id="@+id/iv_login_qq"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginHorizontal="@dimen/dimen_size_dp_30"
+            android:layout_marginVertical="@dimen/dimen_size_dp_20"
+            android:layout_weight="1"
+            app:scaleRatio="1.2"
+            app:srcCompat="@drawable/login_qq_ic" />
+
+        <com.xwl.common_lib.views.ScaleImageView
+            android:id="@+id/iv_login_wechat"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginHorizontal="@dimen/dimen_size_dp_30"
+            android:layout_marginVertical="@dimen/dimen_size_dp_20"
+            android:layout_weight="1"
+            app:scaleRatio="1.2"
+            app:srcCompat="@drawable/login_wechat_ic" />
+    </LinearLayout>
+
+</LinearLayout>

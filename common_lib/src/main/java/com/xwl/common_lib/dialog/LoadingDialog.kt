@@ -12,7 +12,7 @@ import com.xwl.common_lib.databinding.DialogLoadingBinding
 /**
  * 通用加载中弹窗
  */
-class LoadingDialog(context: Context) : Dialog(context, R.style.loading_dialog) {
+class LoadingDialog(context: Context, theme: Int) : Dialog(context, R.style.loading_dialog) {
 
     private var mBinding: DialogLoadingBinding
     private var animation: Animation? = null

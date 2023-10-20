@@ -2,6 +2,7 @@ package com.example.mod_login.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import androidx.annotation.RequiresApi
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -9,11 +10,13 @@ import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.mod_login.databinding.ActivityLoginBinding
 import com.example.mod_login.viewmodel.LoginViewModel
-import com.orhanobut.logger.Logger
 import com.xwl.common_base.activity.BaseVmVbActivity
+import com.xwl.common_lib.R
 import com.xwl.common_lib.constants.RoutMap
+import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.provider.UserServiceProvider
+import com.xwl.common_lib.utils.ScreenUtil.hideKeyboard
 
 /**
  * @author  lxw
@@ -39,24 +42,33 @@ class LoginActivity : BaseVmVbActivity<LoginViewModel, ActivityLoginBinding>() {
 //            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
 //        }
 
-        mViewBinding.btnLogin.onClick {
-            val phone = mViewBinding.editPhone.text.toString().trim()
-            val password = mViewBinding.editPassword.text.toString().trim()
+        mViewBinding.btnLoginCommit.onClick {
+            val phone = mViewBinding.etLoginPhone.text.toString().trim()
+            val password = mViewBinding.etLoginPassword.text.toString().trim()
+            if (phone.length != 11) {
+                mViewBinding.etLoginPhone.startAnimation(
+                    AnimationUtils.loadAnimation(
+                        this@LoginActivity,
+                        R.anim.shake_anim
+                    )
+                )
+                mViewBinding.btnLoginCommit.showError(300)
+                TipsToast.showTips(R.string.common_phone_input_error)
+                return@onClick
+            }
+
+            // 隐藏软键盘
+            hideKeyboard(this@LoginActivity)
             login(phone, password)
         }
     }
 
     private fun login(phone: String, password: String) {
+//        mViewBinding.btnLoginCommit.showProgress()
         mViewModel.login(phone, password).observe(this) {
             it?.let {
-                Logger.e("${it.username} ---${it.session}---${it.nickname}")
                 UserServiceProvider.saveUserInfo(it)
-                if (UserServiceProvider.getUserInfo() != null) {
-                    Logger.e(UserServiceProvider.getUserInfo()?.username.toString())
-                } else {
-                    Logger.e("11111111111111111111111111")
-                }
-
+                mViewBinding.btnLoginCommit.showSucceed()
                 ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
                     .navigation(this@LoginActivity, object : NavCallback() {
                         override fun onArrival(postcard: Postcard?) {
@@ -69,5 +81,8 @@ class LoginActivity : BaseVmVbActivity<LoginViewModel, ActivityLoginBinding>() {
 
 
     override fun initData() {
+        mViewModel.error.observe(this) {
+            mViewBinding.btnLoginCommit.showError(300)
+        }
     }
 }

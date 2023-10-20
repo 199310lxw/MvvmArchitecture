@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+
+    <com.xwl.common_lib.views.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:middleText="@string/setting_title"
+        app:rightVisible="false" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.xwl.common_lib.views.SettingBar
+                android:id="@+id/sb_setting_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_size_dp_15"
+                app:bar_leftText="@string/setting_language_switch"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                tools:bar_rightHint="@string/setting_language_simple" />
+
+            <com.xwl.common_lib.views.SettingBar
+                android:id="@+id/sb_setting_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="@string/setting_update">
+
+                <TextView
+                    android:id="@+id/tvVersion"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_size_dp_20"
+                    android:text="v1.1.0"
+                    android:textSize="@dimen/dimen_size_sp_14"
+                    android:textColor="@color/red" />
+            </com.xwl.common_lib.views.SettingBar>
+
+            <com.xwl.common_lib.views.SettingBar
+                android:id="@+id/sb_setting_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_size_dp_15"
+                app:bar_leftText="@string/setting_phone"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                tools:bar_rightText="181****1413" />
+
+            <com.xwl.common_lib.views.SettingBar
+                android:id="@+id/sb_setting_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="@string/setting_password"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                tools:bar_rightText="密码强度较低" />
+
+            <com.xwl.common_lib.views.SettingBar
+                android:id="@+id/sb_setting_agreement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_size_dp_15"
+                app:bar_leftText="@string/setting_agreement"
+                app:bar_rightDrawable="@drawable/arrows_right_ic" />
+
+            <com.xwl.common_lib.views.SettingBar
+                android:id="@+id/sb_setting_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="@string/setting_about"
+                app:bar_rightDrawable="@drawable/arrows_right_ic" />
+
+            <TextView
+                android:id="@+id/tvLogout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_button_height_42"
+                android:layout_marginTop="@dimen/dimen_size_dp_40"
+                android:textColor="@color/red"
+                android:background="@color/white"
+                android:text="退出登陆"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

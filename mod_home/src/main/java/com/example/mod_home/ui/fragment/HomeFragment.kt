@@ -30,7 +30,7 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
     private fun initRv() {
         mAdapter = HomeAdapter()
         mSortAdapter = HomeSortAdapter()
-        mSortAdapter.setHasStableIds(true)
+//        mSortAdapter.setHasStableIds(true)
         val helper = QuickAdapterHelper
             .Builder(mAdapter)
             .setConfig(ConcatAdapter.Config.DEFAULT)
@@ -49,13 +49,13 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
 
     private fun getListData() {
         val lists = arrayListOf<HotBean>()
-        for (index in 0 until 4) {
-            val bean = HotBean()
-            bean.mainPicUrl =
-                "https://img1.baidu.com/it/u=174314668,4200091718&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=800"
-            bean.title = "hhhhhhhhh"
-            lists.add(bean)
-        }
+//        for (index in 0 until 4) {
+//            val bean = HotBean()
+//            bean.mainPicUrl =
+//                "https://img1.baidu.com/it/u=174314668,4200091718&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=800"
+//            bean.title = "hhhhhhhhh"
+//            lists.add(bean)
+//        }
         mAdapter.submitList(lists)
 
     }
@@ -95,7 +95,6 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
 
     private fun getData() {
         getListData()
-
         mViewModel.getSortList().observe(this) {
             it?.let {
                 getSortData(it)

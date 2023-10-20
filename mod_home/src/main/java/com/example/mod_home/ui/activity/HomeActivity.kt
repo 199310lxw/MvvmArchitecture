@@ -23,17 +23,18 @@ import com.xwl.common_lib.utils.AppExit
 class HomeActivity : BaseVmVbActivity<HomeViewModel, ActivityHomeBinding>() {
     private val fragmentList = arrayListOf<Fragment>()
     override fun initView(savedInstanceState: Bundle?) {
-        checkVersion()
+//        checkVersion()
         initTab()
     }
 
     private fun checkVersion() {
 //        val mUpdateDialog =
 //            UpdateDialog(this@HomeActivity, UrlConstants.APK_URL, "mvvmArchitecture")
-        UpdateDialog.Builder(this@HomeActivity).setForceUpdate(false)
-            .setDownloadUrl(UrlConstants.APK_URL).setVersionName("v1.2.0").show()
 //        mUpdateDialog.setVersionName("v1.1.0")
 //        mUpdateDialog.show()
+
+        UpdateDialog.Builder(this@HomeActivity).setForceUpdate(false)
+            .setDownloadUrl(UrlConstants.APK_URL).setVersionName("v1.0.1").show()
     }
 
     private fun initTab() {

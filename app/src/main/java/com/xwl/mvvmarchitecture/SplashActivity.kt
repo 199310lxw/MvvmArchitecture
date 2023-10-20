@@ -15,7 +15,7 @@ import com.hjq.permissions.XXPermissions
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_base.viewmodel.EmptyViewModel
 import com.xwl.common_lib.constants.RoutMap
-import com.xwl.common_lib.dialog.CustomerDialog
+import com.xwl.common_lib.dialog.MessageDialog
 import com.xwl.common_lib.dialog.TipsToast.showTips
 import com.xwl.mvvmarchitecture.databinding.ActivityFlashBinding
 import kotlinx.coroutines.Dispatchers
@@ -115,13 +115,13 @@ class SplashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() 
 
     private fun showWarningDialog() {
         hasShowWarning = true
-        val dialog = CustomerDialog.Builder()
+        val dialog = MessageDialog.Builder()
             .setTitleText("提示")
             .setCancelText("不同意")
             .setConfirmText("同意")
             .setContentText("应用需要获取相关权限才能打开，是否同意开启相关权限？")
             .build()
-        dialog.setOnItemClickListener(object : CustomerDialog.OnItemClickListener {
+        dialog.setOnItemClickListener(object : MessageDialog.OnItemClickListener {
             override fun onCancel() {
                 finish()
             }

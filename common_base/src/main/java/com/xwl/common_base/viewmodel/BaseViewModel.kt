@@ -64,10 +64,15 @@ abstract class BaseViewModel : ViewModel() {
      */
     fun <T> request(
         requestCall: suspend () -> BaseResponse<T>?,
-        calllback: IHttpCallBack<T>
+        calllback: IHttpCallBack<T>,
+        showLoading: Boolean = true
     ) {
         sendRequest(requestCall, showLoading = {
-            loadingChange.showDialog.value = it
+            if (showLoading) {
+                loadingChange.showDialog.value = it
+            } else {
+                loadingChange.showDialog.value = false
+            }
         }, errorBlock = {
             calllback.onFailure(it)
         }, successBlock = {

@@ -15,6 +15,7 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.UserInfoActivity" />
+        <activity android:name=".ui.activity.SettingActivity" />
     </application>
 
 </manifest>

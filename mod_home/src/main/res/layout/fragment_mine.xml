@@ -48,6 +48,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.xwl.common_lib.views.HeadZoomScrollView>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_setting_white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/dimen_size_dp_20"
+        android:layout_marginTop="@dimen/dimen_size_dp_30" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btnLogout"
         android:layout_width="300dp"

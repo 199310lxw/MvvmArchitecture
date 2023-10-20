@@ -1,7 +1,7 @@
 package com.xwl.common_lib.utils
 
 import androidx.fragment.app.FragmentActivity
-import com.xwl.common_lib.dialog.CustomerDialog
+import com.xwl.common_lib.dialog.MessageDialog
 import com.xwl.common_lib.provider.LoginServiceProvider
 
 /**
@@ -11,7 +11,7 @@ import com.xwl.common_lib.provider.LoginServiceProvider
  */
 object LoginDialogUtil {
     fun show(context: FragmentActivity, msg: String) {
-        val builder = CustomerDialog.Builder()
+        val builder = MessageDialog.Builder()
         val dialog = builder.setTitleText("提示")
 //            .setIsCancelVisible(false)
             .setCancelText("取消")
@@ -19,7 +19,7 @@ object LoginDialogUtil {
             .setConfirmText("好的")
             .build()
         dialog.show(context.supportFragmentManager, "dialog")
-        dialog.setOnItemClickListener(object : CustomerDialog.OnItemClickListener {
+        dialog.setOnItemClickListener(object : MessageDialog.OnItemClickListener {
             override fun onCancel() {
 
             }

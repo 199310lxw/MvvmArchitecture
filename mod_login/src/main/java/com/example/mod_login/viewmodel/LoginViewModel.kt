@@ -77,7 +77,8 @@ class LoginViewModel : BaseViewModel() {
                 override fun onFailure(obj: Any?) {
                     error.value = obj.toString()
                 }
-            })
+            }, false
+        )
 
         return loginLiveData
     }

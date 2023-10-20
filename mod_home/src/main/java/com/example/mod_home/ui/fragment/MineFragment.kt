@@ -6,10 +6,11 @@ import android.os.Bundle
 import android.view.View
 import com.example.mod_home.R
 import com.example.mod_home.databinding.FragmentMineBinding
+import com.example.mod_home.ui.activity.SettingActivity
 import com.example.mod_home.ui.activity.UserInfoActivity
 import com.example.mod_home.viewmodel.HomeViewModel
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
-import com.xwl.common_lib.dialog.CustomerDialog
+import com.xwl.common_lib.dialog.MessageDialog
 import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.ext.setUrlCircleBorder
 import com.xwl.common_lib.provider.LoginServiceProvider
@@ -30,7 +31,9 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
             } else {
                 LoginServiceProvider.skipLoginActivity(mContext)
             }
-
+        }
+        mViewBinding.imgSetting.onClick {
+            startActivity(Intent(requireActivity(), SettingActivity::class.java))
         }
         mViewBinding.btnLogout.onClick {
             showLogoutDialog()
@@ -46,15 +49,14 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
     }
 
     private fun showLogoutDialog() {
-        val builder = CustomerDialog.Builder()
-        val doalog = builder.setTitleText("提示")
-//            .setIsCancelVisible(false)
+        val builder = MessageDialog.Builder()
+        val dialog = builder.setTitleText("提示")
             .setCancelText("取消")
             .setContentText("是否确认退出登陆？")
             .setConfirmText("确认")
             .build()
-        doalog.show(parentFragmentManager, "dialog")
-        doalog.setOnItemClickListener(object : CustomerDialog.OnItemClickListener {
+        dialog.show(parentFragmentManager, "dialog")
+        dialog.setOnItemClickListener(object : MessageDialog.OnItemClickListener {
             override fun onCancel() {
 
             }
@@ -62,8 +64,7 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
             override fun onConfirm() {
                 UserServiceProvider.clearUserInfo()
                 setView()
-
-                doalog.dismiss()
+                dialog.dismiss()
             }
         })
     }
