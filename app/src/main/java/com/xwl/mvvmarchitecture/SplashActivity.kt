@@ -1,14 +1,9 @@
 package com.xwl.mvvmarchitecture
 
-import android.animation.ObjectAnimator
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
-import android.view.animation.AnticipateInterpolator
-import android.window.SplashScreenView
 import androidx.annotation.RequiresApi
-import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.Postcard
@@ -24,7 +19,8 @@ import com.xwl.common_lib.dialog.CustomerDialog
 import com.xwl.common_lib.dialog.TipsToast.showTips
 import com.xwl.mvvmarchitecture.databinding.ActivityFlashBinding
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 
 /**
@@ -56,23 +52,20 @@ class SplashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() 
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
 
         splashScreen.setOnExitAnimationListener { splashScreenView ->
-
-            checkPermission()
-            // Create your custom animation.
-            val slideUp = ObjectAnimator.ofFloat(
-                splashScreenView,
-                View.TRANSLATION_Y,
-                0f,
-                splashScreenView.height.toFloat()
-            )
-//            slideUp.interpolator = AnticipateInterpolator()
-            slideUp.duration = 1000L
-
-            // Call SplashScreenView.remove at the end of your custom animation.
-            slideUp.doOnEnd { splashScreenView.remove() }
-
-            // Run your animation.
-            slideUp.start()
+            lifecycleScope.launchWhenResumed {
+                flow {
+//                   delay(2000)
+                    emit(true)
+                }.flowOn(Dispatchers.IO)
+                    .collect {
+                        ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
+                            .navigation(this@SplashActivity, object : NavCallback() {
+                                override fun onArrival(postcard: Postcard?) {
+                                    finish()
+                                }
+                            })
+                    }
+            }
         }
 
     }
@@ -89,13 +82,13 @@ class SplashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() 
             .permission(Permission.READ_MEDIA_AUDIO)
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: List<String>, all: Boolean) {
-                    if(all) {
+                    if (all) {
                         lifecycleScope.launchWhenResumed {
                             flow {
 //                                delay(2000)
                                 emit(true)
                             }.flowOn(Dispatchers.IO)
-                                .collect{
+                                .collect {
                                     ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
                                         .navigation(this@SplashActivity, object : NavCallback() {
                                             override fun onArrival(postcard: Postcard?) {
@@ -105,7 +98,7 @@ class SplashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() 
                                 }
                         }
                     } else {
-                        if(!hasShowWarning) {
+                        if (!hasShowWarning) {
                             showWarningDialog()
                         }
                     }
@@ -128,9 +121,9 @@ class SplashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() 
             .setConfirmText("同意")
             .setContentText("应用需要获取相关权限才能打开，是否同意开启相关权限？")
             .build()
-        dialog.setOnItemClickListener(object: CustomerDialog.OnItemClickListener{
+        dialog.setOnItemClickListener(object : CustomerDialog.OnItemClickListener {
             override fun onCancel() {
-               finish()
+                finish()
             }
 
             override fun onConfirm() {
@@ -139,7 +132,7 @@ class SplashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() 
             }
 
         })
-        dialog.show(supportFragmentManager,"dialog")
+        dialog.show(supportFragmentManager, "dialog")
     }
 
     override fun onStop() {

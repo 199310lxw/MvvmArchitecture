@@ -7,8 +7,8 @@ package com.xwl.common_lib.constants
  */
 class UrlConstants {
     companion object {
-        const val BASE_URL = "http://192.168.1.43/"
-//        const val BASE_URL = "http://192.168.10.87/"
+        //        const val BASE_URL = "http://192.168.1.43/"
+        const val BASE_URL = "http://192.168.10.11/"
 //        const val BASE_URL = "http://22665x1b73.imdo.co:57922/"
 
         const val URL_REGISTER = "server/user/register"

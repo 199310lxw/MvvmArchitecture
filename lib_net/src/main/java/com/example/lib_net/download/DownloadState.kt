@@ -8,6 +8,7 @@ import java.io.File
  * descripe
  */
 sealed class DownloadState {
+    data class Start(val boolean: Boolean) : DownloadState()
     data class InProgress(val progress: Int) : DownloadState()
     data class Success(val file: File) : DownloadState()
     data class Error(val throwable: Throwable) : DownloadState()

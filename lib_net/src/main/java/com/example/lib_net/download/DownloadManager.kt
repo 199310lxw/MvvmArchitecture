@@ -20,28 +20,29 @@ import java.util.*
  * descripe
  */
 object DownloadManager {
-    suspend fun download(url: String,file: File): Flow<DownloadState> {
-        val mFlow =  flow {
-           val range = String.format(Locale.CHINESE, "bytes=%d-", file.length())
+    suspend fun download(url: String, file: File): Flow<DownloadState> {
+        val mFlow = flow {
+            val range = String.format(Locale.CHINESE, "bytes=%d-", file.length())
             Logger.e(range)
 //           val response = ApiManager.downloadApi.downloadFile(range,url)
             val retrofit = Retrofit.Builder()
                 .baseUrl(UrlConstants.BASE_URL)
                 .client(OkHttpClient())
                 .build()
-            val response = retrofit.create(DownloadAPiService::class.java).downloadFile(range,url)
-                if(response.isSuccessful) {
-                     saveToFile(response.body()!!,file,progress = {
-                         emit(DownloadState.InProgress(it))
-                     })
-                     emit(DownloadState.Success(file))
-                 } else {
-                     if(response.toString().contains("Requested Range Not Satisfiable")) { //range超出界限
-                         emit(DownloadState.Success(file))
-                     } else {
-                         emit(DownloadState.Error(IOException(response.toString())))
-                     }
-                 }
+            emit(DownloadState.Start(true))
+            val response = retrofit.create(DownloadAPiService::class.java).downloadFile(range, url)
+            if (response.isSuccessful) {
+                saveToFile(response.body()!!, file, progress = {
+                    emit(DownloadState.InProgress(it))
+                })
+                emit(DownloadState.Success(file))
+            } else {
+                if (response.toString().contains("Requested Range Not Satisfiable")) { //range超出界限
+                    emit(DownloadState.Success(file))
+                } else {
+                    emit(DownloadState.Error(IOException(response.toString())))
+                }
+            }
         }.retry(1) { cause ->
             Logger.e("retrying cause: $cause")
             true
@@ -52,7 +53,7 @@ object DownloadManager {
         return mFlow
     }
 
-    private inline fun saveToFile(responseBody: ResponseBody, file: File,progress:(Int) -> Unit) {
+    private inline fun saveToFile(responseBody: ResponseBody, file: File, progress: (Int) -> Unit) {
         val total = responseBody.contentLength()
         val fileLength = file.length()
         var bytesCopied = 0

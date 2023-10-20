@@ -1,4 +1,4 @@
-package com.xwl.common_lib.CustomMedia;
+package com.xwl.common_lib.custommedia;
 
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;

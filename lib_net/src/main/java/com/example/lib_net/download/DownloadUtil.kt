@@ -7,9 +7,6 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
 import com.example.lib_net.download.DownloadService.ServiceBinder
-import com.hjq.permissions.OnPermissionCallback
-import com.hjq.permissions.Permission
-import com.hjq.permissions.XXPermissions
 import com.orhanobut.logger.Logger
 import com.xwl.common_lib.constants.KeyConstant
 import com.xwl.common_lib.constants.KeyConstant.APP_ROOT_PATH
@@ -23,7 +20,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.io.File
-import java.io.IOException
 
 /**
  * @author  lxw
@@ -31,63 +27,32 @@ import java.io.IOException
  * descripe
  */
 object DownloadUtil {
-
     private var conn: ServiceConnection? = null
     fun startDownload(
         context: Context,
         url: String,
         fileName: String,
+        start: (Boolean) -> Unit,
         progress: (Int) -> Unit,
         success: (String) -> Unit,
         failure: (String) -> Unit
     ) {
-        checkPermission(
+        download(
             context,
             url,
             fileName,
+            start = start,
             progress = progress,
             success = success,
             failure = failure
         )
     }
 
-    private fun checkPermission(
-        context: Context,
-        url: String,
-        fileName: String,
-        progress: (Int) -> Unit,
-        success: (String) -> Unit,
-        failure: (String) -> Unit
-    ) {
-        XXPermissions.with(context)
-            .permission(Permission.WRITE_EXTERNAL_STORAGE)
-            .permission(Permission.READ_MEDIA_IMAGES)
-            .permission(Permission.READ_MEDIA_VIDEO)
-            .permission(Permission.READ_MEDIA_AUDIO)
-            .request(object : OnPermissionCallback {
-                override fun onGranted(permissions: List<String>, all: Boolean) {
-                    download(
-                        context,
-                        url,
-                        fileName,
-                        progress = progress,
-                        success = success,
-                        failure = failure
-                    )
-                }
-
-                override fun onDenied(permissions: List<String>, never: Boolean) {
-                    if (never) {
-                        showTips("请到设置界面手动授予读写内存权限")
-                    }
-                }
-            })
-    }
-
     private fun download(
         context: Context,
         url: String,
         fileName: String,
+        start: (Boolean) -> Unit,
         progress: (Int) -> Unit,
         success: (String) -> Unit,
         failure: (String) -> Unit
@@ -95,9 +60,11 @@ object DownloadUtil {
         Observable.create { emitter: ObservableEmitter<String?> ->
             initService(
                 progress = progress,
+                start = start,
                 success = success,
                 failure = failure
             )
+
             var savePath = ""
             var file: File? = null
             if (url.endsWith(".apk")) {
@@ -114,14 +81,12 @@ object DownloadUtil {
                 return@create
             }
             file?.let {
-                try {
-                    if (!it.exists()) {
-                        it.mkdirs()
-                    }
-                } catch (e: IOException) {
-                    Logger.e(e.message)
+                if (!it.exists()) {
+                    it.mkdirs()
                 }
             }
+            Logger.e("文件下载地址：${url}")
+            Logger.e("文件保存地址：${savePath}")
             if (file != null) {
                 emitter.onNext(savePath)
             }
@@ -132,9 +97,6 @@ object DownloadUtil {
 
                 // 默认最先调用复写的 onSubscribe（）
                 override fun onNext(path: String) {
-                    Logger.e("开始启动更新服务")
-                    Logger.e("mDownloadUrl-->$url")
-
                     if (conn == null) return
                     val intent = Intent(
                         ContextServiceProvider.service.applicationContext,
@@ -155,6 +117,7 @@ object DownloadUtil {
     }
 
     private fun initService(
+        start: (Boolean) -> Unit,
         progress: (Int) -> Unit,
         success: (String) -> Unit,
         failure: (String) -> Unit
@@ -164,6 +127,10 @@ object DownloadUtil {
                 val binder = iBinder as ServiceBinder
                 val service = binder.service
                 service!!.setOnDownloadListener(object : DownloadService.DownloadListener {
+                    override fun onStart(boolean: Boolean) {
+                        start.invoke(boolean)
+                    }
+
                     override fun onSuccess(path: String) {
                         showTips("下载完成")
                         success.invoke(path)

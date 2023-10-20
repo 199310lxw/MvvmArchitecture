@@ -10,10 +10,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.xwl.common_lib.CustomMedia.JZMediaAliyun;
-import com.xwl.common_lib.CustomMedia.JZMediaExo;
-import com.xwl.common_lib.CustomMedia.JZMediaIjk;
 import com.xwl.common_lib.R;
+import com.xwl.common_lib.custommedia.JZMediaAliyun;
+import com.xwl.common_lib.custommedia.JZMediaExo;
+import com.xwl.common_lib.custommedia.JZMediaIjk;
 import com.xwl.common_lib.dialog.TipsToast;
 
 import cn.jzvd.JZDataSource;

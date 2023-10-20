@@ -1,4 +1,4 @@
-package com.xwl.common_lib.CustomMedia;
+package com.xwl.common_lib.custommedia;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;

@@ -40,8 +40,10 @@ class DownloadService : LifecycleService() {
             mFilePath = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_FILE).toString()
             mFileName = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_FILE_NAME).toString()
             if (mFilePath != null) {
+                val fileType =
+                    mDownloadUrl.substring(mDownloadUrl.indexOf("."), mDownloadUrl.length)
                 if (mDownloadUrl.endsWith(".apk")) {
-                    mDownloadFile = File(mFilePath, "${mFileName}.apk")
+                    mDownloadFile = File(mFilePath, "${mFileName}$fileType")
                 } else if (mDownloadUrl.endsWith(".mp4")) {
                     mDownloadFile = File(mFilePath, "${mFileName}.mp4")
                 } else if (mDownloadUrl.endsWith(".m3u8")) {
@@ -72,6 +74,9 @@ class DownloadService : LifecycleService() {
         lifecycleScope.launch {
             DownloadManager.download(mDownloadUrl, file).collect {
                 when (it) {
+                    is DownloadState.Start -> {
+                        mDownloadListener?.onStart(it.boolean)
+                    }
                     is DownloadState.InProgress -> {
                         mDownloadListener?.onDownload(it.progress)
                     }
@@ -119,6 +124,7 @@ class DownloadService : LifecycleService() {
     }
 
     interface DownloadListener {
+        fun onStart(boolean: Boolean)
         fun onSuccess(path: String)
         fun onDownload(progress: Int)
         fun onError(msg: String)

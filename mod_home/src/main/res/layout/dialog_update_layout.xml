@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/yes"
+                    android:id="@+id/updateNow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -80,7 +80,7 @@
                     android:layout_marginRight="@dimen/dimen_size_dp_10"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="立即下载"
+                    android:text="立即更新"
                     android:visibility="visible"
                     android:textColor="@android:color/white"
                     android:textSize="15sp" />
@@ -91,7 +91,7 @@
                     android:layout_width="0dp"
                     android:layout_height="6dp"
                     android:layout_gravity="center_vertical"
-                    app:layout_constraintLeft_toLeftOf="@+id/yes"
+                    app:layout_constraintLeft_toLeftOf="@+id/updateNow"
                     android:visibility="gone"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/tv_progress"
@@ -117,11 +117,11 @@
 
 
             <TextView
-                android:id="@+id/tv_ignore"
+                android:id="@+id/tvIgnore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="忽略"
+                android:text="下次再说"
                 android:paddingStart="@dimen/dimen_size_dp_20"
                 android:paddingTop="@dimen/dimen_size_dp_16"
                 android:paddingEnd="@dimen/dimen_size_dp_20"

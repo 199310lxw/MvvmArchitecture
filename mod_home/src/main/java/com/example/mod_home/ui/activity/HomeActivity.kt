@@ -8,13 +8,13 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.mod_home.R
 import com.example.mod_home.adapters.FragmentAdapter
 import com.example.mod_home.databinding.ActivityHomeBinding
+import com.example.mod_home.dialog.UpdateDialog
 import com.example.mod_home.ui.fragment.HomeFragment
 import com.example.mod_home.ui.fragment.HotFragment
 import com.example.mod_home.ui.fragment.MessageFragment
 import com.example.mod_home.ui.fragment.MineFragment
 import com.example.mod_home.viewmodel.HomeViewModel
 import com.xwl.common_base.activity.BaseVmVbActivity
-import com.xwl.common_base.dialog.UpdateDialog
 import com.xwl.common_lib.constants.RoutMap
 import com.xwl.common_lib.constants.UrlConstants
 import com.xwl.common_lib.utils.AppExit
@@ -23,15 +23,17 @@ import com.xwl.common_lib.utils.AppExit
 class HomeActivity : BaseVmVbActivity<HomeViewModel, ActivityHomeBinding>() {
     private val fragmentList = arrayListOf<Fragment>()
     override fun initView(savedInstanceState: Bundle?) {
-//        checkVersion()
+        checkVersion()
         initTab()
     }
 
     private fun checkVersion() {
-        val mUpdateDialog =
-            UpdateDialog(this@HomeActivity, UrlConstants.APK_URL, "mvvmArchitecture")
-        mUpdateDialog.setVersionName("v1.1.0")
-        mUpdateDialog.show()
+//        val mUpdateDialog =
+//            UpdateDialog(this@HomeActivity, UrlConstants.APK_URL, "mvvmArchitecture")
+        UpdateDialog.Builder(this@HomeActivity).setForceUpdate(false)
+            .setDownloadUrl(UrlConstants.APK_URL).setVersionName("v1.2.0").show()
+//        mUpdateDialog.setVersionName("v1.1.0")
+//        mUpdateDialog.show()
     }
 
     private fun initTab() {
@@ -65,7 +67,7 @@ class HomeActivity : BaseVmVbActivity<HomeViewModel, ActivityHomeBinding>() {
             false
         }
     }
-    
+
 
     override fun onResume() {
         super.onResume()

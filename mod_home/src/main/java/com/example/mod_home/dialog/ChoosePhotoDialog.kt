@@ -23,7 +23,6 @@ class ChoosePhotoDialog {
             DialogPhotoChooseBinding.inflate(LayoutInflater.from(activity))
 
         init {
-
             initView()
         }
 

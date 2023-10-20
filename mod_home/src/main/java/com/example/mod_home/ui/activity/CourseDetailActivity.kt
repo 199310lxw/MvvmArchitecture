@@ -56,7 +56,9 @@ class CourseDetailActivity : BaseVmVbActivity<CourseListViewModel, ActivityCours
         mViewBinding.imgDownload.onClick {
             mVideoUrl?.let { it1 ->
                 mVideoName?.let { it2 ->
-                    DownloadUtil.startDownload(this, it1, it2, progress = {
+                    DownloadUtil.startDownload(this, it1, it2, start = {
+
+                    }, progress = {
                         mViewBinding.progressBar.progress = it
                         mViewBinding.tvProgress.text = String.format("%d%%", it)
                     }, success = {

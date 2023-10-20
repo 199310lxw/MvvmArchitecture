@@ -1,0 +1,23 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/white</item>
+        <!-- 解决 Android 5.1 及以上版本 Button 英文字符串自动变大写的问题 -->
+        <item name="android:textAllCaps">false</item>
+        <!-- 解决 ImageView 不能自动等比拉伸图片的问题 -->
+        <item name="android:adjustViewBounds">true</item>
+        <!-- 关闭 TextView 自带的文字间距 -->
+        <item name="android:includeFontPadding">false</item>
+        <!-- 默认提示颜色，Button、TextView 的提示文字颜色 -->
+        <item name="android:textColorHint">@color/color_FF757575</item>
+    </style>
+
+    <!-- 闪屏页主题样式 -->
+    <style name="SplashTheme" parent="AppTheme">
+        <!-- https://www.jianshu.com/p/d0d907754603 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
+
+</resources>
