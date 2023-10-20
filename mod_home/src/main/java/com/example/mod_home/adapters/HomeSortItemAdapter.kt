@@ -3,13 +3,11 @@ package com.example.mod_home.adapters
 import android.content.Context
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.QuickViewHolder
 import com.example.mod_home.R
 import com.xwl.common_lib.bean.HotBean
 import com.xwl.common_lib.ext.setUrlCircle
-import com.xwl.common_lib.utils.ScreenUtil
 
 /**
  * @author  lxw
@@ -20,9 +18,12 @@ class HomeSortItemAdapter : BaseQuickAdapter<HotBean, QuickViewHolder>() {
 
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: HotBean?) {
         val img = holder.getView<ImageView>(R.id.img)
-        val imgWidth = ScreenUtil.getScreenWidth() / 6 - 60
-        val params = LinearLayout.LayoutParams(imgWidth, imgWidth)
-        img.layoutParams = params
+//        val imgWidth = (ScreenUtil.getScreenWidth() - 600) / 4
+//        val params = LinearLayout.LayoutParams(
+//            imgWidth,
+//            imgWidth
+//        )
+//        img.layoutParams = params
         item?.let {
             holder.setText(R.id.tvName, it.title)
             img.setUrlCircle(it.mainPicUrl)

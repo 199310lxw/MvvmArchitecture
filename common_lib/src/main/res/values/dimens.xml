@@ -43,4 +43,7 @@
     <dimen name="dimen_size_sp_22">22sp</dimen>
     <dimen name="dimen_size_sp_24">24sp</dimen>
     <dimen name="dimen_size_sp_26">26sp</dimen>
+
+    <dimen name="common_button_height_42">42dp</dimen>
+    <dimen name="button_circle_size">999dp</dimen>
 </resources>

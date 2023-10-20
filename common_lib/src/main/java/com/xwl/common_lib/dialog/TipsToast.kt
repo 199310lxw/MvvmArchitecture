@@ -111,7 +111,7 @@ object TipsToast {
                     0,
                     0
                 )
-                toast?.setGravity(Gravity.TOP, 0, 0)
+                toast?.setGravity(Gravity.CENTER, 0, -100)
                 toast?.duration = duration
                 toast?.show()
             } catch (e: Exception) {

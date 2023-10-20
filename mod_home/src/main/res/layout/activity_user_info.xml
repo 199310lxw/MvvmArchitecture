@@ -358,6 +358,7 @@
             android:layout_marginTop="@dimen/dimen_size_dp_50"
             android:layout_marginRight="@dimen/dimen_size_dp_16"
             android:background="@color/color_0165B8"
+            android:foreground="?attr/selectableItemBackground"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:text="@string/default_save"

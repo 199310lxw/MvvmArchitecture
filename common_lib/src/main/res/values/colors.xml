@@ -13,4 +13,10 @@
     <color name="black_222">#222222</color>
     <color name="line_color">#f0f2f4</color>
     <color name="common_blue">#5573E7</color>
+
+    <!-- 按钮按压时的颜色 -->
+    <color name="common_button_pressed_color">#AA5A8DDF</color>
+    <!-- 按钮禁用时的颜色 -->
+    <color name="common_button_disable_color">#BBBBBB</color>
+    <color name="common_accent_color">#5A8DDF</color>
 </resources>

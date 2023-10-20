@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/shape_top_white_bg_14"
     tools:ignore="MissingDefaultResource">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_take_pictures"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_size_dp_50"
-        android:background="@color/white"
+        android:foreground="?attr/selectableItemBackground"
+        android:background="@drawable/shape_top_white_bg_14"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -43,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_size_dp_50"
         android:background="@color/white"
+        android:foreground="?attr/selectableItemBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl_take_pictures"
@@ -87,6 +90,7 @@
         android:layout_height="@dimen/dimen_size_dp_50"
         android:layout_marginTop="@dimen/dimen_size_dp_12"
         android:background="@color/white"
+        android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
         android:text="@string/default_cancel"
         android:textColor="@color/color_0165B8"
