@@ -16,7 +16,7 @@ object LoginDialogUtil {
 //            .setIsCancelVisible(false)
             .setCancelText("取消")
             .setContentText(msg)
-            .setConfirmText("好的")
+            .setConfirmText("是")
             .build()
         dialog.show(context.supportFragmentManager, "dialog")
         dialog.setOnItemClickListener(object : MessageDialog.OnItemClickListener {

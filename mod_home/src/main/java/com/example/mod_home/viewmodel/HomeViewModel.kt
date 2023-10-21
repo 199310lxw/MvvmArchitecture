@@ -66,7 +66,7 @@ class HomeViewModel : BaseViewModel() {
         return bannerLiveData
     }
 
-    fun getSortList(): MutableLiveData<ArrayList<HotBean>?> {
+    fun getSortList(showloading: Boolean): MutableLiveData<ArrayList<HotBean>?> {
         val sortLiveData: MutableLiveData<ArrayList<HotBean>?> =
             MutableLiveData<ArrayList<HotBean>?>()
         request(
@@ -79,7 +79,8 @@ class HomeViewModel : BaseViewModel() {
                 override fun onFailure(obj: Any?) {
                     error.value = obj.toString()
                 }
-            })
+            }, showloading
+        )
         return sortLiveData
     }
 

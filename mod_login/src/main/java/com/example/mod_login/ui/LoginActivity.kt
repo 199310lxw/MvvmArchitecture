@@ -64,7 +64,6 @@ class LoginActivity : BaseVmVbActivity<LoginViewModel, ActivityLoginBinding>() {
     }
 
     private fun login(phone: String, password: String) {
-//        mViewBinding.btnLoginCommit.showProgress()
         mViewModel.login(phone, password).observe(this) {
             it?.let {
                 UserServiceProvider.saveUserInfo(it)

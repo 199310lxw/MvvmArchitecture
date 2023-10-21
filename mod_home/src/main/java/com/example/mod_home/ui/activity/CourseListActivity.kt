@@ -41,13 +41,13 @@ class CourseListActivity : BaseVmVbActivity<CourseListViewModel, ActivityCourseL
         mViewBinding.refreshLayout.setOnRefreshListener {
             mIsRefresh = true
             mCurrentPage = 1
-            getData(mCurrentPage, size)
+            getData(mCurrentPage, size, false)
         }
         mViewBinding.refreshLayout.setOnLoadMoreListener {
             mIsRefresh = false
             mCurrentPage++
             Logger.e("----->${mCurrentPage}")
-            getData(mCurrentPage, size)
+            getData(mCurrentPage, size, false)
         }
     }
 
@@ -55,8 +55,8 @@ class CourseListActivity : BaseVmVbActivity<CourseListViewModel, ActivityCourseL
         getData(mCurrentPage, size)
     }
 
-    private fun getData(page: Int, size: Int) {
-        mViewModel.getCourseList(page, size, mType).observe(this) {
+    private fun getData(page: Int, size: Int, showloading: Boolean = true) {
+        mViewModel.getCourseList(page, size, mType, showloading).observe(this) {
             if (it != null) {
                 it.let {
                     if (mIsRefresh) {

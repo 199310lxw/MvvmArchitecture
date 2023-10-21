@@ -30,5 +30,7 @@ class UrlConstants {
         const val SORT_LIST_URL = "server/home/sort/"
 
         const val COURSE_LIST_URL = "server/course"
+
+        const val AGREENMENT_URL = "https://zhuanlan.zhihu.com/p/598904426"
     }
 }

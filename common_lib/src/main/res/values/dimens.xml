@@ -1,5 +1,6 @@
 <resources>
 
+    <dimen name="dimen_size_dp_half">0.5dp</dimen>
     <dimen name="dimen_size_dp_1">1dp</dimen>
     <dimen name="dimen_size_dp_2">2dp</dimen>
     <dimen name="dimen_size_dp_3">3dp</dimen>

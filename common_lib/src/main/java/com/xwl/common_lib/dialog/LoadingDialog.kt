@@ -7,20 +7,20 @@ import android.view.Window
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import com.xwl.common_lib.R
-import com.xwl.common_lib.databinding.DialogLoadingBinding
+import com.xwl.common_lib.databinding.LayoutLoadingDialogBinding
 
 /**
  * 通用加载中弹窗
  */
 class LoadingDialog(context: Context, theme: Int) : Dialog(context, R.style.loading_dialog) {
 
-    private var mBinding: DialogLoadingBinding
+    private var mBinding: LayoutLoadingDialogBinding
     private var animation: Animation? = null
 
     init {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setCanceledOnTouchOutside(false)
-        mBinding = DialogLoadingBinding.inflate(LayoutInflater.from(context))
+        mBinding = LayoutLoadingDialogBinding.inflate(LayoutInflater.from(context))
         setContentView(mBinding.root)
         initAnim()
     }

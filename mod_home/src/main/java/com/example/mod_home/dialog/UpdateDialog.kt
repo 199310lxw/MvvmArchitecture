@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentActivity
 import com.example.lib_net.download.DownloadUtil.startDownload
 import com.example.mod_home.databinding.DialogUpdateLayoutBinding
 import com.hjq.permissions.Permission
-import com.sum.user.dialog.ChoosePhotoDialog
 import com.xwl.common_base.dialog.BaseDialog
 import com.xwl.common_base.dialog.BaseDialogFragment
 import com.xwl.common_lib.callback.Permissions
@@ -25,7 +24,7 @@ import com.xwl.common_lib.utils.AppUtils
  */
 class UpdateDialog {
     class Builder(activity: FragmentActivity) :
-        BaseDialogFragment.Builder<ChoosePhotoDialog.Builder>(activity) {
+        BaseDialogFragment.Builder<Builder>(activity) {
         private val mBinding: DialogUpdateLayoutBinding =
             DialogUpdateLayoutBinding.inflate(LayoutInflater.from(activity))
 

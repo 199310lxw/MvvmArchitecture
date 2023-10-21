@@ -3,6 +3,7 @@
     <string name="default_no_data">暂无数据</string>
     <string name="txt_cancel">取消</string>
     <string name="txt_confirm">确定</string>
+    <string name="default_confirm">确认</string>
     <string name="video_url_error">视频地址有误</string>
     <string name="common_phone_input_hint">请输入手机号码</string>
     <string name="common_password_input_hint">请输入密码</string>

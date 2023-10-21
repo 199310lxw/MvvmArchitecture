@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">common_base</string>
     <string name="default_no_data">暂无数据</string>
+
+    <string name="user_pictures">拍照</string>
+    <string name="user_album">相册</string>
+
+    <string name="user_sex_boy">男</string>
+    <string name="user_sex_girl">女</string>
 </resources>

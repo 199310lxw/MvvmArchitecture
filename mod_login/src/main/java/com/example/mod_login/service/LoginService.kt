@@ -5,7 +5,6 @@ import android.content.Intent
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.mod_login.ui.LoginActivity
 import com.xwl.common_lib.constants.RoutMap
-import com.xwl.common_lib.manager.ActivityManager
 import com.xwl.common_lib.manager.UserManager
 import com.xwl.common_lib.service.ILoginService
 
@@ -25,7 +24,7 @@ class LoginService : ILoginService {
      */
     override fun skipLoginActivity(context: Context) {
         context.startActivity(Intent(context, LoginActivity::class.java))
-        ActivityManager.finishOtherActivity(LoginActivity::class.java)
+//        ActivityManager.finishOtherActivity(LoginActivity::class.java)
     }
 
     override fun init(context: Context?) {

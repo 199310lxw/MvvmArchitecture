@@ -43,7 +43,7 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
         initRv()
         getData()
         mViewBinding.refreshLayout.setOnRefreshListener {
-            getData()
+            getData(false)
         }
     }
 
@@ -93,9 +93,9 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
 
     }
 
-    private fun getData() {
+    private fun getData(showloading: Boolean = true) {
         getListData()
-        mViewModel.getSortList().observe(this) {
+        mViewModel.getSortList(showloading).observe(this) {
             it?.let {
                 getSortData(it)
             }.also {

@@ -107,7 +107,7 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
                     adapter.getItem(position)
                         ?.let { CourseListActivity.startActivity(mContext, it.type) }
                 } else {
-                    activity?.let { LoginDialogUtil.show(it, "用户未登陆，是否跳转登陆页登陆") }
+                    activity?.let { LoginDialogUtil.show(it, "用户未登陆，是否跳转登录页登录") }
                 }
             }
         })

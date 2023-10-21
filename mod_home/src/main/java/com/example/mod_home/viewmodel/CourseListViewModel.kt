@@ -21,7 +21,8 @@ class CourseListViewModel : BaseViewModel() {
     fun getCourseList(
         page: Int,
         size: Int,
-        type: Int
+        type: Int,
+        showloading: Boolean
     ): MutableLiveData<ArrayList<CourseListBean>?> {
         Logger.e("---->${type}")
         val courseListLiveData: MutableLiveData<ArrayList<CourseListBean>?> =
@@ -38,7 +39,8 @@ class CourseListViewModel : BaseViewModel() {
                     courseListLiveData.value = null
                     TipsToast.showTips(obj.toString())
                 }
-            })
+            }, showloading
+        )
 
         return courseListLiveData
     }

@@ -10,7 +10,6 @@ import com.example.mod_home.ui.activity.SettingActivity
 import com.example.mod_home.ui.activity.UserInfoActivity
 import com.example.mod_home.viewmodel.HomeViewModel
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
-import com.xwl.common_lib.dialog.MessageDialog
 import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.ext.setUrlCircleBorder
 import com.xwl.common_lib.provider.LoginServiceProvider
@@ -35,9 +34,6 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
         mViewBinding.imgSetting.onClick {
             startActivity(Intent(requireActivity(), SettingActivity::class.java))
         }
-        mViewBinding.btnLogout.onClick {
-            showLogoutDialog()
-        }
 
         UserServiceProvider.getUserLiveData().observe(this) {
             setView()
@@ -48,27 +44,6 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
         setView()
     }
 
-    private fun showLogoutDialog() {
-        val builder = MessageDialog.Builder()
-        val dialog = builder.setTitleText("提示")
-            .setCancelText("取消")
-            .setContentText("是否确认退出登陆？")
-            .setConfirmText("确认")
-            .build()
-        dialog.show(parentFragmentManager, "dialog")
-        dialog.setOnItemClickListener(object : MessageDialog.OnItemClickListener {
-            override fun onCancel() {
-
-            }
-
-            override fun onConfirm() {
-                UserServiceProvider.clearUserInfo()
-                setView()
-                dialog.dismiss()
-            }
-        })
-    }
-
     private fun setView() {
         UserServiceProvider.getUserInfo()?.let {
             mViewBinding.imgHeader.setUrlCircleBorder(
@@ -76,7 +51,7 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
                 6f,
                 R.color.white
             )
-            mViewBinding.tcNickName.text = it.getName()?.ifEmpty { "游客" }
+            mViewBinding.tcNickName.text = it.getName()?.ifEmpty { it.phone }
         } ?: kotlin.run {
             mViewBinding.imgHeader.setUrlCircleBorder(
                 "",

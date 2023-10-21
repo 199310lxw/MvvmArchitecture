@@ -25,15 +25,13 @@
 
         <com.xwl.common_lib.views.ClearEditText
             android:id="@+id/et_login_phone"
-            style="@style/EditTextStyle"
+            style="@style/PhoneEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_size_dp_40"
             android:layout_marginTop="@dimen/dimen_size_dp_10"
             android:hint="@string/common_phone_input_hint"
-            android:inputType="textVisiblePassword"
-            android:singleLine="true"
-            app:regexType="mobile" />
+            android:singleLine="true" />
 
         <View
             style="@style/line_horizontal"

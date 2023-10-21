@@ -37,10 +37,10 @@ class ClearEditText @JvmOverloads constructor(
      */
     init {
         //获取EditText的DrawableRight,假如没有设置我们就使用默认的图片
-        mClearDrawable = compoundDrawables[2]
+//        mClearDrawable = compoundDrawables[2]
         if (mClearDrawable == null) {
             //throw new NullPointerException("You can add drawableRight attribute in XML");
-            mClearDrawable = ContextCompat.getDrawable(context, R.mipmap.ic_delete_gray)
+            mClearDrawable = ContextCompat.getDrawable(context, R.drawable.icon_delete_gray)
         }
         mClearDrawable?.setBounds(
             0,
@@ -114,7 +114,7 @@ class ClearEditText @JvmOverloads constructor(
     ) {
         if (mHasFocus) {
             //获取焦点设置回之前的图标
-            mClearDrawable = ContextCompat.getDrawable(context, R.mipmap.ic_delete_gray)
+            mClearDrawable = ContextCompat.getDrawable(context, R.drawable.icon_delete_gray)
             mClearDrawable?.setBounds(
                 0,
                 0,

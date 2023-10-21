@@ -13,9 +13,7 @@ import com.tencent.smtt.sdk.WebViewClient
 import com.xwl.common_base.databinding.ActivityWebviewBinding
 import com.xwl.common_base.viewmodel.EmptyViewModel
 import com.xwl.common_lib.constants.KeyConstant
-import com.xwl.common_lib.ext.dismissLoadingExt
 import com.xwl.common_lib.ext.gone
-import com.xwl.common_lib.ext.showLoadingExt
 import com.xwl.common_lib.ext.visible
 
 /**
@@ -23,7 +21,7 @@ import com.xwl.common_lib.ext.visible
  * @date   2023/3/31 17:04
  * @desc   文字详情
  */
-class WebViewActivity : BaseVmVbActivity<EmptyViewModel,ActivityWebviewBinding>() {
+class WebViewActivity : BaseVmVbActivity<EmptyViewModel, ActivityWebviewBinding>() {
     private var mTitle = ""
 
     companion object {
@@ -47,7 +45,7 @@ class WebViewActivity : BaseVmVbActivity<EmptyViewModel,ActivityWebviewBinding>(
     override fun initData() {
         val url = intent?.getStringExtra(KeyConstant.KEY_URL)
         mTitle = intent?.getStringExtra(KeyConstant.KEY_TITLE) ?: ""
-        showLoadingExt()
+        mViewBinding.progressBar.visible()
         mViewBinding.webView.loadUrl(url)
     }
 
@@ -87,8 +85,9 @@ class WebViewActivity : BaseVmVbActivity<EmptyViewModel,ActivityWebviewBinding>(
          */
         override fun onProgressChanged(webView: WebView?, process: Int) {
             super.onProgressChanged(webView, process)
-            if(process == 100) {
-                dismissLoadingExt()
+            mViewBinding.progressBar.progress = process
+            if (process == 100) {
+                mViewBinding.progressBar.gone()
             }
         }
     }

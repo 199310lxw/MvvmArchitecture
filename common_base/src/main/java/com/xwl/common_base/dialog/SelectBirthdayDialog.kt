@@ -1,13 +1,11 @@
-package com.example.mod_home.dialog
+package com.xwl.common_base.dialog
 
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
-import com.example.mod_home.databinding.DialogPickerCalendarBinding
 import com.orhanobut.logger.Logger
-import com.xwl.common_base.dialog.BaseDialog
-import com.xwl.common_base.dialog.BaseDialogFragment
+import com.xwl.common_base.databinding.DialogPickerCalendarBinding
 import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.utils.ScreenUtil
 import com.xwl.common_lib.utils.ViewUtils

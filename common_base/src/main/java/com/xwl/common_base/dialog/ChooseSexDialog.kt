@@ -1,13 +1,11 @@
-package com.sum.user.dialog
+package com.xwl.common_base.dialog
 
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
-import com.example.mod_home.R
-import com.example.mod_home.databinding.DialogSexChooseBinding
-import com.xwl.common_base.dialog.BaseDialog
-import com.xwl.common_base.dialog.BaseDialogFragment
+import com.xwl.common_base.R
+import com.xwl.common_base.databinding.DialogSexChooseBinding
 import com.xwl.common_lib.ext.onClick
 
 /**
