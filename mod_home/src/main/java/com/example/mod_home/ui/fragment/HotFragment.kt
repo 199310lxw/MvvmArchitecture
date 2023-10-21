@@ -31,13 +31,13 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
         mViewBinding.refreshLayout.setOnRefreshListener {
             mIsRefresh = true
             mCurrentPage = 1
-            getData(mCurrentPage, size)
+            getData(mCurrentPage, size, false)
         }
         mViewBinding.refreshLayout.setOnLoadMoreListener {
             mIsRefresh = false
             mCurrentPage++
             Logger.e("----->${mCurrentPage}")
-            getData(mCurrentPage, size)
+            getData(mCurrentPage, size, false)
         }
     }
 
@@ -45,8 +45,8 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
         getData(1, size)
     }
 
-    private fun getData(page: Int, size: Int) {
-        mViewModel.getHotList(page, size).observe(this) {
+    private fun getData(page: Int, size: Int, showloading: Boolean = true) {
+        mViewModel.getHotList(page, size, showloading).observe(this) {
             if (it != null) {
                 it.let {
                     if (mIsRefresh) {

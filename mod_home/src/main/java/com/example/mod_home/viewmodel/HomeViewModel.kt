@@ -48,7 +48,7 @@ class HomeViewModel : BaseViewModel() {
 //    return liveData
 //}
 
-    fun getBannerList(): MutableLiveData<ArrayList<BannerBean>?> {
+    fun getBannerList(showloading: Boolean): MutableLiveData<ArrayList<BannerBean>?> {
 
         val bannerLiveData: MutableLiveData<ArrayList<BannerBean>?> =
             MutableLiveData<ArrayList<BannerBean>?>()
@@ -62,7 +62,8 @@ class HomeViewModel : BaseViewModel() {
                 override fun onFailure(obj: Any?) {
                     error.value = obj.toString()
                 }
-            })
+            }, showloading
+        )
         return bannerLiveData
     }
 
@@ -87,7 +88,11 @@ class HomeViewModel : BaseViewModel() {
     /**
      * 获取热门列表
      */
-    fun getHotList(page: Int, size: Int): MutableLiveData<ArrayList<HotBean>?> {
+    fun getHotList(
+        page: Int,
+        size: Int,
+        showloading: Boolean
+    ): MutableLiveData<ArrayList<HotBean>?> {
         val hotLiveData: MutableLiveData<ArrayList<HotBean>?> =
             MutableLiveData<ArrayList<HotBean>?>()
 
@@ -101,7 +106,8 @@ class HomeViewModel : BaseViewModel() {
                 override fun onFailure(obj: Any?) {
                     error.value = obj.toString()
                 }
-            })
+            }, showloading
+        )
 
         return hotLiveData
     }

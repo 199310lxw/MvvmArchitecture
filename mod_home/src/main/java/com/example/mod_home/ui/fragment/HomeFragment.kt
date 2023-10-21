@@ -99,8 +99,8 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
             it?.let {
                 getSortData(it)
             }.also {
-                mViewModel.getBannerList().observe(this) {
-                    it?.let {
+                mViewModel.getBannerList(showloading).observe(this) { data ->
+                    data?.let {
                         initBanner(it)
                         mViewBinding.refreshLayout.finishRefresh()
                     }
