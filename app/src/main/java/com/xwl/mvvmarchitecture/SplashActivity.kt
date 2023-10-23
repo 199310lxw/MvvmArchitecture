@@ -9,14 +9,9 @@ import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
-import com.hjq.permissions.OnPermissionCallback
-import com.hjq.permissions.Permission
-import com.hjq.permissions.XXPermissions
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_base.viewmodel.EmptyViewModel
 import com.xwl.common_lib.constants.RoutMap
-import com.xwl.common_lib.dialog.MessageDialog
-import com.xwl.common_lib.dialog.TipsToast.showTips
 import com.xwl.mvvmarchitecture.databinding.ActivityFlashBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -54,7 +49,6 @@ class SplashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() 
         splashScreen.setOnExitAnimationListener { splashScreenView ->
             lifecycleScope.launchWhenResumed {
                 flow {
-//                   delay(2000)
                     emit(true)
                 }.flowOn(Dispatchers.IO)
                     .collect {
@@ -72,67 +66,6 @@ class SplashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() 
 
     override fun initData() {
 
-    }
-
-    private fun checkPermission() {
-        XXPermissions.with(this@SplashActivity)
-            .permission(Permission.WRITE_EXTERNAL_STORAGE)
-            .permission(Permission.READ_MEDIA_IMAGES)
-            .permission(Permission.READ_MEDIA_VIDEO)
-            .permission(Permission.READ_MEDIA_AUDIO)
-            .request(object : OnPermissionCallback {
-                override fun onGranted(permissions: List<String>, all: Boolean) {
-                    if (all) {
-                        lifecycleScope.launchWhenResumed {
-                            flow {
-//                                delay(2000)
-                                emit(true)
-                            }.flowOn(Dispatchers.IO)
-                                .collect {
-                                    ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
-                                        .navigation(this@SplashActivity, object : NavCallback() {
-                                            override fun onArrival(postcard: Postcard?) {
-                                                finish()
-                                            }
-                                        })
-                                }
-                        }
-                    } else {
-                        if (!hasShowWarning) {
-                            showWarningDialog()
-                        }
-                    }
-                }
-
-                override fun onDenied(permissions: List<String>, never: Boolean) {
-                    if (never) {
-                        showTips("请到设置界面手动授予读写内存权限")
-//                        showWarningDialog()
-                    }
-                }
-            })
-    }
-
-    private fun showWarningDialog() {
-        hasShowWarning = true
-        val dialog = MessageDialog.Builder()
-            .setTitleText("提示")
-            .setCancelText("不同意")
-            .setConfirmText("同意")
-            .setContentText("应用需要获取相关权限才能打开，是否同意开启相关权限？")
-            .build()
-        dialog.setOnItemClickListener(object : MessageDialog.OnItemClickListener {
-            override fun onCancel() {
-                finish()
-            }
-
-            override fun onConfirm() {
-                dialog.dismiss()
-                checkPermission()
-            }
-
-        })
-        dialog.show(supportFragmentManager, "dialog")
     }
 
     override fun onStop() {

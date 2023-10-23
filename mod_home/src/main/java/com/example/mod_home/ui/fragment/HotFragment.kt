@@ -9,10 +9,10 @@ import com.example.mod_home.ui.activity.CourseListActivity
 import com.example.mod_home.viewmodel.HomeViewModel
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
+import com.xwl.common_base.utils.LoginDialogUtil
 import com.xwl.common_lib.bean.HotBean
 import com.xwl.common_lib.provider.UserServiceProvider
 import com.xwl.common_lib.utils.ClickUtil
-import com.xwl.common_lib.utils.LoginDialogUtil
 
 class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() {
     private lateinit var mAdapter: HotAdapter

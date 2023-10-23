@@ -15,6 +15,7 @@
         android:textColor="@color/color_CC000000"
         android:layout_marginTop="@dimen/dimen_size_dp_20"
         android:textStyle="bold"
+        android:text="提示"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

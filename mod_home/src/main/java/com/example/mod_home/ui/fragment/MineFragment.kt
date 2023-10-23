@@ -32,7 +32,7 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
             }
         }
         mViewBinding.imgSetting.onClick {
-            startActivity(Intent(requireActivity(), SettingActivity::class.java))
+            startActivity(Intent(activity, SettingActivity::class.java))
         }
 
         UserServiceProvider.getUserLiveData().observe(this) {
