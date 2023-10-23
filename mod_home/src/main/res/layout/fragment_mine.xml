@@ -24,6 +24,20 @@
                 android:src="@drawable/topbg"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_size_dp_60"
+                app:layout_constraintTop_toBottomOf="@+id/imgTopBg"
+                android:layout_marginTop="-30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/dimen_size_dp_40"
+                android:layout_marginEnd="@dimen/dimen_size_dp_40"
+                android:padding="@dimen/dimen_size_dp_6"
+                android:background="@drawable/shape_bg_white_corner_12">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgHeader"
                 android:layout_width="@dimen/dimen_size_dp_70"

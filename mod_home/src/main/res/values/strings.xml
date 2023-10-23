@@ -26,6 +26,7 @@
     <string name="update_status_successful">下载完成，点击安装</string>
 
     <string name="default_logout">退出登录</string>
+    <string name="search">搜索</string>
 
 
 </resources>

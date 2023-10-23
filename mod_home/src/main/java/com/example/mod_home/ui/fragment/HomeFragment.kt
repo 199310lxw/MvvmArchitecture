@@ -1,5 +1,6 @@
 package com.example.mod_home.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.ConcatAdapter
@@ -8,6 +9,11 @@ import com.example.mod_home.adapters.HomeAdapter
 import com.example.mod_home.adapters.HomeSortAdapter
 import com.example.mod_home.databinding.FragmentHomeBinding
 import com.example.mod_home.viewmodel.HomeViewModel
+import com.scwang.smart.refresh.layout.api.RefreshFooter
+import com.scwang.smart.refresh.layout.api.RefreshHeader
+import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.scwang.smart.refresh.layout.constant.RefreshState
+import com.scwang.smart.refresh.layout.listener.OnMultiListener
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
 import com.xwl.common_lib.bean.BannerBean
 import com.xwl.common_lib.bean.HotBean
@@ -42,20 +48,98 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
     override fun initView(savedInstanceState: Bundle?, view: View?) {
         initRv()
         getData()
-        mViewBinding.refreshLayout.setOnRefreshListener {
-            getData(false)
-        }
+        mViewBinding.refreshLayout.setOnMultiListener(object : OnMultiListener {
+            override fun onRefresh(refreshLayout: RefreshLayout) {
+                getData(false)
+            }
+
+            override fun onLoadMore(refreshLayout: RefreshLayout) {
+                mViewBinding.refreshLayout.finishLoadMore()
+            }
+
+            @SuppressLint("RestrictedApi")
+            override fun onStateChanged(
+                refreshLayout: RefreshLayout,
+                oldState: RefreshState,
+                newState: RefreshState
+            ) {
+
+            }
+
+            override fun onHeaderMoving(
+                header: RefreshHeader?,
+                isDragging: Boolean,
+                percent: Float,
+                offset: Int,
+                headerHeight: Int,
+                maxDragHeight: Int
+            ) {
+
+            }
+
+            override fun onHeaderReleased(
+                header: RefreshHeader?,
+                headerHeight: Int,
+                maxDragHeight: Int
+            ) {
+
+            }
+
+            override fun onHeaderStartAnimator(
+                header: RefreshHeader?,
+                headerHeight: Int,
+                maxDragHeight: Int
+            ) {
+
+            }
+
+            override fun onHeaderFinish(header: RefreshHeader?, success: Boolean) {
+
+            }
+
+            override fun onFooterMoving(
+                footer: RefreshFooter?,
+                isDragging: Boolean,
+                percent: Float,
+                offset: Int,
+                footerHeight: Int,
+                maxDragHeight: Int
+            ) {
+                // 上拉加载时，保证吸顶头部不被推出屏幕。
+                // 如果你本身就设置了吸顶偏移量，那么这里的offset计算你的偏移量加offset
+                mViewBinding.scrollerLayout.stickyOffset = offset
+            }
+
+            override fun onFooterReleased(
+                footer: RefreshFooter?,
+                footerHeight: Int,
+                maxDragHeight: Int
+            ) {
+
+            }
+
+            override fun onFooterStartAnimator(
+                footer: RefreshFooter?,
+                footerHeight: Int,
+                maxDragHeight: Int
+            ) {
+
+            }
+
+            override fun onFooterFinish(footer: RefreshFooter?, success: Boolean) {
+            }
+        })
     }
 
     private fun getListData() {
         val lists = arrayListOf<HotBean>()
-//        for (index in 0 until 4) {
-//            val bean = HotBean()
-//            bean.mainPicUrl =
-//                "https://img1.baidu.com/it/u=174314668,4200091718&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=800"
-//            bean.title = "hhhhhhhhh"
-//            lists.add(bean)
-//        }
+        for (index in 0 until 14) {
+            val bean = HotBean()
+            bean.mainPicUrl =
+                "https://img2.baidu.com/it/u=3899920834,1058134886&fm=253&fmt=auto&app=138&f=JPEG?w=650&h=406"
+            bean.title = "hhhhhhhhh"
+            lists.add(bean)
+        }
         mAdapter.submitList(lists)
 
     }
@@ -84,7 +168,7 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
             .setPageTransformer(AlphaPageTransformer())
             .addBannerLifecycleObserver(this).indicator =
             CircleIndicator(requireActivity())
-        mViewBinding.banner.setOnBannerListener { data, position ->
+        mViewBinding.banner.setOnBannerListener { _, _ ->
 
         }
     }
@@ -93,23 +177,19 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
 
     }
 
-    private fun getData(showloading: Boolean = true) {
+    private fun getData(showLoading: Boolean = true) {
         getListData()
-        mViewModel.getSortList(showloading).observe(this) {
+        mViewModel.getSortList(showLoading).observe(this) {
             it?.let {
                 getSortData(it)
             }.also {
-                mViewModel.getBannerList(showloading).observe(this) { data ->
-                    data?.let {
-                        initBanner(it)
+                mViewModel.getBannerList(showLoading).observe(this) { data ->
+                    data?.let { it1 ->
+                        initBanner(it1)
                         mViewBinding.refreshLayout.finishRefresh()
                     }
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 }

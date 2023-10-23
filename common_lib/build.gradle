@@ -98,5 +98,7 @@ dependencies {
     implementation rootProject.ext.dependencies.AliyunPlayer
     implementation rootProject.ext.dependencies.AlivcConan
 
+    api rootProject.ext.dependencies.ConsecutiveScroller
+
 
 }

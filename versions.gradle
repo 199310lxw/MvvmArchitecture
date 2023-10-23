@@ -34,6 +34,7 @@ ext {
             exoplayer_version = '2.12.1',
             banner_version = '2.2.2',
             mmkv_version = '1.2.15',
+            consecutivescroller_version = '4.6.4',
     ]
 
     dependencies = [
@@ -77,6 +78,8 @@ ext {
 
             banner                    : "io.github.youth5201314:banner:$rootProject.banner_version",
 
-            mmkv                      : "com.tencent:mmkv:$rootProject.mmkv_version"
+            mmkv                      : "com.tencent:mmkv:$rootProject.mmkv_version",
+
+            ConsecutiveScroller       : "com.github.donkingliang:ConsecutiveScroller:$rootProject.consecutivescroller_version"
     ]
 }
