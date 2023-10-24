@@ -1,19 +1,28 @@
 package com.example.mod_home.ui.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import cn.jzvd.Jzvd
 import cn.jzvd.JzvdStd
+import com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout
 import com.example.lib_net.download.DownloadUtil
+import com.example.mod_home.R
+import com.example.mod_home.adapters.RecommendAdapter
 import com.example.mod_home.databinding.ActivityCourseDetailBinding
-import com.example.mod_home.viewmodel.CourseListViewModel
+import com.example.mod_home.viewmodel.CourseDetailViewModel
+import com.gyf.immersionbar.ImmersionBar
 import com.xwl.common_base.activity.BaseVmVbActivity
+import com.xwl.common_base.dialog.ShareDialog
 import com.xwl.common_lib.constants.KeyConstant
+import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.dialog.TipsToast.showTips
+import com.xwl.common_lib.ext.gone
 import com.xwl.common_lib.ext.onClick
-import com.xwl.common_lib.ext.setUrl
+import com.xwl.common_lib.ext.setScanImage
+import com.xwl.common_lib.ext.visible
 import com.xwl.common_lib.utils.ScreenRotateUtils
 
 
@@ -22,7 +31,7 @@ import com.xwl.common_lib.utils.ScreenRotateUtils
  * @date 2023/10/9
  * descripe
  */
-class CourseDetailActivity : BaseVmVbActivity<CourseListViewModel, ActivityCourseDetailBinding>(),
+class CourseDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityCourseDetailBinding>(),
     ScreenRotateUtils.OrientationChangeListener {
 
     private var mVideoUrl: String? = null
@@ -30,6 +39,13 @@ class CourseDetailActivity : BaseVmVbActivity<CourseListViewModel, ActivityCours
     private var mVideoName: String? = null
 
     private var conn: ServiceConnection? = null
+
+    private lateinit var mRecommendAdapter: RecommendAdapter
+
+
+    private var mCurrentPage = 1
+    private var mIsRefresh = true
+    private var totalSize = 10
 
     companion object {
         fun startActivity(mContext: Context, videoUrl: String, posterUrl: String, name: String) {
@@ -42,6 +58,7 @@ class CourseDetailActivity : BaseVmVbActivity<CourseListViewModel, ActivityCours
     }
 
     override fun initView(savedInstanceState: Bundle?) {
+        initbar()
         mVideoUrl = intent.getStringExtra(KeyConstant.KEY_COURSE_VIDEO_URL)
         mPosterUrl = intent.getStringExtra(KeyConstant.KEY_COURSE_VIDEO_POSTER_URL)
         mVideoName = intent.getStringExtra(KeyConstant.KEY_COURSE_VIDEO_NAME)
@@ -50,25 +67,57 @@ class CourseDetailActivity : BaseVmVbActivity<CourseListViewModel, ActivityCours
             mVideoUrl,
             mVideoName
         )
-        mViewBinding.jzVideo.posterImageView.setUrl(mPosterUrl)
+        mViewBinding.jzVideo.posterImageView.setScanImage(mVideoUrl)
         mViewBinding.jzVideo.startVideo()
         ScreenRotateUtils.getInstance(this.applicationContext).setOrientationChangeListener(this)
-        mViewBinding.imgDownload.onClick {
+        mViewBinding.tvDownload.onClick {
             mVideoUrl?.let { it1 ->
                 mVideoName?.let { it2 ->
                     DownloadUtil.startDownload(this, it1, it2, start = {
-
+                        mViewBinding.downloadProgressbar.visible()
                     }, progress = {
-                        mViewBinding.progressBar.progress = it
-                        mViewBinding.tvProgress.text = String.format("%d%%", it)
+                        mViewBinding.downloadProgressbar.progress = it
+                        mViewBinding.tvDownload.text = String.format("%d%%", it)
                     }, success = {
-                        showTips("下载成功")
+                        showTips("下载成功,请到我的下载页面查看详情")
+                        mViewBinding.downloadProgressbar.gone()
+                        mViewBinding.tvDownload.text = resources.getString(R.string.default_cache)
                     }, failure = {
                         showTips(it)
                     })
                 }
             }
         }
+
+        mViewBinding.tvShare.onClick {
+            ShareDialog.Builder(this@CourseDetailActivity)
+                .setOnItemClickListener { i, s ->
+                    TipsToast.showTips("分享到：${s}")
+                }
+                .show()
+        }
+
+
+        mViewBinding.smartRefresh.setOnRefreshListener {
+            getData()
+        }
+
+        mViewBinding.scrollerLayout.onStickyChangeListener =
+            ConsecutiveScrollerLayout.OnStickyChangeListener { oldStickyView, newStickyView ->
+                if (newStickyView != null && oldStickyView == null) {
+                    mViewBinding.llTool.setBackgroundColor(resources.getColor(R.color.black))
+                } else {
+                    mViewBinding.llTool.setBackgroundColor(resources.getColor(R.color.black_73))
+                }
+            }
+    }
+
+    @SuppressLint("ResourceType")
+    private fun initbar() {
+        ImmersionBar.with(this)
+            .statusBarDarkFont(false) //状态栏字体是深色，不写默认为亮色
+            .statusBarColor(R.color.black)
+            .init()
     }
 
     override fun onResume() {
@@ -78,9 +127,49 @@ class CourseDetailActivity : BaseVmVbActivity<CourseListViewModel, ActivityCours
     }
 
     override fun initData() {
-
+        initRecomendList()
+        getData()
     }
 
+    private fun getData() {
+        mViewModel.getRecommendList(mCurrentPage, 10, showloading = true).observe(this) {
+            mViewBinding.tvShare.text = "34"
+            mViewBinding.tvDicuss.text = "0"
+            if (it != null) {
+                it.let {
+                    if (mIsRefresh) {
+                        if (it.isEmpty()) {
+                            mRecommendAdapter.setEmptyViewLayout(
+                                this@CourseDetailActivity,
+                                com.xwl.common_lib.R.layout.view_empty_data
+                            )
+                        }
+                    } else if (it.size >= totalSize) {
+                        mViewBinding.smartRefresh.setEnableLoadMore(true)
+                    }
+                    mRecommendAdapter.submitList(it)
+                    mViewBinding.smartRefresh.finishRefresh()
+                }
+            } else {
+                if (mIsRefresh) {
+                    mRecommendAdapter.setEmptyViewLayout(
+                        this@CourseDetailActivity,
+                        com.xwl.common_lib.R.layout.view_empty_data
+                    )
+                    mViewBinding.smartRefresh.finishRefresh()
+                } else {
+                    mCurrentPage--
+                    mViewBinding.smartRefresh.finishLoadMoreWithNoMoreData()
+                }
+            }
+        }
+    }
+
+
+    private fun initRecomendList() {
+        mRecommendAdapter = RecommendAdapter()
+        mViewBinding.rvRecommend.adapter = mRecommendAdapter
+    }
 
     override fun orientationChange(orientation: Int) {
         if (Jzvd.CURRENT_JZVD != null && (mViewBinding.jzVideo.state == Jzvd.STATE_AUTO_COMPLETE || mViewBinding.jzVideo.state == Jzvd.STATE_PLAYING || mViewBinding.jzVideo.state == Jzvd.STATE_PAUSE)

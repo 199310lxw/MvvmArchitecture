@@ -135,7 +135,7 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
         val lists = arrayListOf<HotBean>()
         for (index in 0 until 14) {
             val bean = HotBean()
-            bean.mainPicUrl =
+            bean.posterUrl =
                 "https://img2.baidu.com/it/u=3899920834,1058134886&fm=253&fmt=auto&app=138&f=JPEG?w=650&h=406"
             bean.title = "hhhhhhhhh"
             lists.add(bean)

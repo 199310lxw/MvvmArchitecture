@@ -20,6 +20,7 @@
     <dimen name="dimen_size_dp_18">18dp</dimen>
     <dimen name="dimen_size_dp_19">19dp</dimen>
     <dimen name="dimen_size_dp_20">20dp</dimen>
+    <dimen name="dimen_size_dp_24">24dp</dimen>
     <dimen name="dimen_size_dp_30">30dp</dimen>
     <dimen name="dimen_size_dp_40">40dp</dimen>
     <dimen name="dimen_size_dp_46">46dp</dimen>

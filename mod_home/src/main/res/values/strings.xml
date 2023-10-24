@@ -27,6 +27,8 @@
 
     <string name="default_logout">退出登录</string>
     <string name="search">搜索</string>
+    <string name="default_collection">收藏</string>
+    <string name="default_cache">缓存</string>
 
 
 </resources>

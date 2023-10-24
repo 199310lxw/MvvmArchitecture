@@ -7,8 +7,9 @@ package com.xwl.common_lib.bean
  */
 data class HotBean(
     var id: Int = 0,
-    var mainPicUrl: String = "",
+    var posterUrl: String = "",
+    var videoUrl: String = "",
     var title: String = "",
-    var type: Int = 0
+    var type: String = ""
 ) {
 }

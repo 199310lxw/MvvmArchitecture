@@ -35,11 +35,11 @@ fun ImageView.setUrl(url: String?) {
         return
     }
     Glide.with(context).load(url)
-            .placeholder(R.mipmap.default_img) // 占位符，异常时显示的图片
-            .error(R.mipmap.default_img) // 错误时显示的图片
-            .skipMemoryCache(false) //启用内存缓存
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE) //磁盘缓存策略
-            .into(this)
+        .placeholder(R.mipmap.default_img) // 占位符，异常时显示的图片
+        .error(R.mipmap.default_img) // 错误时显示的图片
+        .skipMemoryCache(false) //启用内存缓存
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE) //磁盘缓存策略
+        .into(this)
 }
 
 /**
@@ -53,12 +53,12 @@ fun ImageView.loadFile(file: File?) {
     //请求配置
     val options = RequestOptions.circleCropTransform()
     Glide.with(context).load(file)
-            .placeholder(R.mipmap.default_head) // 占位符，异常时显示的图片
-            .error(R.mipmap.default_head) // 错误时显示的图片
-            .skipMemoryCache(false) //启用内存缓存
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE) //磁盘缓存策略
-            .apply(options) // 圆形
-            .into(this)
+        .placeholder(R.mipmap.default_head) // 占位符，异常时显示的图片
+        .error(R.mipmap.default_head) // 错误时显示的图片
+        .skipMemoryCache(false) //启用内存缓存
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE) //磁盘缓存策略
+        .apply(options) // 圆形
+        .into(this)
 }
 
 /**
@@ -68,12 +68,12 @@ fun ImageView.loadFile(file: File?) {
 fun ImageView.setUrlNoCache(url: String?) {
     if (ActivityManager.isActivityDestroy(context)) return
     Glide.with(context).load(url)
-            .placeholder(R.mipmap.default_img)
-            .error(R.mipmap.default_img)
-            .priority(Priority.HIGH)
-            .skipMemoryCache(true) //不启动缓存
-            .diskCacheStrategy(DiskCacheStrategy.NONE) //不启用磁盘策略
-            .into(this)
+        .placeholder(R.mipmap.default_img)
+        .error(R.mipmap.default_img)
+        .priority(Priority.HIGH)
+        .skipMemoryCache(true) //不启动缓存
+        .diskCacheStrategy(DiskCacheStrategy.NONE) //不启用磁盘策略
+        .into(this)
 }
 
 /**
@@ -85,12 +85,12 @@ fun ImageView.setUrlCircle(url: String?) {
     //请求配置
     val options = RequestOptions.circleCropTransform()
     Glide.with(context).load(url)
-            .placeholder(R.mipmap.default_head)
-            .error(R.mipmap.default_head)
-            .skipMemoryCache(false) //启用内存缓存
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .apply(options)// 圆形
-            .into(this)
+        .placeholder(R.mipmap.default_head)
+        .error(R.mipmap.default_head)
+        .skipMemoryCache(false) //启用内存缓存
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        .apply(options)// 圆形
+        .into(this)
 }
 
 /**
@@ -102,12 +102,12 @@ fun ImageView.setUrlCircle(url: String?) {
 fun ImageView.setUrlCircleBorder(url: String?, borderWidth: Float, borderColor: Int) {
     if (ActivityManager.isActivityDestroy(context)) return
     Glide.with(context).load(url)
-            .placeholder(R.mipmap.default_head)
-            .error(R.mipmap.default_head)
-            .skipMemoryCache(false) //启用内存缓存
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .transform(CircleBorderTransform(borderWidth, borderColor)) // 圆形
-            .into(this)
+        .placeholder(R.mipmap.default_head)
+        .error(R.mipmap.default_head)
+        .skipMemoryCache(false) //启用内存缓存
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        .transform(CircleBorderTransform(borderWidth, borderColor)) // 圆形
+        .into(this)
 }
 
 /**
@@ -122,12 +122,38 @@ fun ImageView.setUrlCircleBorder(url: String?, borderWidth: Float, borderColor: 
 fun ImageView.setUrlRound(url: String?, radius: Int = 10) {
     if (ActivityManager.isActivityDestroy(context)) return
     Glide.with(context).load(url)
-            .placeholder(R.mipmap.default_img)
-            .error(R.mipmap.default_img)
-            .skipMemoryCache(false) // 启用内存缓存
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .transform(CenterCrop(), RoundedCorners(radius))
-            .into(this)
+        .placeholder(R.mipmap.default_img)
+        .error(R.mipmap.default_img)
+        .skipMemoryCache(false) // 启用内存缓存
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        .transform(CenterCrop(), RoundedCorners(radius))
+        .into(this)
+}
+
+
+/**
+ * 加载视频第一帧
+ */
+
+fun ImageView.loadVideoFirstFrameRound(url: String?, radius: Int = 10) {
+    if (ActivityManager.isActivityDestroy(context)) return
+
+    val options: RequestOptions = RequestOptions()
+        .skipMemoryCache(true)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .frame(1000000)
+        .error(R.mipmap.default_img)
+        .placeholder(R.mipmap.default_img)
+        .override(ScreenUtil.getScreenWidth() / 2 - 40, ScreenUtil.dip2px(120f))
+        .centerCrop()
+
+    Glide.with(context)
+        .load(url)
+        .apply(options)
+        .skipMemoryCache(false) // 启用内存缓存
+//        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+//        .transform(CenterCrop(), RoundedCorners(radius))
+        .into(this)
 }
 
 /**
@@ -138,12 +164,12 @@ fun ImageView.setUrlRound(url: String?, radius: Int = 10) {
 fun ImageView.setUrlErrorIcon(url: String?, @DrawableRes errorRes: Int) {
     if (ActivityManager.isActivityDestroy(context)) return
     Glide.with(context).load(url)
-            .placeholder(errorRes)
-            .error(errorRes)
-            .priority(Priority.HIGH)
-            .skipMemoryCache(true) //不启动缓存
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .into(this)
+        .placeholder(errorRes)
+        .error(errorRes)
+        .priority(Priority.HIGH)
+        .skipMemoryCache(true) //不启动缓存
+        .diskCacheStrategy(DiskCacheStrategy.NONE)
+        .into(this)
 }
 
 /**
@@ -154,14 +180,14 @@ fun ImageView.setUrlErrorIcon(url: String?, @DrawableRes errorRes: Int) {
 fun ImageView.setUrlAsBitmap(url: String?, callBack: (Bitmap) -> Unit) {
     if (ActivityManager.isActivityDestroy(context)) return
     Glide.with(context).asBitmap().load(url)
-            .placeholder(R.mipmap.default_img)
-            .error(R.mipmap.default_img)
-            .into(object : SimpleTarget<Bitmap>() {
-                override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
-                    setImageBitmap(bitmap)
-                    callBack(bitmap)
-                }
-            })
+        .placeholder(R.mipmap.default_img)
+        .error(R.mipmap.default_img)
+        .into(object : SimpleTarget<Bitmap>() {
+            override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
+                setImageBitmap(bitmap)
+                callBack(bitmap)
+            }
+        })
 }
 
 /**
@@ -171,11 +197,11 @@ fun ImageView.setUrlAsBitmap(url: String?, callBack: (Bitmap) -> Unit) {
 fun ImageView.setUrlGif(url: String?) {
     if (ActivityManager.isActivityDestroy(context)) return
     Glide.with(context).asGif().load(url)
-            .skipMemoryCache(true)
-            .diskCacheStrategy(DiskCacheStrategy.DATA)
-            .placeholder(R.mipmap.default_img)
-            .error(R.mipmap.default_img)
-            .into(this)
+        .skipMemoryCache(true)
+        .diskCacheStrategy(DiskCacheStrategy.DATA)
+        .placeholder(R.mipmap.default_img)
+        .error(R.mipmap.default_img)
+        .into(this)
 }
 
 /**
@@ -202,26 +228,29 @@ fun ImageView.setScanImage(url: String?) {
     if (ActivityManager.isActivityDestroy(context)) return
     //获取bitmap根据Drawable设定图片显示尺寸
     Glide.with(context).asDrawable().load(url)
-            .placeholder(R.mipmap.default_img)
-            .skipMemoryCache(false)
-            .diskCacheStrategy(DiskCacheStrategy.DATA)
-            .error(R.mipmap.default_img)
-            .into(object : CustomTarget<Drawable?>() {
-                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable?>?) {
-                    val width = resource.intrinsicWidth
-                    val height = resource.intrinsicHeight
-                    val lp = layoutParams
-                    lp.width = ScreenUtil.getScreenWidth()
-                    val tempHeight = height * (lp.width.toFloat() / width)
-                    lp.height = tempHeight.toInt()
-                    layoutParams = lp
-                    layoutParams = lp
-                    setImageDrawable(resource)
-                    //Glide.with(context).load(drawable).override(lp.width, lp.height).into(this)
-                }
+        .placeholder(R.mipmap.default_img)
+        .skipMemoryCache(false)
+        .diskCacheStrategy(DiskCacheStrategy.DATA)
+        .error(R.mipmap.default_img)
+        .into(object : CustomTarget<Drawable?>() {
+            override fun onResourceReady(
+                resource: Drawable,
+                transition: Transition<in Drawable?>?
+            ) {
+                val width = resource.intrinsicWidth
+                val height = resource.intrinsicHeight
+                val lp = layoutParams
+                lp.width = ScreenUtil.getScreenWidth()
+                val tempHeight = height * (lp.width.toFloat() / width)
+                lp.height = tempHeight.toInt()
+                layoutParams = lp
+                layoutParams = lp
+                setImageDrawable(resource)
+                //Glide.with(context).load(drawable).override(lp.width, lp.height).into(this)
+            }
 
-                override fun onLoadCleared(placeholder: Drawable?) {
-                }
-            })
+            override fun onLoadCleared(placeholder: Drawable?) {
+            }
+        })
 }
 

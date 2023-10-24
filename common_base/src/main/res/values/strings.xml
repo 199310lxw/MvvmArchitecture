@@ -7,4 +7,11 @@
 
     <string name="user_sex_boy">男</string>
     <string name="user_sex_girl">女</string>
+
+    <string name="share_title">分享到...</string>
+    <string name="share_platform_wechat">微信</string>
+    <string name="share_platform_moment">朋友圈</string>
+    <string name="share_platform_qq">QQ</string>
+    <string name="share_platform_qzone">QQ空间</string>
+    <string name="share_platform_link">复制链接</string>
 </resources>

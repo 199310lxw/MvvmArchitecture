@@ -26,7 +26,7 @@ class HomeSortItemAdapter : BaseQuickAdapter<HotBean, QuickViewHolder>() {
 //        img.layoutParams = params
         item?.let {
             holder.setText(R.id.tvName, it.title)
-            img.setUrlCircle(it.mainPicUrl)
+            img.setUrlCircle(it.posterUrl)
         }
     }
 

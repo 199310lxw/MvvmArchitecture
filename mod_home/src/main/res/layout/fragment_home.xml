@@ -52,7 +52,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clSearch"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_size_dp_50"
+                android:layout_height="@dimen/dimen_size_dp_60"
                 app:layout_isSticky="true"
                 android:background="@color/white"
                 android:layout_marginTop="@dimen/dimen_size_dp_10"
@@ -67,14 +67,16 @@
                 <LinearLayout
                     android:id="@+id/llSearch"
                     android:layout_width="0dp"
-                    android:layout_height="36dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/shape_bg_search"
                     app:layout_constraintStart_toEndOf="@+id/view1"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/dimen_size_dp_5"
+                    android:layout_marginTop="@dimen/dimen_size_dp_20"
+                    android:layout_marginBottom="@dimen/dimen_size_dp_8"
                     app:layout_constraintEnd_toStartOf="@+id/view2"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"

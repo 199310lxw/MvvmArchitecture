@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.QuickViewHolder
 import com.example.mod_home.R
 import com.xwl.common_lib.bean.HotBean
-import com.xwl.common_lib.ext.setUrlRound
+import com.xwl.common_lib.ext.loadVideoFirstFrameRound
 import com.xwl.common_lib.utils.ScreenUtil
 
 /**
@@ -16,16 +16,17 @@ import com.xwl.common_lib.utils.ScreenUtil
  * @date 2023/10/6
  * descripe
  */
-class HotAdapter : BaseQuickAdapter<HotBean, QuickViewHolder>() {
-    
+class VideoAdapter : BaseQuickAdapter<HotBean, QuickViewHolder>() {
+
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: HotBean?) {
-        val img = holder.getView<ImageView>(R.id.img)
-        val imgWidth = ScreenUtil.getScreenWidth() / 2 - 60
-        val params = LinearLayout.LayoutParams(imgWidth, imgWidth * 3 / 4)
-        img.layoutParams = params
+        val imgVideo = holder.getView<ImageView>(R.id.imgVideo)
+        val imgWidth = ScreenUtil.getScreenWidth() / 2 - 40
+        val params = LinearLayout.LayoutParams(imgWidth, imgWidth * 2 / 3)
+        imgVideo.layoutParams = params
         item?.let {
-            holder.setText(R.id.tvName, it.title)
-            img.setUrlRound(it.mainPicUrl)
+            holder.setText(R.id.tvTitle, it.title)
+            holder.setText(R.id.tvType, it.type)
+            imgVideo.loadVideoFirstFrameRound(it.videoUrl)
         }
     }
 

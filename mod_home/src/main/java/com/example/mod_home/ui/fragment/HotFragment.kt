@@ -3,19 +3,19 @@ package com.example.mod_home.ui.fragment
 import android.os.Bundle
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.example.mod_home.adapters.HotAdapter
+import com.example.mod_home.adapters.VideoAdapter
 import com.example.mod_home.databinding.FragmentHotBinding
-import com.example.mod_home.ui.activity.CourseListActivity
+import com.example.mod_home.ui.activity.CourseDetailActivity
 import com.example.mod_home.viewmodel.HomeViewModel
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
-import com.xwl.common_base.utils.LoginDialogUtil
 import com.xwl.common_lib.bean.HotBean
+import com.xwl.common_lib.provider.LoginServiceProvider
 import com.xwl.common_lib.provider.UserServiceProvider
 import com.xwl.common_lib.utils.ClickUtil
 
 class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() {
-    private lateinit var mAdapter: HotAdapter
+    private lateinit var mAdapter: VideoAdapter
 
     private var mCurrentPage = 1
     private var size = 10
@@ -88,7 +88,7 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
     }
 
     private fun initRv() {
-        mAdapter = HotAdapter()
+        mAdapter = VideoAdapter()
         mAdapter.isEmptyViewEnable = true
         mAdapter.setItemAnimation(BaseQuickAdapter.AnimationType.ScaleIn)
 //        val helper = QuickAdapterHelper.Builder(mAdapter)
@@ -100,14 +100,24 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
         mAdapter.setOnItemClickListener(object : BaseQuickAdapter.OnItemClickListener<HotBean> {
             override fun onClick(adapter: BaseQuickAdapter<HotBean, *>, view: View, position: Int) {
                 if (ClickUtil.isFastClick()) {
-                    Logger.e("点击速度太快了")
                     return
                 }
                 if (UserServiceProvider.isLogin()) {
+
                     adapter.getItem(position)
-                        ?.let { CourseListActivity.startActivity(mContext, it.type) }
+                        ?.let {
+                            CourseDetailActivity.startActivity(
+                                mContext,
+                                it.videoUrl,
+                                it.posterUrl,
+                                it.title
+                            )
+                        }
+//                    adapter.getItem(position)
+//                        ?.let { CourseListActivity.startActivity(mContext, it.type) }
                 } else {
-                    activity?.let { LoginDialogUtil.show(it, "用户未登陆，是否跳转登录页登录") }
+                    LoginServiceProvider.skipLoginActivity(mContext)
+//                    activity?.let { LoginDialogUtil.show(it, "用户未登陆，是否跳转登录页登录") }
                 }
             }
         })
