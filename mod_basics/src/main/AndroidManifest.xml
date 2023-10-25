@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name=".VideoDetailActivity"
+            android:name=".BasicsVideoDetailActivity"
             android:exported="false" />
         <activity android:name=".MainActivity" />
     </application>

@@ -12,7 +12,8 @@ import com.xwl.common_lib.constants.KeyConstant
 import com.xwl.common_lib.ext.setScanImage
 import com.xwl.common_lib.utils.ScreenRotateUtils
 
-class VideoDetailActivity : BaseVmVbActivity<VideoDetailViewModel, ActivityVideoDetailBinding>(),
+class BasicsVideoDetailActivity :
+    BaseVmVbActivity<VideoDetailViewModel, ActivityVideoDetailBinding>(),
     ScreenRotateUtils.OrientationChangeListener {
     private var mVideoUrl: String? = null
     private var mPosterUrl: String? = null
@@ -20,7 +21,7 @@ class VideoDetailActivity : BaseVmVbActivity<VideoDetailViewModel, ActivityVideo
 
     companion object {
         fun startActivity(mContext: Context, videoUrl: String, posterUrl: String, name: String) {
-            val intent = Intent(mContext, VideoDetailActivity::class.java)
+            val intent = Intent(mContext, BasicsVideoDetailActivity::class.java)
             intent.putExtra(KeyConstant.KEY_COURSE_VIDEO_URL, videoUrl)
             intent.putExtra(KeyConstant.KEY_COURSE_VIDEO_POSTER_URL, posterUrl)
             intent.putExtra(KeyConstant.KEY_COURSE_VIDEO_NAME, name)

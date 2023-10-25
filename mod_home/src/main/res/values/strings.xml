@@ -29,6 +29,9 @@
     <string name="search">搜索</string>
     <string name="default_collection">收藏</string>
     <string name="default_cache">缓存</string>
+    <string name="look_decord">观看记录</string>
+    <string name="collect_list">收藏列表</string>
+    <string name="catch_list">我的缓存</string>
 
 
 </resources>

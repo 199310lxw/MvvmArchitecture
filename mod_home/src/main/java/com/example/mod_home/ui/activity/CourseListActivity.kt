@@ -113,7 +113,7 @@ class CourseListActivity : BaseVmVbActivity<CourseListViewModel, ActivityCourseL
                 }
                 adapter.getItem(position)
                     ?.let {
-                        CourseDetailActivity.startActivity(
+                        VideoDetailActivity.startActivity(
                             this@CourseListActivity,
                             it.videoUrl,
                             it.posterImgUrl,

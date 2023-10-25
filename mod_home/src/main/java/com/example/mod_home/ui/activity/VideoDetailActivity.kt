@@ -31,7 +31,7 @@ import com.xwl.common_lib.utils.ScreenRotateUtils
  * @date 2023/10/9
  * descripe
  */
-class CourseDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityCourseDetailBinding>(),
+class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityCourseDetailBinding>(),
     ScreenRotateUtils.OrientationChangeListener {
 
     private var mVideoUrl: String? = null
@@ -49,7 +49,7 @@ class CourseDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityCou
 
     companion object {
         fun startActivity(mContext: Context, videoUrl: String, posterUrl: String, name: String) {
-            val intent = Intent(mContext, CourseDetailActivity::class.java)
+            val intent = Intent(mContext, VideoDetailActivity::class.java)
             intent.putExtra(KeyConstant.KEY_COURSE_VIDEO_URL, videoUrl)
             intent.putExtra(KeyConstant.KEY_COURSE_VIDEO_POSTER_URL, posterUrl)
             intent.putExtra(KeyConstant.KEY_COURSE_VIDEO_NAME, name)
@@ -90,7 +90,7 @@ class CourseDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityCou
         }
 
         mViewBinding.tvShare.onClick {
-            ShareDialog.Builder(this@CourseDetailActivity)
+            ShareDialog.Builder(this@VideoDetailActivity)
                 .setOnItemClickListener { i, s ->
                     TipsToast.showTips("分享到：${s}")
                 }
@@ -140,7 +140,7 @@ class CourseDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityCou
                     if (mIsRefresh) {
                         if (it.isEmpty()) {
                             mRecommendAdapter.setEmptyViewLayout(
-                                this@CourseDetailActivity,
+                                this@VideoDetailActivity,
                                 com.xwl.common_lib.R.layout.view_empty_data
                             )
                         }
@@ -153,7 +153,7 @@ class CourseDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityCou
             } else {
                 if (mIsRefresh) {
                     mRecommendAdapter.setEmptyViewLayout(
-                        this@CourseDetailActivity,
+                        this@VideoDetailActivity,
                         com.xwl.common_lib.R.layout.view_empty_data
                     )
                     mViewBinding.smartRefresh.finishRefresh()
@@ -168,6 +168,7 @@ class CourseDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityCou
 
     private fun initRecomendList() {
         mRecommendAdapter = RecommendAdapter()
+        mRecommendAdapter.isEmptyViewEnable = true
         mViewBinding.rvRecommend.adapter = mRecommendAdapter
     }
 

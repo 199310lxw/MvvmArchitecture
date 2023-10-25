@@ -3,7 +3,11 @@
     package="com.example.mod_home">
 
     <uses-permission android:name="android.permission.CAMERA" />
+
     <application>
+        <activity
+            android:name=".ui.activity.LookRecordActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activity.HomeActivity"
             android:launchMode="singleTask" />
@@ -11,7 +15,7 @@
             android:name=".ui.activity.CourseListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.CourseDetailActivity"
+            android:name=".ui.activity.VideoDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.UserInfoActivity" />

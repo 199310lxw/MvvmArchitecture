@@ -5,7 +5,7 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.mod_home.adapters.VideoAdapter
 import com.example.mod_home.databinding.FragmentHotBinding
-import com.example.mod_home.ui.activity.CourseDetailActivity
+import com.example.mod_home.ui.activity.VideoDetailActivity
 import com.example.mod_home.viewmodel.HomeViewModel
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
@@ -106,7 +106,7 @@ class HotFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHotBinding>() 
 
                     adapter.getItem(position)
                         ?.let {
-                            CourseDetailActivity.startActivity(
+                            VideoDetailActivity.startActivity(
                                 mContext,
                                 it.videoUrl,
                                 it.posterUrl,
