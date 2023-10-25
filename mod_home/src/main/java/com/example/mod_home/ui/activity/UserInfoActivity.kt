@@ -157,12 +157,10 @@ class UserInfoActivity : BaseVmVbActivity<UserInfoViewModel, ActivityUserInfoBin
 
                 }
             } ?: kotlin.run {
-                if (user != null) {
-                    mViewModel.updateUserInfo(user).observe(this) {
-                        Logger.e(it.toString())
-                        UserServiceProvider.saveUserInfo(user)
-                        TipsToast.showTips(R.string.default_save_success)
-                    }
+                mViewModel.updateUserInfo(user).observe(this) {
+                    Logger.e(it.toString())
+                    UserServiceProvider.saveUserInfo(user)
+                    TipsToast.showTips(R.string.default_save_success)
                 }
             }
         } ?: kotlin.run {

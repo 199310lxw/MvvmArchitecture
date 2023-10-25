@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import cn.jzvd.Jzvd
 import cn.jzvd.JzvdStd
@@ -11,7 +12,7 @@ import com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout
 import com.example.lib_net.download.DownloadUtil
 import com.example.mod_home.R
 import com.example.mod_home.adapters.RecommendAdapter
-import com.example.mod_home.databinding.ActivityCourseDetailBinding
+import com.example.mod_home.databinding.ActivityVideoDetailBinding
 import com.example.mod_home.viewmodel.CourseDetailViewModel
 import com.gyf.immersionbar.ImmersionBar
 import com.xwl.common_base.activity.BaseVmVbActivity
@@ -31,7 +32,7 @@ import com.xwl.common_lib.utils.ScreenRotateUtils
  * @date 2023/10/9
  * descripe
  */
-class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityCourseDetailBinding>(),
+class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVideoDetailBinding>(),
     ScreenRotateUtils.OrientationChangeListener {
 
     private var mVideoUrl: String? = null
@@ -46,6 +47,8 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityCour
     private var mCurrentPage = 1
     private var mIsRefresh = true
     private var totalSize = 10
+
+    private var isCollected = false
 
     companion object {
         fun startActivity(mContext: Context, videoUrl: String, posterUrl: String, name: String) {
@@ -91,10 +94,14 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityCour
 
         mViewBinding.tvShare.onClick {
             ShareDialog.Builder(this@VideoDetailActivity)
-                .setOnItemClickListener { i, s ->
+                .setOnItemClickListener { _, s ->
                     TipsToast.showTips("分享到：${s}")
                 }
                 .show()
+        }
+
+        mViewBinding.tvCollection.onClick {
+            setCollection()
         }
 
 
@@ -118,6 +125,32 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityCour
             .statusBarDarkFont(false) //状态栏字体是深色，不写默认为亮色
             .statusBarColor(R.color.black)
             .init()
+    }
+
+
+    private fun setCollection() {
+        var drawable: Drawable? = null
+        if (!isCollected) {
+            drawable =
+                resources.getDrawable(com.xwl.common_lib.R.drawable.icon_collection_selected)
+            drawable!!.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+            mViewBinding.tvCollection.setCompoundDrawables(
+                drawable,
+                null,
+                null,
+                null
+            )
+        } else {
+            drawable =
+                resources.getDrawable(com.xwl.common_lib.R.drawable.icon_collection_unselected)
+            drawable!!.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+            mViewBinding.tvCollection.setCompoundDrawables(
+                drawable,
+                null,
+                null,
+                null
+            )
+        }
     }
 
     override fun onResume() {
