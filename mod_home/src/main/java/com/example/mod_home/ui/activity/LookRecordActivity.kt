@@ -12,7 +12,7 @@ import com.xwl.common_lib.utils.ClickUtil
 
 class LookRecordActivity : BaseVmVbActivity<LookRecordViewModel, ActivityLookRecordBinding>() {
     private lateinit var mAdapter: VideoAdapter
-    private var mCurrentPage = 2
+    private var mCurrentPage = 1
     private var size = 10
     private var mIsRefresh = true
     override fun initView(savedInstanceState: Bundle?) {

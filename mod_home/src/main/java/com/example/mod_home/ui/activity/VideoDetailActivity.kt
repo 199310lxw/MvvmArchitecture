@@ -131,6 +131,7 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
     private fun setCollection() {
         var drawable: Drawable? = null
         if (!isCollected) {
+            isCollected = true
             drawable =
                 resources.getDrawable(com.xwl.common_lib.R.drawable.icon_collection_selected)
             drawable!!.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
@@ -141,6 +142,7 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
                 null
             )
         } else {
+            isCollected = false
             drawable =
                 resources.getDrawable(com.xwl.common_lib.R.drawable.icon_collection_unselected)
             drawable!!.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
