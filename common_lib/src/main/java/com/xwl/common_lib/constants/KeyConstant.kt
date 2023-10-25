@@ -8,6 +8,7 @@ import android.os.Environment
  * descripe
  */
 object KeyConstant {
+    const val KEY_AGREEMENT_STATUS = "key_agreement_status"
     const val KEY_USER_PHONE = "key_user_phone"
     const val USER_INFO_DATA = "user_info_data"
     const val KEY_URL = "key_url"

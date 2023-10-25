@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
 }
@@ -8,12 +8,14 @@ android {
     compileSdk rootProject.android.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.xwl.mvvmarchitecture"
-
+        if (rootProject.ext.isApplication) {
+            applicationId "com.example.mod_basics"
+        }
         minSdk rootProject.android.minSdkVersion
         targetSdk rootProject.android.targetSdkVersion
         versionCode rootProject.android.versionCode
         versionName rootProject.android.versionName
+
         testInstrumentationRunner rootProject.android.testInstrumentationRunner
 
         kapt {
@@ -27,8 +29,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            aaptOptions.cruncherEnabled = false
-            aaptOptions.useNewCruncher = false
         }
     }
     compileOptions {
@@ -38,31 +38,26 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
     buildFeatures {
         viewBinding true
         dataBinding true
     }
-
-    android.applicationVariants.all {
-        variant ->
-            variant.outputs.all {
-                outputFileName = "mvvmarchitecture_v" + defaultConfig.versionName + ".apk"
-            }
-    }
 }
-
 
 dependencies {
 
-    //集成模式下需要编译器生成路由通信的代码
-    kapt rootProject.ext.dependencies.arouter_compiler
-
     implementation project(':common_lib')
     implementation project(':common_base')
-    implementation project(':mod_login')
-    implementation project(':mod_home')
-    implementation project(':mod_basics')
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    implementation "androidx.core:core-splashscreen:1.0.0-beta02"
+    if (!rootProject.ext.isApplication) {
+        //集成模式下需要编译器生成路由通信的代码
+        kapt rootProject.ext.dependencies.arouter_compiler
+    }
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 }

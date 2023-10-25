@@ -28,5 +28,8 @@ class RoutMap {
         const val HOME_ACTIVITY_USER_INFO = "/home/activity/UserInfoActivity"
 
 
+        const val BASIC_ACTIVITY_MAIN = "/basics/activity/MainActivity"
+
+
     }
 }

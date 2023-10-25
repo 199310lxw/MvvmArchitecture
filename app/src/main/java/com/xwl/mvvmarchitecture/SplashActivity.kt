@@ -10,10 +10,14 @@ import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.xwl.common_base.activity.BaseVmVbActivity
+import com.xwl.common_base.dialog.AgreeMentDialog
 import com.xwl.common_base.viewmodel.EmptyViewModel
+import com.xwl.common_lib.constants.KeyConstant
 import com.xwl.common_lib.constants.RoutMap
+import com.xwl.common_lib.manager.MMKVAction
 import com.xwl.mvvmarchitecture.databinding.ActivityFlashBinding
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
@@ -48,20 +52,55 @@ class SplashActivity : BaseVmVbActivity<EmptyViewModel, ActivityFlashBinding>() 
 
         splashScreen.setOnExitAnimationListener { splashScreenView ->
             lifecycleScope.launchWhenResumed {
+                delay(2000)
                 flow {
                     emit(true)
                 }.flowOn(Dispatchers.IO)
                     .collect {
-                        ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
-                            .navigation(this@SplashActivity, object : NavCallback() {
-                                override fun onArrival(postcard: Postcard?) {
-                                    finish()
-                                }
-                            })
+                        if (MMKVAction.getDefaultMKKV()
+                                .decodeBool(KeyConstant.KEY_AGREEMENT_STATUS, false)
+                        ) {
+                            toHome()
+                        } else {
+                            showAgreementDialog()
+                        }
                     }
             }
         }
+    }
 
+    fun toHome() {
+        ARouter.getInstance().build(RoutMap.HOME_ACTIVITY_HOME)
+            .navigation(this@SplashActivity, object : NavCallback() {
+                override fun onArrival(postcard: Postcard?) {
+                    finish()
+                }
+            })
+    }
+
+    fun toBasics() {
+        ARouter.getInstance().build(RoutMap.BASIC_ACTIVITY_MAIN)
+            .navigation(this@SplashActivity, object : NavCallback() {
+                override fun onArrival(postcard: Postcard?) {
+                    finish()
+                }
+            })
+    }
+
+    /**
+     * 隐私政策弹框
+     */
+    private fun showAgreementDialog() {
+        AgreeMentDialog.Builder(this@SplashActivity)
+            .setAgreeClickListener {
+                MMKVAction.getDefaultMKKV().encode(KeyConstant.KEY_AGREEMENT_STATUS, true)
+                toHome()
+            }
+            .setDisAgreeClickListener {
+                MMKVAction.getDefaultMKKV().encode(KeyConstant.KEY_AGREEMENT_STATUS, false)
+                toBasics()
+            }
+            .show()
     }
 
     override fun initData() {

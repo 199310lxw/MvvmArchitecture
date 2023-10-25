@@ -2,7 +2,6 @@ package com.xwl.common_lib.manager
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tencent.mmkv.MMKV
 import com.xwl.common_lib.bean.User
 import com.xwl.common_lib.constants.KeyConstant
 
@@ -13,7 +12,7 @@ import com.xwl.common_lib.constants.KeyConstant
  */
 object UserManager {
 
-    private var mmkv = MMKV.defaultMMKV()
+    private var mmkv = MMKVAction.getDefaultMKKV()
     private val userLiveData = MutableLiveData<User?>()
 
     /**

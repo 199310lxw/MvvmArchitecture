@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:padding="@dimen/dimen_size_dp_10"
+    android:background="@drawable/shape_agreement_bg"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户条款和隐私政策提示"
+        android:textSize="@dimen/dimen_size_sp_14"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black_222"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/dimen_size_dp_10" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dimen_size_dp_14"
+        android:layout_height="120dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textAgreement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_222"
+                android:text="@string/ageement_text"
+                android:textSize="@dimen/dimen_size_sp_14" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dimen_size_dp_10"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/if_you_agree"
+            android:textColor="@color/color_a6a6a6"
+            android:textSize="@dimen/dimen_size_sp_14" />
+
+        <TextView
+            android:id="@+id/tvOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="《用户协议》"
+            android:textSize="@dimen/dimen_size_sp_14"
+            android:textColor="#42BCB1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="和"
+            android:textColor="@color/color_a6a6a6"
+            android:textSize="@dimen/dimen_size_sp_12" />
+
+        <TextView
+            android:id="@+id/tvTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="《隐私政策》"
+            android:textSize="@dimen/dimen_size_sp_14"
+            android:textColor="#42BCB1" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请点击“同意”,开始使用我们的产品"
+        android:textColor="@color/color_a6a6a6"
+        android:textSize="@dimen/dimen_size_sp_14"
+        android:layout_marginTop="@dimen/dimen_size_dp_4" />
+
+    <TextView
+        android:id="@+id/btnAgree"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_button_height_42"
+        android:text="@string/default_agree"
+        android:textSize="@dimen/dimen_size_sp_14"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="@drawable/share_agreement_btn_agree_selector"
+        android:layout_marginHorizontal="@dimen/dimen_size_dp_20"
+        android:layout_marginTop="@dimen/dimen_size_dp_20" />
+
+    <TextView
+        android:id="@+id/btnDisAgree"
+        android:layout_width="212dp"
+        android:layout_height="@dimen/common_button_height_42"
+        android:layout_marginHorizontal="@dimen/dimen_size_dp_20"
+        android:layout_marginTop="@dimen/dimen_size_dp_10"
+        android:gravity="center"
+        android:background="@drawable/share_agreement_btn_disagree_selector"
+        android:singleLine="true"
+        android:textSize="@dimen/dimen_size_sp_14"
+        android:text="@string/disagree_to_basics_function"
+        android:textColor="@color/black_222" />
+
+
+</LinearLayout>
