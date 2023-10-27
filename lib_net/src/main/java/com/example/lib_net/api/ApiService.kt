@@ -1,10 +1,7 @@
 package com.example.lib_net.api
 
 import com.xwl.common_base.response.BaseResponse
-import com.xwl.common_lib.bean.BannerBean
-import com.xwl.common_lib.bean.CourseListBean
-import com.xwl.common_lib.bean.HotBean
-import com.xwl.common_lib.bean.User
+import com.xwl.common_lib.bean.*
 import com.xwl.common_lib.constants.UrlConstants
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -65,7 +62,7 @@ interface ApiService {
      * 获取分类列表
      */
     @GET(UrlConstants.SORT_LIST_URL)
-    suspend fun getSortList(): BaseResponse<ArrayList<HotBean>>?
+    suspend fun getSortList(): BaseResponse<ArrayList<SortBean>>?
 
     /**
      * 获取热门列表
@@ -74,7 +71,7 @@ interface ApiService {
     suspend fun getHotList(
         @Query("page") page: Int,
         @Query("size") size: Int
-    ): BaseResponse<ArrayList<HotBean>>?
+    ): BaseResponse<ArrayList<VideoBean>>?
 
     /**
      * 获取课程列表

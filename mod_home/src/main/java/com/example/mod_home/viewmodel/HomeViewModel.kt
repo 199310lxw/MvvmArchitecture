@@ -5,7 +5,8 @@ import com.example.lib_net.manager.ApiManager
 import com.example.mod_home.repostory.HomeRepostory
 import com.xwl.common_base.viewmodel.BaseViewModel
 import com.xwl.common_lib.bean.BannerBean
-import com.xwl.common_lib.bean.HotBean
+import com.xwl.common_lib.bean.SortBean
+import com.xwl.common_lib.bean.VideoBean
 import com.xwl.common_lib.callback.IHttpCallBack
 
 /**
@@ -67,13 +68,13 @@ class HomeViewModel : BaseViewModel() {
         return bannerLiveData
     }
 
-    fun getSortList(showloading: Boolean): MutableLiveData<ArrayList<HotBean>?> {
-        val sortLiveData: MutableLiveData<ArrayList<HotBean>?> =
-            MutableLiveData<ArrayList<HotBean>?>()
+    fun getSortList(showloading: Boolean): MutableLiveData<ArrayList<SortBean>?> {
+        val sortLiveData: MutableLiveData<ArrayList<SortBean>?> =
+            MutableLiveData<ArrayList<SortBean>?>()
         request(
             requestCall = { ApiManager.api.getSortList() },
-            object : IHttpCallBack<ArrayList<HotBean>?> {
-                override fun onSuccess(result: ArrayList<HotBean>?) {
+            object : IHttpCallBack<ArrayList<SortBean>?> {
+                override fun onSuccess(result: ArrayList<SortBean>?) {
                     sortLiveData.value = result
                 }
 
@@ -92,14 +93,14 @@ class HomeViewModel : BaseViewModel() {
         page: Int,
         size: Int,
         showloading: Boolean
-    ): MutableLiveData<ArrayList<HotBean>?> {
-        val hotLiveData: MutableLiveData<ArrayList<HotBean>?> =
-            MutableLiveData<ArrayList<HotBean>?>()
+    ): MutableLiveData<ArrayList<VideoBean>?> {
+        val hotLiveData: MutableLiveData<ArrayList<VideoBean>?> =
+            MutableLiveData<ArrayList<VideoBean>?>()
 
         request(
             requestCall = { ApiManager.api.getHotList(page, size) },
-            object : IHttpCallBack<ArrayList<HotBean>?> {
-                override fun onSuccess(result: ArrayList<HotBean>?) {
+            object : IHttpCallBack<ArrayList<VideoBean>?> {
+                override fun onSuccess(result: ArrayList<VideoBean>?) {
                     hotLiveData.value = result
                 }
 

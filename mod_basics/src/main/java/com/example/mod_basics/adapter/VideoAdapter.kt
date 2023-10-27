@@ -6,7 +6,7 @@ import android.widget.LinearLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.QuickViewHolder
 import com.example.mod_basics.R
-import com.xwl.common_lib.bean.HotBean
+import com.xwl.common_lib.bean.VideoBean
 import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.ext.setScanImage
 import com.xwl.common_lib.utils.ScreenUtil
@@ -17,9 +17,9 @@ import com.xwl.common_lib.views.CustomJzvdStd
  * @date 2023/10/6
  * descripe
  */
-class VideoAdapter : BaseQuickAdapter<HotBean, QuickViewHolder>() {
+class VideoAdapter : BaseQuickAdapter<VideoBean, QuickViewHolder>() {
 
-    override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: HotBean?) {
+    override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: VideoBean?) {
         val jzVideo = holder.getView<CustomJzvdStd>(R.id.jzVideo)
         val imgWidth = ScreenUtil.getScreenWidth() / 2 - 40
         val params = LinearLayout.LayoutParams(imgWidth, imgWidth * 2 / 3)

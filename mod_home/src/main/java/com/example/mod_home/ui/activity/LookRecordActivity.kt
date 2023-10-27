@@ -7,7 +7,7 @@ import com.example.mod_home.adapters.VideoAdapter
 import com.example.mod_home.databinding.ActivityLookRecordBinding
 import com.example.mod_home.viewmodel.LookRecordViewModel
 import com.xwl.common_base.activity.BaseVmVbActivity
-import com.xwl.common_lib.bean.HotBean
+import com.xwl.common_lib.bean.VideoBean
 import com.xwl.common_lib.utils.ClickUtil
 
 class LookRecordActivity : BaseVmVbActivity<LookRecordViewModel, ActivityLookRecordBinding>() {
@@ -38,8 +38,12 @@ class LookRecordActivity : BaseVmVbActivity<LookRecordViewModel, ActivityLookRec
         mAdapter = VideoAdapter()
         mViewBinding.rv.adapter = mAdapter
         mAdapter.isEmptyViewEnable = true
-        mAdapter.setOnItemClickListener(object : BaseQuickAdapter.OnItemClickListener<HotBean> {
-            override fun onClick(adapter: BaseQuickAdapter<HotBean, *>, view: View, position: Int) {
+        mAdapter.setOnItemClickListener(object : BaseQuickAdapter.OnItemClickListener<VideoBean> {
+            override fun onClick(
+                adapter: BaseQuickAdapter<VideoBean, *>,
+                view: View,
+                position: Int
+            ) {
                 if (ClickUtil.isFastClick()) {
                     return
                 }
@@ -47,9 +51,7 @@ class LookRecordActivity : BaseVmVbActivity<LookRecordViewModel, ActivityLookRec
                     ?.let {
                         VideoDetailActivity.startActivity(
                             this@LookRecordActivity,
-                            it.videoUrl,
-                            it.posterUrl,
-                            it.title
+                            it
                         )
                     }
             }

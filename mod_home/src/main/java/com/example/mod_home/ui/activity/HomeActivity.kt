@@ -10,9 +10,9 @@ import com.example.mod_home.adapters.FragmentAdapter
 import com.example.mod_home.databinding.ActivityHomeBinding
 import com.example.mod_home.dialog.UpdateDialog
 import com.example.mod_home.ui.fragment.HomeFragment
-import com.example.mod_home.ui.fragment.HotFragment
 import com.example.mod_home.ui.fragment.MessageFragment
 import com.example.mod_home.ui.fragment.MineFragment
+import com.example.mod_home.ui.fragment.VideoFragment
 import com.example.mod_home.viewmodel.HomeViewModel
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_lib.constants.RoutMap
@@ -35,7 +35,7 @@ class HomeActivity : BaseVmVbActivity<HomeViewModel, ActivityHomeBinding>() {
 
     private fun initTab() {
         fragmentList.add(HomeFragment.newInstance())
-        fragmentList.add(HotFragment.newInstance())
+        fragmentList.add(VideoFragment.newInstance())
         fragmentList.add(MessageFragment.newInstance())
         fragmentList.add(MineFragment.newInstance())
         val fragmentAdapter = FragmentAdapter(fragmentList, this@HomeActivity)

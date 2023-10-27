@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.HomeFragment">
 
@@ -11,8 +10,10 @@
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
 
         <com.scwang.smart.refresh.header.ClassicsHeader
             android:layout_width="match_parent"
@@ -28,35 +29,30 @@
                 android:id="@+id/ll_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="@dimen/dimen_size_dp_20"
-                    android:layout_height="match_parent" />
+                android:orientation="horizontal"
+                app:layout_isSink="true"
+                app:layout_isSticky="true"
+                app:layout_isTriggerScroll="true">
 
                 <com.youth.banner.Banner
                     android:id="@+id/banner"
                     android:layout_width="0dp"
-                    android:layout_height="180dp"
+                    android:layout_height="220dp"
                     android:layout_weight="1"
-                    app:banner_indicator_selected_width="@dimen/dimen_size_dp_8"
-                    app:banner_indicator_normal_width="@dimen/dimen_size_dp_8"
+                    app:banner_indicator_height="@dimen/dimen_size_dp_2"
+                    app:banner_indicator_normal_width="@dimen/dimen_size_dp_14"
                     app:banner_indicator_selected_color="@color/white"
-                    android:background="@drawable/shape_bg_white_corner_12" />
-
-                <View
-                    android:layout_width="@dimen/dimen_size_dp_20"
-                    android:layout_height="match_parent" />
+                    app:banner_indicator_selected_width="@dimen/dimen_size_dp_14" />
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clSearch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_size_dp_60"
-                app:layout_isSticky="true"
-                android:background="@color/white"
                 android:layout_marginTop="@dimen/dimen_size_dp_10"
-                app:layout_constraintTop_toBottomOf="@+id/titleBar">
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/titleBar"
+                app:layout_isSticky="true">
 
                 <View
                     android:id="@+id/view1"
@@ -68,29 +64,29 @@
                     android:id="@+id/llSearch"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/shape_bg_search"
-                    app:layout_constraintStart_toEndOf="@+id/view1"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
                     android:layout_marginTop="@dimen/dimen_size_dp_20"
                     android:layout_marginBottom="@dimen/dimen_size_dp_8"
+                    android:background="@drawable/shape_bg_search"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/view2"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
+                    app:layout_constraintStart_toEndOf="@+id/view1"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/icon_search"
-                        android:layout_marginStart="@dimen/dimen_size_dp_16" />
+                        android:layout_marginStart="@dimen/dimen_size_dp_16"
+                        android:src="@drawable/icon_search" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/search"
                         android:layout_marginStart="@dimen/dimen_size_dp_6"
-                        android:textSize="@dimen/dimen_size_sp_14"
-                        android:textColor="@color/white" />
+                        android:text="@string/search"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/dimen_size_sp_14" />
                 </LinearLayout>
 
 
@@ -104,14 +100,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:layout_marginTop="@dimen/dimen_size_dp_8"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                app:spanCount="4"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
         </com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout>
 
-        <com.scwang.smart.refresh.footer.ClassicsFooter
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

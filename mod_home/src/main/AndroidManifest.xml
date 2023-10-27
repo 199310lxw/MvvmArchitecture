@@ -12,9 +12,6 @@
             android:name=".ui.activity.HomeActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.activity.CourseListActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.activity.VideoDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />

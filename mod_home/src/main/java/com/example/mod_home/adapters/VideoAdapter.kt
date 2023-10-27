@@ -7,7 +7,7 @@ import android.widget.LinearLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.QuickViewHolder
 import com.example.mod_home.R
-import com.xwl.common_lib.bean.HotBean
+import com.xwl.common_lib.bean.VideoBean
 import com.xwl.common_lib.ext.loadVideoFirstFrameRound
 import com.xwl.common_lib.utils.ScreenUtil
 
@@ -16,9 +16,9 @@ import com.xwl.common_lib.utils.ScreenUtil
  * @date 2023/10/6
  * descripe
  */
-class VideoAdapter : BaseQuickAdapter<HotBean, QuickViewHolder>() {
+class VideoAdapter : BaseQuickAdapter<VideoBean, QuickViewHolder>() {
 
-    override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: HotBean?) {
+    override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: VideoBean?) {
         val imgVideo = holder.getView<ImageView>(R.id.imgVideo)
         val imgWidth = ScreenUtil.getScreenWidth() / 2 - 40
         val params = LinearLayout.LayoutParams(imgWidth, imgWidth * 2 / 3)
@@ -36,6 +36,6 @@ class VideoAdapter : BaseQuickAdapter<HotBean, QuickViewHolder>() {
         parent: ViewGroup,
         viewType: Int
     ): QuickViewHolder {
-        return QuickViewHolder(R.layout.item_hot, parent)
+        return QuickViewHolder(R.layout.item_video, parent)
     }
 }

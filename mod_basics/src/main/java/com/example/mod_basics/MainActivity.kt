@@ -12,7 +12,7 @@ import com.example.mod_basics.databinding.ActivityMainBinding
 import com.example.mod_basics.viewmodel.MainViewModel
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_base.dialog.AgreeMentDialog
-import com.xwl.common_lib.bean.HotBean
+import com.xwl.common_lib.bean.VideoBean
 import com.xwl.common_lib.constants.KeyConstant
 import com.xwl.common_lib.constants.RoutMap
 import com.xwl.common_lib.ext.onClick
@@ -53,25 +53,22 @@ class MainActivity : BaseVmVbActivity<MainViewModel, ActivityMainBinding>() {
     private fun initRv() {
         mAdapter = VideoAdapter()
         mViewBinding.rvVideo.adapter = mAdapter
-        mAdapter.setOnItemClickListener(object : BaseQuickAdapter.OnItemClickListener<HotBean> {
-            override fun onClick(adapter: BaseQuickAdapter<HotBean, *>, view: View, position: Int) {
+        mAdapter.setOnItemClickListener(object : BaseQuickAdapter.OnItemClickListener<VideoBean> {
+            override fun onClick(
+                adapter: BaseQuickAdapter<VideoBean, *>,
+                view: View,
+                position: Int
+            ) {
                 if (ClickUtil.isFastClick()) {
                     return
                 }
-//                if (UserServiceProvider.isLogin()) {
                 adapter.getItem(position)
                     ?.let {
                         BasicsVideoDetailActivity.startActivity(
                             this@MainActivity,
-                            it.videoUrl,
-                            it.posterUrl,
-                            it.title
+                            it
                         )
                     }
-
-//                } else {
-//                    showAgreeMentDialog()
-//                }
             }
         })
     }

@@ -15,8 +15,10 @@ import com.example.mod_home.adapters.RecommendAdapter
 import com.example.mod_home.databinding.ActivityVideoDetailBinding
 import com.example.mod_home.viewmodel.CourseDetailViewModel
 import com.gyf.immersionbar.ImmersionBar
+import com.orhanobut.logger.Logger
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_base.dialog.ShareDialog
+import com.xwl.common_lib.bean.VideoBean
 import com.xwl.common_lib.constants.KeyConstant
 import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.dialog.TipsToast.showTips
@@ -24,6 +26,9 @@ import com.xwl.common_lib.ext.gone
 import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.ext.setScanImage
 import com.xwl.common_lib.ext.visible
+import com.xwl.common_lib.manager.MMKVAction
+import com.xwl.common_lib.utils.ClickUtil
+import com.xwl.common_lib.utils.GsonUtils
 import com.xwl.common_lib.utils.ScreenRotateUtils
 
 
@@ -35,14 +40,8 @@ import com.xwl.common_lib.utils.ScreenRotateUtils
 class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVideoDetailBinding>(),
     ScreenRotateUtils.OrientationChangeListener {
 
-    private var mVideoUrl: String? = null
-    private var mPosterUrl: String? = null
-    private var mVideoName: String? = null
-
     private var conn: ServiceConnection? = null
-
     private lateinit var mRecommendAdapter: RecommendAdapter
-
 
     private var mCurrentPage = 1
     private var mIsRefresh = true
@@ -50,32 +49,41 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
 
     private var isCollected = false
 
+    private var mVideo: VideoBean? = null
+
     companion object {
-        fun startActivity(mContext: Context, videoUrl: String, posterUrl: String, name: String) {
+        fun startActivity(mContext: Context, video: VideoBean) {
             val intent = Intent(mContext, VideoDetailActivity::class.java)
-            intent.putExtra(KeyConstant.KEY_COURSE_VIDEO_URL, videoUrl)
-            intent.putExtra(KeyConstant.KEY_COURSE_VIDEO_POSTER_URL, posterUrl)
-            intent.putExtra(KeyConstant.KEY_COURSE_VIDEO_NAME, name)
+            intent.putExtra(KeyConstant.KEY_VIDEO, video)
             mContext.startActivity(intent)
         }
     }
 
     override fun initView(savedInstanceState: Bundle?) {
         initbar()
-        mVideoUrl = intent.getStringExtra(KeyConstant.KEY_COURSE_VIDEO_URL)
-        mPosterUrl = intent.getStringExtra(KeyConstant.KEY_COURSE_VIDEO_POSTER_URL)
-        mVideoName = intent.getStringExtra(KeyConstant.KEY_COURSE_VIDEO_NAME)
-        mViewBinding.tvTitle.text = mVideoName
+        mVideo = intent.getParcelableExtra(KeyConstant.KEY_VIDEO)
+
+//        if (mVideo?.let { checkIsCollected(it) } == true) {
+//            Logger.e("已经收藏1111111111111111")
+//            isCollected = true
+//            showCollectView(isCollected)
+//        } else {
+//            Logger.e("没有收藏222222222222222")
+//            isCollected = false
+//            showCollectView(isCollected)
+//        }
+
+        mViewBinding.tvTitle.text = mVideo?.title
         mViewBinding.jzVideo.setUp(
-            mVideoUrl,
-            mVideoName
+            mVideo?.videoUrl,
+            mVideo?.title
         )
-        mViewBinding.jzVideo.posterImageView.setScanImage(mVideoUrl)
+        mViewBinding.jzVideo.posterImageView.setScanImage(mVideo?.videoUrl)
         mViewBinding.jzVideo.startVideo()
         ScreenRotateUtils.getInstance(this.applicationContext).setOrientationChangeListener(this)
         mViewBinding.tvDownload.onClick {
-            mVideoUrl?.let { it1 ->
-                mVideoName?.let { it2 ->
+            mVideo?.videoUrl?.let { it1 ->
+                mVideo?.title?.let { it2 ->
                     DownloadUtil.startDownload(this, it1, it2, start = {
                         mViewBinding.downloadProgressbar.visible()
                     }, progress = {
@@ -127,11 +135,40 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
             .init()
     }
 
+    /**
+     * 判断是够已经收藏了
+     */
+    private fun checkIsCollected(video: VideoBean): Boolean {
+        val videoData = MMKVAction.getDefaultMKKV()
+            .decodeString(KeyConstant.KEY_COLLECT_VIDEO_LIST, "")
+        val listVideo =
+            GsonUtils.gsonToList(videoData, VideoBean::class.java) as ArrayList<VideoBean>
+        if (!listVideo.isNullOrEmpty()) {
+            Logger.e("----->${listVideo.size}")
+            for (element in listVideo) {
+                if (element.videoUrl == video.videoUrl) {
+                    Logger.e("----->true")
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
 
     private fun setCollection() {
-        var drawable: Drawable? = null
         if (!isCollected) {
-            isCollected = true
+            mVideo?.let { collectVideo(it) }
+        } else {
+            mVideo?.let { disCollectVideo(it) }
+
+        }
+        showCollectView(isCollected)
+    }
+
+    private fun showCollectView(isCollected: Boolean) {
+        var drawable: Drawable? = null
+        if (isCollected) {
             drawable =
                 resources.getDrawable(com.xwl.common_lib.R.drawable.icon_collection_selected)
             drawable!!.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
@@ -142,7 +179,6 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
                 null
             )
         } else {
-            isCollected = false
             drawable =
                 resources.getDrawable(com.xwl.common_lib.R.drawable.icon_collection_unselected)
             drawable!!.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
@@ -152,6 +188,44 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
                 null,
                 null
             )
+        }
+    }
+
+    private fun collectVideo(video: VideoBean) {
+        val videoData = MMKVAction.getDefaultMKKV()
+            .decodeString(KeyConstant.KEY_COLLECT_VIDEO_LIST)
+        Logger.e("aaaaaaaaaaaaaaaaaa")
+        var listVideo = GsonUtils.gsonToList(videoData, VideoBean::class.java)
+        if (listVideo.isNullOrEmpty()) {
+            listVideo = arrayListOf()
+        }
+        Logger.e("-------->${listVideo.size}")
+        listVideo.let {
+            video.let { it1 ->
+                it.add(it1)
+            }
+            Logger.e("-------->${listVideo.size}")
+            Logger.e("-------->${GsonUtils.toJsonString(it)}")
+            MMKVAction.getDefaultMKKV()
+                .encode(KeyConstant.KEY_COLLECT_VIDEO_LIST, GsonUtils.toJsonString(it))
+            isCollected = true
+        }
+    }
+
+    private fun disCollectVideo(video: VideoBean) {
+        val videoData = MMKVAction.getDefaultMKKV().decodeString(KeyConstant.KEY_COLLECT_VIDEO_LIST)
+        var videoList = GsonUtils.gsonToList(videoData, VideoBean::class.java)
+        Logger.e("-------->${videoList.size}")
+        for (index in 0 until videoList.size) {
+            if (videoList[index] == video) {
+                videoList?.removeAt(index)
+            }
+        }
+        videoList?.let {
+            val result = GsonUtils.toJsonString(it)
+            MMKVAction.getDefaultMKKV()
+                .encode(KeyConstant.KEY_COLLECT_VIDEO_LIST, GsonUtils.toJsonString(result))
+            isCollected = false
         }
     }
 
@@ -205,6 +279,10 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
         mRecommendAdapter = RecommendAdapter()
         mRecommendAdapter.isEmptyViewEnable = true
         mViewBinding.rvRecommend.adapter = mRecommendAdapter
+        mRecommendAdapter.setOnItemClickListener { _, _, position ->
+            if (ClickUtil.isFastClick()) return@setOnItemClickListener
+            mRecommendAdapter.getItem(position)?.let { startActivity(this@VideoDetailActivity, it) }
+        }
     }
 
     override fun orientationChange(orientation: Int) {

@@ -8,6 +8,7 @@ import cn.jzvd.JzvdStd
 import com.example.mod_basics.databinding.ActivityVideoDetailBinding
 import com.example.mod_basics.viewmodel.VideoDetailViewModel
 import com.xwl.common_base.activity.BaseVmVbActivity
+import com.xwl.common_lib.bean.VideoBean
 import com.xwl.common_lib.constants.KeyConstant
 import com.xwl.common_lib.ext.setScanImage
 import com.xwl.common_lib.utils.ScreenRotateUtils
@@ -15,29 +16,25 @@ import com.xwl.common_lib.utils.ScreenRotateUtils
 class BasicsVideoDetailActivity :
     BaseVmVbActivity<VideoDetailViewModel, ActivityVideoDetailBinding>(),
     ScreenRotateUtils.OrientationChangeListener {
-    private var mVideoUrl: String? = null
-    private var mPosterUrl: String? = null
-    private var mVideoName: String? = null
+
+    private var mVideo: VideoBean? = null
 
     companion object {
-        fun startActivity(mContext: Context, videoUrl: String, posterUrl: String, name: String) {
+        fun startActivity(mContext: Context, video: VideoBean) {
             val intent = Intent(mContext, BasicsVideoDetailActivity::class.java)
-            intent.putExtra(KeyConstant.KEY_COURSE_VIDEO_URL, videoUrl)
-            intent.putExtra(KeyConstant.KEY_COURSE_VIDEO_POSTER_URL, posterUrl)
-            intent.putExtra(KeyConstant.KEY_COURSE_VIDEO_NAME, name)
+            intent.putExtra(KeyConstant.KEY_VIDEO, video)
             mContext.startActivity(intent)
         }
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        mVideoUrl = intent.getStringExtra(KeyConstant.KEY_COURSE_VIDEO_URL)
-        mPosterUrl = intent.getStringExtra(KeyConstant.KEY_COURSE_VIDEO_POSTER_URL)
-        mVideoName = intent.getStringExtra(KeyConstant.KEY_COURSE_VIDEO_NAME)
+        mVideo = intent.getParcelableExtra(KeyConstant.KEY_VIDEO)
+
         mViewBinding.jzVideo.setUp(
-            mVideoUrl,
-            mVideoName
+            mVideo?.videoUrl,
+            mVideo?.title
         )
-        mViewBinding.jzVideo.posterImageView.setScanImage(mVideoUrl)
+        mViewBinding.jzVideo.posterImageView.setScanImage(mVideo?.videoUrl)
         mViewBinding.jzVideo.startVideo()
         ScreenRotateUtils.getInstance(this.applicationContext).setOrientationChangeListener(this)
     }

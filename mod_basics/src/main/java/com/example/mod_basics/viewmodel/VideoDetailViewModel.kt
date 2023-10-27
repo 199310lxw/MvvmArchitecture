@@ -3,7 +3,7 @@ package com.example.mod_basics.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.example.lib_net.manager.ApiManager
 import com.xwl.common_base.viewmodel.BaseViewModel
-import com.xwl.common_lib.bean.HotBean
+import com.xwl.common_lib.bean.VideoBean
 import com.xwl.common_lib.callback.IHttpCallBack
 
 /**
@@ -20,14 +20,14 @@ class VideoDetailViewModel : BaseViewModel() {
         page: Int,
         size: Int,
         showloading: Boolean
-    ): MutableLiveData<ArrayList<HotBean>?> {
-        val hotLiveData: MutableLiveData<ArrayList<HotBean>?> =
-            MutableLiveData<ArrayList<HotBean>?>()
+    ): MutableLiveData<ArrayList<VideoBean>?> {
+        val hotLiveData: MutableLiveData<ArrayList<VideoBean>?> =
+            MutableLiveData<ArrayList<VideoBean>?>()
 
         request(
             requestCall = { ApiManager.api.getHotList(page, size) },
-            object : IHttpCallBack<ArrayList<HotBean>?> {
-                override fun onSuccess(result: ArrayList<HotBean>?) {
+            object : IHttpCallBack<ArrayList<VideoBean>?> {
+                override fun onSuccess(result: ArrayList<VideoBean>?) {
                     hotLiveData.value = result
                 }
 

@@ -3,9 +3,6 @@ package com.example.mod_home.ui.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.ConcatAdapter
-import com.chad.library.adapter.base.QuickAdapterHelper
-import com.example.mod_home.adapters.HomeAdapter
 import com.example.mod_home.adapters.HomeSortAdapter
 import com.example.mod_home.databinding.FragmentHomeBinding
 import com.example.mod_home.viewmodel.HomeViewModel
@@ -16,17 +13,14 @@ import com.scwang.smart.refresh.layout.constant.RefreshState
 import com.scwang.smart.refresh.layout.listener.OnMultiListener
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
 import com.xwl.common_lib.bean.BannerBean
-import com.xwl.common_lib.bean.HotBean
-import com.xwl.common_lib.ext.setUrlRound
+import com.xwl.common_lib.ext.setUrl
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
-import com.youth.banner.indicator.CircleIndicator
+import com.youth.banner.indicator.RectangleIndicator
 import com.youth.banner.transformer.AlphaPageTransformer
 
 
 class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>() {
-
-    private lateinit var mAdapter: HomeAdapter
     private lateinit var mSortAdapter: HomeSortAdapter
 
     companion object {
@@ -34,15 +28,8 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
     }
 
     private fun initRv() {
-        mAdapter = HomeAdapter()
         mSortAdapter = HomeSortAdapter()
-//        mSortAdapter.setHasStableIds(true)
-        val helper = QuickAdapterHelper
-            .Builder(mAdapter)
-            .setConfig(ConcatAdapter.Config.DEFAULT)
-            .build()
-        helper.addBeforeAdapter(mSortAdapter)
-        mViewBinding.rv.adapter = helper.adapter
+        mViewBinding.rv.adapter = mSortAdapter
     }
 
     override fun initView(savedInstanceState: Bundle?, view: View?) {
@@ -54,7 +41,7 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
             }
 
             override fun onLoadMore(refreshLayout: RefreshLayout) {
-                mViewBinding.refreshLayout.finishLoadMore()
+//                mViewBinding.refreshLayout.finishLoadMore()
             }
 
             @SuppressLint("RestrictedApi")
@@ -131,27 +118,6 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
         })
     }
 
-    private fun getListData() {
-        val lists = arrayListOf<HotBean>()
-        for (index in 0 until 14) {
-            val bean = HotBean()
-            bean.posterUrl =
-                "https://img2.baidu.com/it/u=3899920834,1058134886&fm=253&fmt=auto&app=138&f=JPEG?w=650&h=406"
-            bean.title = "hhhhhhhhh"
-            lists.add(bean)
-        }
-        mAdapter.submitList(lists)
-
-    }
-
-    private fun getSortData(sortList: ArrayList<HotBean>) {
-        val lists = arrayListOf<Int>()
-        lists.add(1)
-        mSortAdapter.setData(sortList)
-        mSortAdapter.submitList(lists)
-    }
-
-
     private fun initBanner(lists: ArrayList<BannerBean>) {
         mViewBinding.banner.setAdapter(object :
             BannerImageAdapter<BannerBean>(lists) {
@@ -162,12 +128,11 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
                 size: Int
             ) {
                 //图片加载自己实现
-                holder.imageView.setUrlRound(data.url, 20)
+                holder.imageView.setUrl(data.url)
             }
-        }).setBannerRound(20f)
-            .setPageTransformer(AlphaPageTransformer())
+        }).setPageTransformer(AlphaPageTransformer())
             .addBannerLifecycleObserver(this).indicator =
-            CircleIndicator(requireActivity())
+            RectangleIndicator(requireActivity())
         mViewBinding.banner.setOnBannerListener { _, _ ->
 
         }
@@ -178,10 +143,9 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
     }
 
     private fun getData(showLoading: Boolean = true) {
-        getListData()
         mViewModel.getSortList(showLoading).observe(this) {
             it?.let {
-                getSortData(it)
+                mSortAdapter.submitList(it)
             }.also {
                 mViewModel.getBannerList(showLoading).observe(this) { data ->
                     data?.let { it1 ->

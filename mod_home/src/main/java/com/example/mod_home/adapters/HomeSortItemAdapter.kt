@@ -6,7 +6,7 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.QuickViewHolder
 import com.example.mod_home.R
-import com.xwl.common_lib.bean.HotBean
+import com.xwl.common_lib.bean.VideoBean
 import com.xwl.common_lib.ext.setUrlCircle
 
 /**
@@ -14,9 +14,9 @@ import com.xwl.common_lib.ext.setUrlCircle
  * @date 2023/10/6
  * descripe
  */
-class HomeSortItemAdapter : BaseQuickAdapter<HotBean, QuickViewHolder>() {
+class HomeSortItemAdapter : BaseQuickAdapter<VideoBean, QuickViewHolder>() {
 
-    override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: HotBean?) {
+    override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: VideoBean?) {
         val img = holder.getView<ImageView>(R.id.img)
 //        val imgWidth = (ScreenUtil.getScreenWidth() - 600) / 4
 //        val params = LinearLayout.LayoutParams(
