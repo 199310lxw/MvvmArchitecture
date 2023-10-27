@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.gyf.immersionbar.ImmersionBar
-import com.xwl.common_lib.manager.ActivityManager
 
 /**
  * @author  lxw
@@ -21,6 +20,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private fun initBar() {
         ImmersionBar.with(this)
+            .statusBarColor("#ffffff")
             .statusBarDarkFont(true) //状态栏字体是深色，不写默认为亮色
             //                .fitsSystemWindows(true)   //解决状态栏和布局顶部重合
             .init()

@@ -11,7 +11,6 @@
         android:id="@+id/clSearch"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_size_dp_60"
-        android:layout_marginTop="@dimen/dimen_size_dp_10"
         android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_isSticky="true">
@@ -47,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_size_dp_6"
                 android:text="@string/search"
-                android:textColor="@color/white"
+                android:textColor="@color/color_a6a6a6"
                 android:textSize="@dimen/dimen_size_sp_14" />
         </LinearLayout>
 
