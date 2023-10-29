@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.xwl.common_lib.R;
 
 import java.util.ArrayList;
@@ -92,7 +94,7 @@ public class ThreeImageView<T> extends ViewGroup {
                 mImageSize = (totalWidth - mGap * (mColumnCount - 1)) / mColumnCount;
             }
             //（图片尺寸*行数）+总间距+上内边距+下内边距   设置行数是为后续扩展
-            height = mImageSize * mRowCount + mGap * (mRowCount - 1) + getPaddingTop() + getPaddingBottom();
+            height = (mImageSize * mRowCount + mGap * (mRowCount - 1) + getPaddingTop() + getPaddingBottom()) * 2 / 3;
         }
         //设置测量的尺寸
         setMeasuredDimension(width, height);
@@ -107,15 +109,14 @@ public class ThreeImageView<T> extends ViewGroup {
             left = getPaddingLeft() + i % 3 * mImageSize + i % 3 * mGap;
             top = getPaddingTop() + i / 3 * mImageSize + i / 3 * mGap;
             right = left + mImageSize;
-            bottom = top + mImageSize;
+            bottom = top + mImageSize * 2 / 3;
             childrenView.layout(left, top, right, bottom);
-            Glide.with(mContext).load(mImgDataList.get(i)).into(childrenView);
+            Glide.with(mContext).load(mImgDataList.get(i)).transform(new CenterCrop(), new RoundedCorners(10)).into(childrenView);
         }
         showImageAndText(left, top, right, bottom);
     }
 
     private void showImageAndText(int left, int top, int right, int bottom) {
-
         if (mImgDataList.size() > mMaxSize) {
             if (textView != null) {
                 textView.bringToFront();
@@ -127,24 +128,17 @@ public class ThreeImageView<T> extends ViewGroup {
 
                 //设置文本颜色及背景半透明
                 textView.setTextColor(Color.WHITE);
-                textView.setBackgroundColor(0x80000000);
+//                textView.setBackgroundColor(0x80000000);
+                textView.setBackgroundResource(R.drawable.shape_thread_image_text_bg);
 
                 //设置文字位置
                 // 1.用FontMetrics对象计算高度
                 Paint.FontMetricsInt fontMetricsInt = textView.getPaint().getFontMetricsInt();
                 int textHeight = fontMetricsInt.bottom - fontMetricsInt.top;//文本高度
-                int paddingTop = (mImageSize - textHeight) / 2;
+                int paddingTop = (mImageSize * 2 / 3 - textHeight) / 2;
                 //方法一：设置居中,setGravity(Gravity.CENTER)只显示为水平居中，所以需要设置padding
-                textView.setPadding(0, paddingTop, 0, paddingTop);
+                textView.setPadding(0, paddingTop, 0, 0);
                 textView.setGravity(Gravity.CENTER);
-
-                //方法二:设置居中
-//                    Rect bounds = new Rect();
-//                    textView.getPaint().getTextBounds(text, 0, text.length(), bounds);
-//                    int textWidth = bounds.right - bounds.left;
-//                    int paddingLeft = (mImageSize - textWidth) / 2;
-//                    textView.setPadding(paddingLeft, paddingTop, 0, 0);
-
                 textView.layout(left, top, right, bottom);
                 //这里设置只会显示水平居中，所以需要上面的padding
 

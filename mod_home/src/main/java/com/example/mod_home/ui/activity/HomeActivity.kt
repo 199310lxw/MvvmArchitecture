@@ -10,7 +10,7 @@ import com.example.mod_home.adapters.FragmentAdapter
 import com.example.mod_home.databinding.ActivityHomeBinding
 import com.example.mod_home.dialog.UpdateDialog
 import com.example.mod_home.ui.fragment.HomeFragment
-import com.example.mod_home.ui.fragment.MessageFragment
+import com.example.mod_home.ui.fragment.CommunityFragment
 import com.example.mod_home.ui.fragment.MineFragment
 import com.example.mod_home.ui.fragment.VideoFragment
 import com.example.mod_home.viewmodel.HomeViewModel
@@ -36,7 +36,7 @@ class HomeActivity : BaseVmVbActivity<HomeViewModel, ActivityHomeBinding>() {
     private fun initTab() {
         fragmentList.add(HomeFragment.newInstance())
         fragmentList.add(VideoFragment.newInstance())
-        fragmentList.add(MessageFragment.newInstance())
+        fragmentList.add(CommunityFragment.newInstance())
         fragmentList.add(MineFragment.newInstance())
         val fragmentAdapter = FragmentAdapter(fragmentList, this@HomeActivity)
         mViewBinding.viewPager.adapter = fragmentAdapter

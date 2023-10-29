@@ -7,8 +7,8 @@ package com.xwl.common_lib.constants
  */
 class UrlConstants {
     companion object {
-        //        const val BASE_URL = "http://192.168.1.43/"
-        const val BASE_URL = "http://192.168.10.11/"
+        const val BASE_URL = "http://192.168.1.43/"
+//        const val BASE_URL = "http://192.168.10.11/"
 //        const val BASE_URL = "http://22665x1b73.imdo.co:57922/"
 
         const val URL_REGISTER = "server/user/register"
@@ -22,7 +22,9 @@ class UrlConstants {
 
         const val APK_URL = "server/apk/mvvmarchitecture.apk"
 
-        const val HOT_LIST_URL = "server/home/hot"
+        const val VIDEO_LIST_URL = "server/home/video"
+
+        const val UPLOAD_FAVORITE_URL = "server/home/uploadFavorite.php"
 
 
         const val BANNER_LIST_URL = "server/home/banner/"

@@ -14,7 +14,7 @@ import com.xwl.common_lib.callback.IHttpCallBack
 class CourseDetailViewModel : BaseViewModel() {
 
     /**
-     * 获取热门列表
+     * 获取推荐列表
      */
     fun getRecommendList(
         page: Int,
@@ -39,4 +39,33 @@ class CourseDetailViewModel : BaseViewModel() {
 
         return hotLiveData
     }
+
+    /**
+     * 获取推荐列表
+     */
+    fun uploadFavoriteVideo(
+        phone: String,
+        type: String,
+        data: String,
+        showloading: Boolean
+    ): MutableLiveData<String?> {
+        val favoriteLiveData: MutableLiveData<String?> =
+            MutableLiveData<String?>()
+
+        request(
+            requestCall = { ApiManager.api.uploadFavorite(phone, type, data) },
+            object : IHttpCallBack<String?> {
+                override fun onSuccess(result: String?) {
+                    favoriteLiveData.value = result
+                }
+
+                override fun onFailure(obj: Any?) {
+                    error.value = obj.toString()
+                }
+            }, showloading
+        )
+
+        return favoriteLiveData
+    }
+
 }

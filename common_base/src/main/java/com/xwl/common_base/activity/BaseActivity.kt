@@ -20,7 +20,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private fun initBar() {
         ImmersionBar.with(this)
-            .statusBarColor("#ffffff")
+//            .statusBarColor("#ffffff")
             .statusBarDarkFont(true) //状态栏字体是深色，不写默认为亮色
             //                .fitsSystemWindows(true)   //解决状态栏和布局顶部重合
             .init()

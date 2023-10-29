@@ -26,7 +26,7 @@ class VideoAdapter : BaseQuickAdapter<VideoBean, QuickViewHolder>() {
         item?.let {
             holder.setText(R.id.tvTitle, it.title)
             holder.setText(R.id.tvType, it.type)
-            imgVideo.loadVideoFirstFrameRound(it.videoUrl)
+            imgVideo.loadVideoFirstFrameRound(it.posterUrl?.ifEmpty { it.videoUrl })
         }
     }
 

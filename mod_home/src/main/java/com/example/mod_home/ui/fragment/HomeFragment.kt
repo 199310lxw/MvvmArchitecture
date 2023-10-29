@@ -3,6 +3,7 @@ package com.example.mod_home.ui.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import com.example.mod_home.adapters.HomeSortAdapter
 import com.example.mod_home.databinding.FragmentHomeBinding
 import com.example.mod_home.viewmodel.HomeViewModel
@@ -14,6 +15,7 @@ import com.scwang.smart.refresh.layout.listener.OnMultiListener
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
 import com.xwl.common_lib.bean.BannerBean
 import com.xwl.common_lib.ext.setUrl
+import com.xwl.common_lib.utils.ScreenUtil
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
 import com.youth.banner.indicator.RectangleIndicator
@@ -119,6 +121,9 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
     }
 
     private fun initBanner(lists: ArrayList<BannerBean>) {
+        val screenWidth = ScreenUtil.getScreenWidth()
+        val params = LinearLayout.LayoutParams(screenWidth, screenWidth * 3 / 5)
+        mViewBinding.banner.layoutParams = params
         mViewBinding.banner.setAdapter(object :
             BannerImageAdapter<BannerBean>(lists) {
             override fun onBindView(
@@ -139,7 +144,9 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
     }
 
     override fun onLazyLoadData() {
-
+        mViewModel.error.observe(this) {
+            mViewBinding.refreshLayout.finishRefresh()
+        }
     }
 
     private fun getData(showLoading: Boolean = true) {
@@ -156,4 +163,5 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
             }
         }
     }
+
 }

@@ -53,6 +53,17 @@ interface ApiService {
     ): BaseResponse<String>?
 
     /**
+     * 更新用户头像
+     */
+    @FormUrlEncoded
+    @POST(UrlConstants.UPLOAD_FAVORITE_URL)
+    suspend fun uploadFavorite(
+        @Field("phone") phone: String,
+        @Field("type") type: String,
+        @Field("data") data: String,
+    ): BaseResponse<String>?
+
+    /**
      * 获取热门列表
      */
     @GET(UrlConstants.BANNER_LIST_URL)
@@ -67,7 +78,7 @@ interface ApiService {
     /**
      * 获取热门列表
      */
-    @GET(UrlConstants.HOT_LIST_URL)
+    @GET(UrlConstants.VIDEO_LIST_URL)
     suspend fun getHotList(
         @Query("page") page: Int,
         @Query("size") size: Int

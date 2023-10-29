@@ -14,6 +14,7 @@ import com.example.mod_home.R
 import com.example.mod_home.adapters.RecommendAdapter
 import com.example.mod_home.databinding.ActivityVideoDetailBinding
 import com.example.mod_home.viewmodel.CourseDetailViewModel
+import com.google.gson.Gson
 import com.gyf.immersionbar.ImmersionBar
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.activity.BaseVmVbActivity
@@ -27,6 +28,7 @@ import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.ext.setScanImage
 import com.xwl.common_lib.ext.visible
 import com.xwl.common_lib.manager.MMKVAction
+import com.xwl.common_lib.provider.UserServiceProvider
 import com.xwl.common_lib.utils.ClickUtil
 import com.xwl.common_lib.utils.GsonUtils
 import com.xwl.common_lib.utils.ScreenRotateUtils
@@ -139,19 +141,7 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
      * 判断是够已经收藏了
      */
     private fun checkIsCollected(video: VideoBean): Boolean {
-        val videoData = MMKVAction.getDefaultMKKV()
-            .decodeString(KeyConstant.KEY_COLLECT_VIDEO_LIST, "")
-        val listVideo =
-            GsonUtils.gsonToList(videoData, VideoBean::class.java) as ArrayList<VideoBean>
-        if (!listVideo.isNullOrEmpty()) {
-            Logger.e("----->${listVideo.size}")
-            for (element in listVideo) {
-                if (element.videoUrl == video.videoUrl) {
-                    Logger.e("----->true")
-                    return true
-                }
-            }
-        }
+        
         return false
     }
 
@@ -192,30 +182,22 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
     }
 
     private fun collectVideo(video: VideoBean) {
-        val videoData = MMKVAction.getDefaultMKKV()
-            .decodeString(KeyConstant.KEY_COLLECT_VIDEO_LIST)
-        Logger.e("aaaaaaaaaaaaaaaaaa")
-        var listVideo = GsonUtils.gsonToList(videoData, VideoBean::class.java)
-        if (listVideo.isNullOrEmpty()) {
-            listVideo = arrayListOf()
-        }
-        Logger.e("-------->${listVideo.size}")
-        listVideo.let {
-            video.let { it1 ->
-                it.add(it1)
+        val gson = Gson()
+        val data = gson.toJson(video)
+        UserServiceProvider.getUserInfo()?.let {
+            video.type?.let { it1 ->
+                mViewModel.uploadFavoriteVideo(it.phone, it1, data, true).observe(this) {
+                    Logger.e("收藏成功")
+                    showCollectView(true)
+                    isCollected = true
+                }
             }
-            Logger.e("-------->${listVideo.size}")
-            Logger.e("-------->${GsonUtils.toJsonString(it)}")
-            MMKVAction.getDefaultMKKV()
-                .encode(KeyConstant.KEY_COLLECT_VIDEO_LIST, GsonUtils.toJsonString(it))
-            isCollected = true
         }
     }
 
     private fun disCollectVideo(video: VideoBean) {
         val videoData = MMKVAction.getDefaultMKKV().decodeString(KeyConstant.KEY_COLLECT_VIDEO_LIST)
         var videoList = GsonUtils.gsonToList(videoData, VideoBean::class.java)
-        Logger.e("-------->${videoList.size}")
         for (index in 0 until videoList.size) {
             if (videoList[index] == video) {
                 videoList?.removeAt(index)
@@ -272,6 +254,7 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
                 }
             }
         }
+
     }
 
 
