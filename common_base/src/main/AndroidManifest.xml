@@ -4,6 +4,9 @@
 
     <application>
         <activity android:name=".activity.WebViewActivity" />
+        <activity
+            android:name=".activity.ImagePagerActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

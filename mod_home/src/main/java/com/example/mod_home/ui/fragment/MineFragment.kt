@@ -9,8 +9,8 @@ import com.example.mod_home.databinding.FragmentMineBinding
 import com.example.mod_home.ui.activity.CollectedActivity
 import com.example.mod_home.ui.activity.LookRecordActivity
 import com.example.mod_home.ui.activity.SettingActivity
-import com.example.mod_home.ui.activity.UserInfoActivity
 import com.example.mod_home.viewmodel.HomeViewModel
+import com.xwl.common_base.activity.ImagePagerActivity
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
 import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.ext.setUrlCircleBorder
@@ -23,12 +23,20 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
         fun newInstance() = MineFragment()
     }
 
+    var userHeard: String? = null
+
     override fun initView(savedInstanceState: Bundle?, view: View?) {
         mViewBinding.dampView.setTransverse(false)
 
         mViewBinding.imgHeader.onClick {
             if (UserServiceProvider.isLogin()) {
-                startActivity(Intent(mContext, UserInfoActivity::class.java))
+                userHeard?.let {
+                    val list = arrayListOf<String>()
+                    list.add(it)
+                    ImagePagerActivity.startImagePagerActivity(requireActivity(), list, 0)
+                } ?: kotlin.run {
+                    LoginServiceProvider.skipLoginActivity(mContext)
+                }
             } else {
                 LoginServiceProvider.skipLoginActivity(mContext)
             }
@@ -60,6 +68,7 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
                 6f,
                 R.color.white
             )
+            userHeard = it.icon
             mViewBinding.tcNickName.text = it.getName()?.ifEmpty { it.phone }
         } ?: kotlin.run {
             mViewBinding.imgHeader.setUrlCircleBorder(

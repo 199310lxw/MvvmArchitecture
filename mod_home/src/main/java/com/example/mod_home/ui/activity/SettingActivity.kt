@@ -30,6 +30,11 @@ class SettingActivity : BaseVmVbActivity<EmptyViewModel, ActivitySettingBinding>
         mViewBinding.sbSettingAbout.onClick {
             WebViewActivity.start(this@SettingActivity, UrlConstants.AGREENMENT_URL, "关于我们")
         }
+
+        mViewBinding.sbSettingUserInfo.onClick {
+            UserInfoActivity.startActivity(this@SettingActivity)
+        }
+
         mViewBinding.sbSettingLanguage.onClick {
             MenuDialog.Builder(this@SettingActivity)
                 .setListData(languageList)

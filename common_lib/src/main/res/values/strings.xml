@@ -14,6 +14,7 @@
     <string name="setting_title">设置</string>
     <string name="setting_update">检查更新</string>
     <string name="setting_language_switch">语言切换</string>
+    <string name="setting_user_info">个人信息</string>
     <string name="setting_phone">修改手机</string>
     <string name="setting_password">修改密码</string>
     <string name="setting_agreement">隐私协议</string>

@@ -23,6 +23,32 @@
             android:orientation="vertical">
 
             <com.xwl.common_lib.views.SettingBar
+                android:id="@+id/sb_setting_user_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_size_dp_15"
+                app:bar_leftText="@string/setting_user_info"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                tools:bar_rightHint="@string/setting_language_simple" />
+
+            <com.xwl.common_lib.views.SettingBar
+                android:id="@+id/sb_setting_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:bar_leftText="@string/setting_phone"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                tools:bar_rightText="181****1413" />
+
+            <com.xwl.common_lib.views.SettingBar
+                android:id="@+id/sb_setting_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="@string/setting_password"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                tools:bar_rightText="密码强度较低" />
+
+            <com.xwl.common_lib.views.SettingBar
                 android:id="@+id/sb_setting_language"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,22 +74,6 @@
                     android:textColor="@color/red" />
             </com.xwl.common_lib.views.SettingBar>
 
-            <com.xwl.common_lib.views.SettingBar
-                android:id="@+id/sb_setting_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_size_dp_15"
-                app:bar_leftText="@string/setting_phone"
-                app:bar_rightDrawable="@drawable/arrows_right_ic"
-                tools:bar_rightText="181****1413" />
-
-            <com.xwl.common_lib.views.SettingBar
-                android:id="@+id/sb_setting_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:bar_leftText="@string/setting_password"
-                app:bar_rightDrawable="@drawable/arrows_right_ic"
-                tools:bar_rightText="密码强度较低" />
 
             <com.xwl.common_lib.views.SettingBar
                 android:id="@+id/sb_setting_agreement"

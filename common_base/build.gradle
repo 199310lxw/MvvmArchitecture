@@ -46,5 +46,8 @@ android {
 dependencies {
     api project(path: ':common_lib')
     api project(path: ':lib_net')
+
+    //缩放
+    implementation 'com.commit451:PhotoView:1.2.4'
     api rootProject.ext.dependencies.tbssdk
 }

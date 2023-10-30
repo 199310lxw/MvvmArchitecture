@@ -64,7 +64,7 @@ class UserInfoActivity : BaseVmVbActivity<UserInfoViewModel, ActivityUserInfoBin
     var mActivityResultLauncherAlbum: ActivityResultLauncher<Intent>? = null
 
     companion object {
-        fun start(context: Context) {
+        fun startActivity(context: Context) {
             val intent = Intent(context, UserInfoActivity::class.java)
             context.startActivity(intent)
         }
