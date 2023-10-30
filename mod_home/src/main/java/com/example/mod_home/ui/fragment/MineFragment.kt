@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.mod_home.R
 import com.example.mod_home.databinding.FragmentMineBinding
+import com.example.mod_home.ui.activity.CollectedActivity
 import com.example.mod_home.ui.activity.LookRecordActivity
 import com.example.mod_home.ui.activity.SettingActivity
 import com.example.mod_home.ui.activity.UserInfoActivity
@@ -37,6 +38,10 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
         }
         mViewBinding.tvLookRecord.onClick {
             startActivity(Intent(activity, LookRecordActivity::class.java))
+        }
+
+        mViewBinding.tvCollectList.onClick {
+            startActivity(Intent(activity, CollectedActivity::class.java))
         }
 
         UserServiceProvider.getUserLiveData().observe(this) {

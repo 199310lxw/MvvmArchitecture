@@ -47,5 +47,6 @@
         android:src="@drawable/icon_share"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="@dimen/dimen_size_dp_6"
+        android:layout_marginBottom="@dimen/dimen_size_dp_4"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

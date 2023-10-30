@@ -9,6 +9,9 @@
             android:name=".ui.activity.LookRecordActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.activity.CollectedActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.HomeActivity"
             android:launchMode="singleTask" />
         <activity

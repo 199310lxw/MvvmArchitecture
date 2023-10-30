@@ -2,7 +2,7 @@ package com.example.mod_basics.adapter
 
 import android.content.Context
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.QuickViewHolder
 import com.example.mod_basics.R
@@ -22,7 +22,7 @@ class VideoAdapter : BaseQuickAdapter<VideoBean, QuickViewHolder>() {
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: VideoBean?) {
         val jzVideo = holder.getView<CustomJzvdStd>(R.id.jzVideo)
         val imgWidth = ScreenUtil.getScreenWidth() / 2 - 40
-        val params = LinearLayout.LayoutParams(imgWidth, imgWidth * 2 / 3)
+        val params = ConstraintLayout.LayoutParams(imgWidth, imgWidth * 2 / 3)
         jzVideo.layoutParams = params
         item?.let {
             holder.setText(R.id.tvTitle, it.title)
@@ -42,7 +42,6 @@ class VideoAdapter : BaseQuickAdapter<VideoBean, QuickViewHolder>() {
     }
 
     private fun startVideo(view: CustomJzvdStd) {
-
         view.startVideo()
     }
 
@@ -52,6 +51,6 @@ class VideoAdapter : BaseQuickAdapter<VideoBean, QuickViewHolder>() {
         parent: ViewGroup,
         viewType: Int
     ): QuickViewHolder {
-        return QuickViewHolder(R.layout.item_video, parent)
+        return QuickViewHolder(R.layout.basics_item_video, parent)
     }
 }

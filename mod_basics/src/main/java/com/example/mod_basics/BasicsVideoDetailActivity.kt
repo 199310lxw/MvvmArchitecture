@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import cn.jzvd.Jzvd
 import cn.jzvd.JzvdStd
-import com.example.mod_basics.databinding.ActivityVideoDetailBinding
+import com.example.mod_basics.databinding.ActivityBasicsVideoDetailBinding
 import com.example.mod_basics.viewmodel.VideoDetailViewModel
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_lib.bean.VideoBean
@@ -14,7 +14,7 @@ import com.xwl.common_lib.ext.setScanImage
 import com.xwl.common_lib.utils.ScreenRotateUtils
 
 class BasicsVideoDetailActivity :
-    BaseVmVbActivity<VideoDetailViewModel, ActivityVideoDetailBinding>(),
+    BaseVmVbActivity<VideoDetailViewModel, ActivityBasicsVideoDetailBinding>(),
     ScreenRotateUtils.OrientationChangeListener {
 
     private var mVideo: VideoBean? = null
@@ -59,7 +59,7 @@ class BasicsVideoDetailActivity :
      * 竖屏并退出全屏
      */
     private fun changeScrenNormal() {
-        if (mViewBinding.jzVideo != null && mViewBinding.jzVideo.screen == Jzvd.SCREEN_FULLSCREEN) {
+        if (mViewBinding.jzVideo.screen == Jzvd.SCREEN_FULLSCREEN) {
             mViewBinding.jzVideo.autoQuitFullscreen()
         }
     }
@@ -69,7 +69,7 @@ class BasicsVideoDetailActivity :
      */
     private fun changeScreenFullLandscape(x: Float) {
         //从竖屏状态进入横屏
-        if (mViewBinding.jzVideo != null && mViewBinding.jzVideo.screen != Jzvd.SCREEN_FULLSCREEN) {
+        if (mViewBinding.jzVideo.screen != Jzvd.SCREEN_FULLSCREEN) {
             if (System.currentTimeMillis() - Jzvd.lastAutoFullscreenTime > 2000) {
                 mViewBinding.jzVideo.autoFullscreen(x)
                 Jzvd.lastAutoFullscreenTime = System.currentTimeMillis()

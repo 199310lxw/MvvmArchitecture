@@ -14,23 +14,22 @@ import com.example.mod_home.R
 import com.example.mod_home.adapters.RecommendAdapter
 import com.example.mod_home.databinding.ActivityVideoDetailBinding
 import com.example.mod_home.viewmodel.CourseDetailViewModel
-import com.google.gson.Gson
 import com.gyf.immersionbar.ImmersionBar
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_base.dialog.ShareDialog
+import com.xwl.common_lib.bean.User
 import com.xwl.common_lib.bean.VideoBean
+import com.xwl.common_lib.constants.CollectionType
 import com.xwl.common_lib.constants.KeyConstant
-import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.dialog.TipsToast.showTips
 import com.xwl.common_lib.ext.gone
 import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.ext.setScanImage
 import com.xwl.common_lib.ext.visible
-import com.xwl.common_lib.manager.MMKVAction
+import com.xwl.common_lib.provider.LoginServiceProvider
 import com.xwl.common_lib.provider.UserServiceProvider
 import com.xwl.common_lib.utils.ClickUtil
-import com.xwl.common_lib.utils.GsonUtils
 import com.xwl.common_lib.utils.ScreenRotateUtils
 
 
@@ -53,6 +52,8 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
 
     private var mVideo: VideoBean? = null
 
+    private var user: User? = null
+
     companion object {
         fun startActivity(mContext: Context, video: VideoBean) {
             val intent = Intent(mContext, VideoDetailActivity::class.java)
@@ -64,17 +65,8 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
     override fun initView(savedInstanceState: Bundle?) {
         initbar()
         mVideo = intent.getParcelableExtra(KeyConstant.KEY_VIDEO)
-
-//        if (mVideo?.let { checkIsCollected(it) } == true) {
-//            Logger.e("已经收藏1111111111111111")
-//            isCollected = true
-//            showCollectView(isCollected)
-//        } else {
-//            Logger.e("没有收藏222222222222222")
-//            isCollected = false
-//            showCollectView(isCollected)
-//        }
-
+        user = UserServiceProvider.getUserInfo()
+        mVideo?.let { checkIsCollected(it) }
         mViewBinding.tvTitle.text = mVideo?.title
         mViewBinding.jzVideo.setUp(
             mVideo?.videoUrl,
@@ -88,6 +80,7 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
                 mVideo?.title?.let { it2 ->
                     DownloadUtil.startDownload(this, it1, it2, start = {
                         mViewBinding.downloadProgressbar.visible()
+                        mViewBinding.tvDownload.isClickable = false
                     }, progress = {
                         mViewBinding.downloadProgressbar.progress = it
                         mViewBinding.tvDownload.text = String.format("%d%%", it)
@@ -95,8 +88,10 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
                         showTips("下载成功,请到我的下载页面查看详情")
                         mViewBinding.downloadProgressbar.gone()
                         mViewBinding.tvDownload.text = resources.getString(R.string.default_cache)
+                        mViewBinding.tvDownload.isClickable = true
                     }, failure = {
                         showTips(it)
+                        mViewBinding.tvDownload.isClickable = true
                     })
                 }
             }
@@ -105,13 +100,13 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
         mViewBinding.tvShare.onClick {
             ShareDialog.Builder(this@VideoDetailActivity)
                 .setOnItemClickListener { _, s ->
-                    TipsToast.showTips("分享到：${s}")
+                    showTips("分享到：${s}")
                 }
                 .show()
         }
 
         mViewBinding.tvCollection.onClick {
-            setCollection()
+            mVideo?.let { it1 -> setCollection(it1) }
         }
 
 
@@ -140,24 +135,28 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
     /**
      * 判断是够已经收藏了
      */
-    private fun checkIsCollected(video: VideoBean): Boolean {
-        
-        return false
+    private fun checkIsCollected(video: VideoBean) {
+        user?.let {
+            video.videoUrl?.let { it1 ->
+                mViewModel.checkIsColleced(it.phone, it1).observe(this) { it1 ->
+                    isCollected = it1 == "true"
+                    showCollectView(isCollected)
+                }
+            }
+        }
     }
 
 
-    private fun setCollection() {
+    private fun setCollection(video: VideoBean) {
         if (!isCollected) {
-            mVideo?.let { collectVideo(it) }
+            video.let { collectVideo(it) }
         } else {
-            mVideo?.let { disCollectVideo(it) }
-
+            video.let { disCollectVideo(it) }
         }
-        showCollectView(isCollected)
     }
 
     private fun showCollectView(isCollected: Boolean) {
-        var drawable: Drawable? = null
+        val drawable: Drawable?
         if (isCollected) {
             drawable =
                 resources.getDrawable(com.xwl.common_lib.R.drawable.icon_collection_selected)
@@ -181,33 +180,57 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
         }
     }
 
+    /**
+     * 收藏视频
+     */
     private fun collectVideo(video: VideoBean) {
-        val gson = Gson()
-        val data = gson.toJson(video)
-        UserServiceProvider.getUserInfo()?.let {
+        user?.let {
             video.type?.let { it1 ->
-                mViewModel.uploadFavoriteVideo(it.phone, it1, data, true).observe(this) {
-                    Logger.e("收藏成功")
-                    showCollectView(true)
-                    isCollected = true
+                video.title?.let { it2 ->
+                    video.videoUrl?.let { it3 ->
+                        video.posterUrl?.let { it4 ->
+                            mViewModel.uploadFavoriteVideo(
+                                it.phone,
+                                CollectionType.VIDEO.name,
+                                it2,
+                                video.type!!,
+                                it3,
+                                it4,
+                                true
+                            ).observe(this) {
+                                Logger.e("收藏成功")
+                                isCollected = true
+                                showCollectView(isCollected)
+                            }
+                        }
+                    }
                 }
             }
+        } ?: kotlin.run {
+            LoginServiceProvider.skipLoginActivity(this@VideoDetailActivity)
         }
     }
 
+    /**
+     * 取消收藏视频
+     */
     private fun disCollectVideo(video: VideoBean) {
-        val videoData = MMKVAction.getDefaultMKKV().decodeString(KeyConstant.KEY_COLLECT_VIDEO_LIST)
-        var videoList = GsonUtils.gsonToList(videoData, VideoBean::class.java)
-        for (index in 0 until videoList.size) {
-            if (videoList[index] == video) {
-                videoList?.removeAt(index)
+        user?.let {
+            video.videoUrl?.let { it1 ->
+                mViewModel.disCollectVideo(
+                    it.phone,
+                    it1,
+                    true
+                ).observe(this) {
+                    Logger.e("收藏成功")
+                    if (it == "true") { //取消收藏成功
+                        isCollected = false
+                        showCollectView(isCollected)
+                    }
+                }
             }
-        }
-        videoList?.let {
-            val result = GsonUtils.toJsonString(it)
-            MMKVAction.getDefaultMKKV()
-                .encode(KeyConstant.KEY_COLLECT_VIDEO_LIST, GsonUtils.toJsonString(result))
-            isCollected = false
+        } ?: kotlin.run {
+            LoginServiceProvider.skipLoginActivity(this@VideoDetailActivity)
         }
     }
 
@@ -285,7 +308,7 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
      * 竖屏并退出全屏
      */
     private fun changeScrenNormal() {
-        if (mViewBinding.jzVideo != null && mViewBinding.jzVideo.screen == Jzvd.SCREEN_FULLSCREEN) {
+        if (mViewBinding.jzVideo.screen == Jzvd.SCREEN_FULLSCREEN) {
             mViewBinding.jzVideo.autoQuitFullscreen()
         }
     }
@@ -295,7 +318,7 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
      */
     private fun changeScreenFullLandscape(x: Float) {
         //从竖屏状态进入横屏
-        if (mViewBinding.jzVideo != null && mViewBinding.jzVideo.screen != Jzvd.SCREEN_FULLSCREEN) {
+        if (mViewBinding.jzVideo.screen != Jzvd.SCREEN_FULLSCREEN) {
             if (System.currentTimeMillis() - Jzvd.lastAutoFullscreenTime > 2000) {
                 mViewBinding.jzVideo.autoFullscreen(x)
                 Jzvd.lastAutoFullscreenTime = System.currentTimeMillis()

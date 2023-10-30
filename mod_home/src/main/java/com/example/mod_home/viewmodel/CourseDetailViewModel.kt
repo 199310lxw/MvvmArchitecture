@@ -41,19 +41,31 @@ class CourseDetailViewModel : BaseViewModel() {
     }
 
     /**
-     * 获取推荐列表
+     * 收藏视频
      */
     fun uploadFavoriteVideo(
         phone: String,
         type: String,
-        data: String,
+        title: String,
+        videoType: String,
+        videoUrl: String,
+        posterUrl: String,
         showloading: Boolean
     ): MutableLiveData<String?> {
         val favoriteLiveData: MutableLiveData<String?> =
             MutableLiveData<String?>()
 
         request(
-            requestCall = { ApiManager.api.uploadFavorite(phone, type, data) },
+            requestCall = {
+                ApiManager.api.uploadFavorite(
+                    phone,
+                    type,
+                    title,
+                    videoType,
+                    videoUrl,
+                    posterUrl
+                )
+            },
             object : IHttpCallBack<String?> {
                 override fun onSuccess(result: String?) {
                     favoriteLiveData.value = result
@@ -66,6 +78,64 @@ class CourseDetailViewModel : BaseViewModel() {
         )
 
         return favoriteLiveData
+    }
+
+    /**
+     * 取消收藏视频
+     */
+    fun disCollectVideo(
+        phone: String,
+        videoUrl: String,
+        showloading: Boolean
+    ): MutableLiveData<String?> {
+        val disCollectLiveData: MutableLiveData<String?> =
+            MutableLiveData<String?>()
+        request(
+            requestCall = {
+                ApiManager.api.disCollectFavorite(
+                    phone,
+                    videoUrl
+                )
+            },
+            object : IHttpCallBack<String?> {
+                override fun onSuccess(result: String?) {
+                    disCollectLiveData.value = result
+                }
+
+                override fun onFailure(obj: Any?) {
+                    error.value = obj.toString()
+                }
+            }, showloading
+        )
+
+        return disCollectLiveData
+    }
+
+    /**
+     * 检查视频是否收藏了
+     */
+    fun checkIsColleced(
+        phone: String,
+        videoUrl: String,
+        showloading: Boolean = true
+    ): MutableLiveData<String?> {
+        val checkLiveData: MutableLiveData<String?> =
+            MutableLiveData<String?>()
+
+        request(
+            requestCall = { ApiManager.api.checkCollected(phone, videoUrl) },
+            object : IHttpCallBack<String?> {
+                override fun onSuccess(result: String?) {
+                    checkLiveData.value = result
+                }
+
+                override fun onFailure(obj: Any?) {
+                    error.value = obj.toString()
+                }
+            }, showloading
+        )
+
+        return checkLiveData
     }
 
 }

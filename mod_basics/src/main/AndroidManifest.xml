@@ -6,7 +6,9 @@
         <activity
             android:name=".BasicsVideoDetailActivity"
             android:exported="false" />
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

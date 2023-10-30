@@ -11,7 +11,6 @@
         android:id="@+id/clSearch"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_size_dp_60"
-        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_isSticky="true">
 

@@ -40,7 +40,7 @@ interface ApiService {
         @Field("nickname") nickname: String,
         @Field("birthday") birthday: String,
         @Field("icon") icon: String,
-        @Field("signature") signature: String,
+        @Field("signature") signature: String
     ): BaseResponse<User>?
 
     /**
@@ -53,15 +53,48 @@ interface ApiService {
     ): BaseResponse<String>?
 
     /**
-     * 更新用户头像
+     * 收藏内容
      */
     @FormUrlEncoded
     @POST(UrlConstants.UPLOAD_FAVORITE_URL)
     suspend fun uploadFavorite(
         @Field("phone") phone: String,
         @Field("type") type: String,
-        @Field("data") data: String,
+        @Field("title") title: String,
+        @Field("videoType") videoType: String,
+        @Field("videoUrl") videoUrl: String,
+        @Field("posterUrl") posterUrl: String
     ): BaseResponse<String>?
+
+    /**
+     * 取消收藏内容
+     */
+    @FormUrlEncoded
+    @POST(UrlConstants.DISCOLLECT_FAVORITE_URL)
+    suspend fun disCollectFavorite(
+        @Field("phone") phone: String,
+        @Field("videoUrl") videoUrl: String
+    ): BaseResponse<String>?
+
+    /**
+     * 检查是否收藏了内容
+     */
+    @FormUrlEncoded
+    @POST(UrlConstants.CHECK_COLLECTED_URL)
+    suspend fun checkCollected(
+        @Field("phone") phone: String,
+        @Field("videoUrl") videoUrl: String
+    ): BaseResponse<String>?
+
+
+    /**
+     * 获取收藏列表
+     */
+    @GET(UrlConstants.COLLECT_LIST_URL)
+    suspend fun getCollectedList(
+        @Query("phone") phone: String,
+        @Query("type") type: String
+    ): BaseResponse<ArrayList<CollectionBean>>?
 
     /**
      * 获取热门列表

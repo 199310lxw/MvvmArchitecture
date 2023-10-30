@@ -10,6 +10,7 @@ import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.response.BaseResponse
 import com.xwl.common_lib.callback.IHttpCallBack
+import com.xwl.common_lib.dialog.TipsToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -108,11 +109,9 @@ abstract class BaseViewModel : ViewModel() {
     ) {
         viewModelScope.launch(Dispatchers.Main) {
             val data = requestFlow(requestCall, errorBlock = errorBlock, showLoading = showLoading)
-            withContext(Dispatchers.Main) {
-
-                successBlock.invoke(data)
-
-            }
+//            withContext(Dispatchers.Main) {
+            successBlock.invoke(data)
+//            }
         }
     }
 
@@ -127,13 +126,19 @@ abstract class BaseViewModel : ViewModel() {
     private suspend fun <T> requestFlow(
         requestCall: suspend () -> BaseResponse<T>?,
         errorBlock: (String?) -> Unit,
-        showLoading: ((Boolean) -> Unit)? = null
+        showLoading: ((Boolean) -> Unit)? = null,
+        showResult: Boolean = false
     ): T? {
         var data: T? = null
         val flow = requestFlowResponse(requestCall, errorBlock, showLoading)
         //7.调用collect获取emit()回调的结果，就是请求最后的结果
         flow.collect {
-            data = it?.data
+            if (it != null) {
+                if (showResult) {
+                    TipsToast.showTips(it.errorMsg)
+                }
+                data = it.data
+            }
         }
         return data
     }

@@ -8,7 +8,7 @@ import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.mod_basics.adapter.VideoAdapter
-import com.example.mod_basics.databinding.ActivityMainBinding
+import com.example.mod_basics.databinding.ActivityBasicsMainBinding
 import com.example.mod_basics.viewmodel.MainViewModel
 import com.xwl.common_base.activity.BaseVmVbActivity
 import com.xwl.common_base.dialog.AgreeMentDialog
@@ -20,7 +20,7 @@ import com.xwl.common_lib.manager.MMKVAction
 import com.xwl.common_lib.utils.ClickUtil
 
 @Route(path = RoutMap.BASIC_ACTIVITY_MAIN)
-class MainActivity : BaseVmVbActivity<MainViewModel, ActivityMainBinding>() {
+class MainActivity : BaseVmVbActivity<MainViewModel, ActivityBasicsMainBinding>() {
     private lateinit var mAdapter: VideoAdapter
 
     private var mCurrentPage = 1
@@ -62,7 +62,7 @@ class MainActivity : BaseVmVbActivity<MainViewModel, ActivityMainBinding>() {
                 if (ClickUtil.isFastClick()) {
                     return
                 }
-                adapter.getItem(position)
+                mAdapter.getItem(position)
                     ?.let {
                         BasicsVideoDetailActivity.startActivity(
                             this@MainActivity,
