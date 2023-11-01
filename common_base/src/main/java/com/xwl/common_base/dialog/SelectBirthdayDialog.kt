@@ -1,8 +1,11 @@
 package com.xwl.common_base.dialog
 
+import android.os.Build
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.DatePicker
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.databinding.DialogPickerCalendarBinding
@@ -18,6 +21,7 @@ import java.util.*
  * @desc   生日日期弹框
  */
 class SelectBirthdayDialog {
+    @RequiresApi(Build.VERSION_CODES.O)
     class Builder(activity: FragmentActivity) : BaseDialogFragment.Builder<Builder>(activity) {
 
         private val mCurrentData = Calendar.getInstance()
@@ -31,6 +35,7 @@ class SelectBirthdayDialog {
             initView()
         }
 
+        @RequiresApi(Build.VERSION_CODES.O)
         private fun initView() {
             setContentView(mBinding.root)
             setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
@@ -39,10 +44,21 @@ class SelectBirthdayDialog {
             gravity = Gravity.BOTTOM
 
             ViewUtils.setClipViewCornerTopRadius(mBinding.clRoot, ScreenUtil.dip2px(12f))
-            mBinding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-                Logger.i("日期选择回调：$year-$month-$dayOfMonth")
-                mCurrentData.set(year, month, dayOfMonth)
-            }
+//            mBinding.datePicker.setOnDateChangeListener { view, year, month, dayOfMonth ->
+//                Logger.i("日期选择回调：$year-$month-$dayOfMonth")
+//                mCurrentData.set(year, month, dayOfMonth)
+//            }
+
+            mBinding.datePicker.setOnDateChangedListener(object : DatePicker.OnDateChangedListener {
+                override fun onDateChanged(
+                    view: DatePicker?,
+                    year: Int,
+                    monthOfYear: Int,
+                    dayOfMonth: Int
+                ) {
+                    mCurrentData.set(year, monthOfYear, dayOfMonth)
+                }
+            })
 
             mBinding.tvComplete.onClick {
                 val timeStamp =

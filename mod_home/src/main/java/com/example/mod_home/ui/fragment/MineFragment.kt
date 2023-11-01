@@ -11,6 +11,7 @@ import com.example.mod_home.ui.activity.LookRecordActivity
 import com.example.mod_home.ui.activity.SettingActivity
 import com.example.mod_home.viewmodel.HomeViewModel
 import com.xwl.common_base.activity.ImagePagerActivity
+import com.xwl.common_base.activity.WebViewActivity
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
 import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.ext.setUrlCircleBorder
@@ -50,6 +51,9 @@ class MineFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentMineBinding>(
 
         mViewBinding.tvCollectList.onClick {
             startActivity(Intent(activity, CollectedActivity::class.java))
+        }
+        mViewBinding.tvCacheList.onClick {
+            WebViewActivity.start(requireActivity(), "http://liuwangshu.cn/", "刘望舒")
         }
 
         UserServiceProvider.getUserLiveData().observe(this) {

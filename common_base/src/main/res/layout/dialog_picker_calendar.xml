@@ -12,12 +12,12 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-        <CalendarView
-            android:id="@+id/calendarView"
+        <DatePicker
+            android:id="@+id/datePicker"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
@@ -26,7 +26,7 @@
             android:layout_height="0.5dp"
             android:layout_marginTop="@dimen/dimen_size_dp_10"
             android:background="@color/line_color"
-            app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+            app:layout_constraintTop_toBottomOf="@+id/datePicker" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_cancel"
