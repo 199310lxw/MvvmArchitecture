@@ -57,7 +57,7 @@ object Api {
         try {
             val sc: SSLContext = SSLContext.getInstance("TLS")
             sc.init(null, arrayOf<TrustManager>(MyTrustManager()), SecureRandom())
-            ssfFactory = sc.getSocketFactory()
+            ssfFactory = sc.socketFactory
         } catch (ignored: Exception) {
             ignored.printStackTrace()
         }

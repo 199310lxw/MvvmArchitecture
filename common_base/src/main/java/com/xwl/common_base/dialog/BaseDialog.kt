@@ -670,7 +670,7 @@ class BaseDialog @JvmOverloads constructor(
          */
         open fun show(): BaseDialog? {
             val dialog = create()
-            dialog?.show()
+            dialog.show()
             return dialog
         }
 
@@ -687,7 +687,7 @@ class BaseDialog @JvmOverloads constructor(
         View.OnClickListener {
         private val mListener: OnClickListener
         override fun onClick(v: View) {
-            mListener?.onClick(mDialog, v)
+            mListener.onClick(mDialog, v)
         }
 
         init {

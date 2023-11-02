@@ -113,7 +113,7 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
             Log.e(TAG, "URL Link = " + currUrl);
 
             simpleExoPlayer.addListener(this);
-            Boolean isLoop = jzvd.jzDataSource.looping;
+            boolean isLoop = jzvd.jzDataSource.looping;
             if (isLoop) {
                 simpleExoPlayer.setRepeatMode(Player.REPEAT_MODE_ONE);
             } else {
@@ -247,7 +247,6 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
                 case Player.STATE_READY: {
                     if (playWhenReady) {
                         jzvd.onStatePlaying();
-                    } else {
                     }
                 }
                 break;

@@ -19,7 +19,7 @@ class CollectedViewModel : BaseViewModel() {
     fun getCollectedList(
         phone: String,
         type: String,
-        showloading: Boolean
+        showLoading: Boolean
     ): MutableLiveData<ArrayList<CollectionBean>?> {
         val collectedLiveData: MutableLiveData<ArrayList<CollectionBean>?> =
             MutableLiveData<ArrayList<CollectionBean>?>()
@@ -33,7 +33,7 @@ class CollectedViewModel : BaseViewModel() {
                 override fun onFailure(obj: Any?) {
                     error.value = obj.toString()
                 }
-            }, showloading
+            }, showLoading
         )
         return collectedLiveData
     }
@@ -41,7 +41,7 @@ class CollectedViewModel : BaseViewModel() {
     fun disCollectVideo(
         phone: String,
         videoUrl: String,
-        showloading: Boolean
+        showLoading: Boolean
     ): MutableLiveData<String?> {
         val disCollectLiveData: MutableLiveData<String?> =
             MutableLiveData<String?>()
@@ -60,7 +60,7 @@ class CollectedViewModel : BaseViewModel() {
                 override fun onFailure(obj: Any?) {
                     error.value = obj.toString()
                 }
-            }, showloading
+            }, showLoading
         )
 
         return disCollectLiveData

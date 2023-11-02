@@ -15,15 +15,19 @@ private enum class LEVEL {
     V, D, I, W, E
 }
 
-fun String.Logv(tag: String = TAG) =
+fun String.logV(tag: String = TAG) =
     log(LEVEL.V, tag, this)
-fun String.Logd(tag: String = TAG) =
+
+fun String.logD(tag: String = TAG) =
     log(LEVEL.D, tag, this)
-fun String.Logi(tag: String = TAG) =
+
+fun String.logI(tag: String = TAG) =
     log(LEVEL.I, tag, this)
-fun String.Logw(tag: String = TAG) =
+
+fun String.logW(tag: String = TAG) =
     log(LEVEL.W, tag, this)
-fun String.Loge(tag: String = TAG) =
+
+fun String.logE(tag: String = TAG) =
     log(LEVEL.E, tag, this)
 
 private fun log(level: LEVEL, tag: String, message: String) {

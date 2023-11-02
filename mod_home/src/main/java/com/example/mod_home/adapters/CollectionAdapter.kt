@@ -31,7 +31,7 @@ class CollectionAdapter : BaseQuickAdapter<CollectionBean, QuickViewHolder>() {
         item?.let {
             holder.setText(R.id.tvTitle, it.title)
             holder.setText(R.id.tvType, it.type)
-            imgVideo.loadVideoFirstFrameRound(it.posterUrl?.ifEmpty { it.url })
+            imgVideo.loadVideoFirstFrameRound(it.posterUrl.ifEmpty { it.url })
         }
         imgShare.onClick {
             ShareDialog.Builder(context as FragmentActivity)

@@ -5,13 +5,10 @@ import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.PlaybackParams;
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 import android.view.Surface;
-
-import androidx.annotation.RequiresApi;
 
 import cn.jzvd.JZMediaInterface;
 import cn.jzvd.Jzvd;
@@ -130,7 +127,7 @@ public class JZMediaSystemAssertFolder extends JZMediaInterface implements Media
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    
     @Override
     public void setSpeed(float speed) {
         PlaybackParams pp = mediaPlayer.getPlaybackParams();

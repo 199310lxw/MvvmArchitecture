@@ -3,11 +3,10 @@ package com.xwl.common_lib.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.orhanobut.logger.Logger;
 import com.xwl.common_lib.bean.SpItem;
 import com.xwl.common_lib.provider.ContextServiceProvider;
-import java.util.List;
 
+import java.util.List;
 
 /**
  * @author lxw
@@ -280,7 +279,7 @@ public class SharedPreferenceUtil {
      * 在同时put多个数据时，尽量用批量put数据
      */
     public void putListValues(List<SpItem> spItemList) {
-        if ( spItemList == null || spItemList.isEmpty()) {
+        if (spItemList == null || spItemList.isEmpty()) {
             return;
         }
         SharedPreferences.Editor spEditor = sharedPreferences.edit();

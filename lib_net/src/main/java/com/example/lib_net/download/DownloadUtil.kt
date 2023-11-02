@@ -28,20 +28,12 @@ object DownloadUtil {
         url: String,
         fileName: String,
         state: (DownloadState) -> Unit
-//        start: (Boolean) -> Unit,
-//        progress: (Int) -> Unit,
-//        success: (String) -> Unit,
-//        failure: (String) -> Unit
     ) {
         download(
             context,
             url,
             fileName,
             state = state
-//            start = start,
-//            progress = progress,
-//            success = success,
-//            failure = failure
         )
     }
 
@@ -50,14 +42,10 @@ object DownloadUtil {
         url: String,
         fileName: String,
         state: (DownloadState) -> Unit
-//        start: (Boolean) -> Unit,
-//        progress: (Int) -> Unit,
-//        success: (String) -> Unit,
-//        failure: (String) -> Unit
     ) {
         Observable.create { emitter: ObservableEmitter<ServiceConnection?> ->
             val conn = initService(
-                state = state
+                downloadState = state
             )
             emitter.onNext(conn)
         }.observeOn(Schedulers.io())
@@ -72,7 +60,7 @@ object DownloadUtil {
                     intent.putExtra(KeyConstant.KEY_DOWNLOAD_URL, url)
                     intent.putExtra(KeyConstant.KEY_DOWNLOAD_FILE_NAME, fileName)
                     context.startService(intent)
-                    context.bindService(intent, serviceConnection!!, Service.BIND_AUTO_CREATE)
+                    context.bindService(intent, serviceConnection, Service.BIND_AUTO_CREATE)
                 }
 
                 override fun onError(e: Throwable) {}
@@ -83,37 +71,15 @@ object DownloadUtil {
     }
 
     private fun initService(
-        state: (DownloadState) -> Unit
-//        start: (Boolean) -> Unit,
-//
-//        progress: (Int) -> Unit,
-//        success: (String) -> Unit,
-//        failure: (String) -> Unit
+        downloadState: (DownloadState) -> Unit
     ): ServiceConnection {
         val conn = object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName, iBinder: IBinder) {
                 val binder = iBinder as ServiceBinder
                 val service = binder.service
                 service!!.setOnDownloadListener(object : DownloadService.DownloadListener {
-                    override fun callback(downloadState: DownloadState) {
-                        state.invoke(downloadState)
-//                        when (state) {
-//                            is DownloadState.Start -> {
-//                                start.invoke(true)
-//                            }
-//                            is DownloadState.InProgress -> {
-//                                progress.invoke(state.progress)
-//
-//                            }
-//                            is DownloadState.Success -> {
-//                                success.invoke(state.file.absolutePath)
-//                                Logger.e("下载成功:文件保存路径：${state.file.absolutePath}")
-//                            }
-//                            is DownloadState.Error -> {
-//                                failure.invoke("下载失败：${state.throwable.message}")
-//                                Logger.e("下载失败：${state.throwable.message}")
-//                            }
-//                        }
+                    override fun callback(state: DownloadState) {
+                        downloadState.invoke(state)
                     }
                 })
             }

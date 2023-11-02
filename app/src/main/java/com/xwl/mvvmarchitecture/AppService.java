@@ -1,8 +1,8 @@
 package com.xwl.mvvmarchitecture;
 
 import android.content.Context;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.orhanobut.logger.Logger;
 import com.xwl.common_lib.constants.RoutMap;
 import com.xwl.common_lib.service.IContextService;
 

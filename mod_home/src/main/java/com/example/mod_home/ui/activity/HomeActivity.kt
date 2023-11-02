@@ -73,7 +73,7 @@ class HomeActivity : BaseVmVbActivity<HomeViewModel, ActivityHomeBinding>() {
     override fun initData() {
 
     }
-
+    
     override fun onBackPressed() {
         AppExit.onBackPressed(this)
     }

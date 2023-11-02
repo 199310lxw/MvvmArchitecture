@@ -22,9 +22,7 @@ public class GsonUtils {
     private static Gson gson = null;
 
     static {
-        if (gson == null) {
-            gson = new Gson();
-        }
+        gson = new Gson();
     }
 
     private GsonUtils() {
@@ -87,7 +85,7 @@ public class GsonUtils {
      */
     public static <T> List<T> jsonToList(String json, Class<T> cls) {
         Gson gson = new Gson();
-        List<T> list = new ArrayList<T>();
+        List<T> list = new ArrayList<>();
         JsonArray array = new JsonParser().parse(json).getAsJsonArray();
         for (final JsonElement elem : array) {
             list.add(gson.fromJson(elem, cls));
@@ -182,7 +180,7 @@ public class GsonUtils {
             throw new RuntimeException("json字符不是一个数组对象集合");
         }
         JsonArray jsonArray = jsonElement.getAsJsonArray();
-        List<T> beans = new ArrayList<T>();
+        List<T> beans = new ArrayList<>();
         for (JsonElement jsonElement2 : jsonArray) {
             T bean = new Gson().fromJson(jsonElement2, beanClazz);
             beans.add(bean);

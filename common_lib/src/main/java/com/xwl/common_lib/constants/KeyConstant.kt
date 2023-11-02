@@ -24,6 +24,6 @@ object KeyConstant {
     const val KEY_DOWNLOAD_FILE_NAME = "key_download_fileName"
     val APP_ROOT_PATH =
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path + "/mvvmarchiteture"
-    val APP_UPDATE_PATH = APP_ROOT_PATH + "/apk"
+    val APP_UPDATE_PATH = "$APP_ROOT_PATH/apk"
 
 }

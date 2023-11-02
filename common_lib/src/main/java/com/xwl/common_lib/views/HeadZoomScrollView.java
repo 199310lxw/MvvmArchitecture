@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 
 public class HeadZoomScrollView extends NestedScrollView {
@@ -89,7 +90,7 @@ public class HeadZoomScrollView extends NestedScrollView {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
+    public boolean onTouchEvent(@NonNull MotionEvent ev) {
         if (zoomViewWidth <= 0 || zoomViewHeight <= 0) {
             zoomViewWidth = zoomView.getMeasuredWidth();
             zoomViewHeight = zoomView.getMeasuredHeight();
@@ -128,7 +129,7 @@ public class HeadZoomScrollView extends NestedScrollView {
         ViewGroup.LayoutParams lp = zoomView.getLayoutParams();
         if (isTransverse) {
             if (zoom <= moveDistance) {
-                lp.width = (int) (zoomViewWidth);
+                lp.width = zoomViewWidth;
             } else {
                 lp.width = (int) (zoomViewWidth + zoom);
                 if (onZoomListener != null) {
@@ -136,7 +137,7 @@ public class HeadZoomScrollView extends NestedScrollView {
                 }
             }
         } else {
-            lp.width = (int) (zoomViewWidth);
+            lp.width = zoomViewWidth;
         }
         lp.height = (int) (zoomViewHeight * ((zoomViewWidth + zoom) / zoomViewWidth));
         ((MarginLayoutParams) lp).setMargins(-(lp.width - zoomViewWidth) / 2, 0, 0, 0);
@@ -155,19 +156,14 @@ public class HeadZoomScrollView extends NestedScrollView {
 
     //回弹动画
     private void replyImage() {
-        float distance = 0f;
+        float distance;
         if (isTransverse) {
             distance = zoomView.getMeasuredWidth() - zoomViewWidth;
         } else {
             distance = zoomView.getMeasuredHeight() - zoomViewHeight;
         }
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(distance, 0f).setDuration((long) (distance * mReplyRatio));
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                setZoom((Float) animation.getAnimatedValue());
-            }
-        });
+        valueAnimator.addUpdateListener(animation -> setZoom((Float) animation.getAnimatedValue()));
         valueAnimator.start();
     }
 

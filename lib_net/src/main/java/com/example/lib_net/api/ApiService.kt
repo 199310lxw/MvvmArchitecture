@@ -1,6 +1,6 @@
 package com.example.lib_net.api
 
-import com.xwl.common_base.response.BaseResponse
+import com.example.lib_net.response.BaseResponse
 import com.xwl.common_lib.bean.*
 import com.xwl.common_lib.constants.UrlConstants
 import okhttp3.MultipartBody

@@ -95,7 +95,7 @@ object ViewUtils {
      */
     fun transparentBar(activity: Activity, isDarkText: Boolean = false) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val window = activity?.window
+            val window = activity.window
             window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window?.statusBarColor = Color.TRANSPARENT
@@ -106,7 +106,7 @@ object ViewUtils {
             }
             window?.decorView?.systemUiVisibility = systemUiVisibility
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            val window = activity?.window
+            val window = activity.window
             window?.setFlags(
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS

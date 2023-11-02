@@ -144,13 +144,13 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
     }
 
     /**
-     * 判断是够已经收藏了
+     * 判断是否已经收藏了
      */
     private fun checkIsCollected(video: VideoBean) {
         user?.let {
             video.videoUrl?.let { it1 ->
-                mViewModel.checkIsColleced(it.phone, it1).observe(this) { it1 ->
-                    isCollected = it1 == "true"
+                mViewModel.checkIsColleced(it.phone, it1).observe(this) { it2 ->
+                    isCollected = it2 == "true"
                     showCollectView(isCollected)
                 }
             }
@@ -256,6 +256,7 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
         getData()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getData() {
         mViewModel.getRecommendList(mCurrentPage, 10, showloading = true).observe(this) {
             mViewBinding.tvShare.text = "34"
@@ -337,11 +338,11 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (JzvdStd.backPress()) {
             return
         }
-        super.onBackPressed()
     }
 
     override fun onPause() {

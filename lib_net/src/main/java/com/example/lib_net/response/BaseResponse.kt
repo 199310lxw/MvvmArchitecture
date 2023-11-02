@@ -1,4 +1,4 @@
-package com.xwl.common_base.response
+package com.example.lib_net.response
 
 import com.google.gson.annotations.SerializedName
 
@@ -15,6 +15,6 @@ data class BaseResponse<out T>(
     val errorMsg: String = ""//错误信息
 ) {
     fun isSuccess(): Boolean {
-        return  errorCode == 0
+        return errorCode == 0
     }
 }

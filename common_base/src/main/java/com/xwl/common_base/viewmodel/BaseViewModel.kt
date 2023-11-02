@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.lib_net.download.DownloadManager
 import com.example.lib_net.download.DownloadState
 import com.example.lib_net.error.ExceptionHandler
+import com.example.lib_net.response.BaseResponse
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.orhanobut.logger.Logger
-import com.xwl.common_base.response.BaseResponse
 import com.xwl.common_lib.callback.IHttpCallBack
 import com.xwl.common_lib.dialog.TipsToast
 import kotlinx.coroutines.Dispatchers

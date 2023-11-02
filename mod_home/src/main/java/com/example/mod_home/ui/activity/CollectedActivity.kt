@@ -28,7 +28,7 @@ class CollectedActivity : BaseVmVbActivity<CollectedViewModel, ActivityCollected
     }
 
     override fun initData() {
-        user?.let { it1 -> getData(it1.phone) }
+        user?.let { it -> getData(it.phone) }
     }
 
     private fun initRv() {
@@ -61,7 +61,7 @@ class CollectedActivity : BaseVmVbActivity<CollectedViewModel, ActivityCollected
 
         mAdapter.setOnItemLongClickListener { _, _, position ->
             mAdapter.getItem(position)?.let { showDeleteDialog(it.url) }
-            false
+            true
         }
 
     }
@@ -87,27 +87,19 @@ class CollectedActivity : BaseVmVbActivity<CollectedViewModel, ActivityCollected
             }
     }
 
-    private fun getData(phone: String, showloading: Boolean = true) {
-        mViewModel.getCollectedList(phone, CollectionType.VIDEO.name, showloading)
+    private fun getData(phone: String, showLoading: Boolean = true) {
+        mViewModel.getCollectedList(phone, CollectionType.VIDEO.name, showLoading)
             .observe(this) {
-                if (it != null) {
-                    it.let {
-                        if (it.isEmpty()) {
-                            mAdapter.setEmptyViewLayout(
-                                this@CollectedActivity,
-                                com.xwl.common_lib.R.layout.view_empty_data
-                            )
-                        } else {
-                            mAdapter.submitList(it)
-                        }
-
-                        mViewBinding.refreshLayout.finishRefresh()
+                it?.let {
+                    if (it.isEmpty()) {
+                        mAdapter.setEmptyViewLayout(
+                            this@CollectedActivity,
+                            com.xwl.common_lib.R.layout.view_empty_data
+                        )
+                    } else {
+                        mAdapter.submitList(it)
                     }
-                } else {
-                    mAdapter.setEmptyViewLayout(
-                        this@CollectedActivity,
-                        com.xwl.common_lib.R.layout.view_empty_data
-                    )
+
                     mViewBinding.refreshLayout.finishRefresh()
                 }
             }

@@ -38,19 +38,19 @@ object FileManager {
     private const val SUM_TEA_IMAGE = "SumTeaImage"
 
     // JPG后缀
-    val JPG_SUFFIX = ".jpg"
+    const val JPG_SUFFIX = ".jpg"
 
     // PNG后缀
-    val PNG_SUFFIX = ".png"
+    const val PNG_SUFFIX = ".png"
 
     // MP4后缀
-    val MP4_SUFFIX = ".mp4"
+    const val MP4_SUFFIX = ".mp4"
 
     // YUV后缀
-    val YUV_SUFFIX = ".yuv"
+    const val YUV_SUFFIX = ".yuv"
 
     // h264后缀
-    val H264_SUFFIX = ".h264"
+    const val H264_SUFFIX = ".h264"
 
     /**
      * 获取jpg图片输出路径

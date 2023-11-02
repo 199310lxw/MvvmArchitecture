@@ -8,8 +8,6 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import androidx.annotation.Nullable;
-
 import com.xwl.common_lib.provider.ContextServiceProvider;
 
 /**
@@ -19,7 +17,6 @@ import com.xwl.common_lib.provider.ContextServiceProvider;
  */
 
 public class ScreenUtil {
-    @Nullable
     public static int dip2px(float dipValue) {
         final float scale = ContextServiceProvider.INSTANCE.getApplicationContext().getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
@@ -163,7 +160,7 @@ public class ScreenUtil {
         return Build.FINGERPRINT;
     }
 
-    public static String getDeviceString(){
+    public static String getDeviceString() {
         return "获取厂商名 = " + getDeviceManufacturer() + "\n" +
                 "获取产品名 = " + getDeviceProduct() + "\n" +
                 "获取手机品牌 = " + getDeviceBrand() + "\n" +

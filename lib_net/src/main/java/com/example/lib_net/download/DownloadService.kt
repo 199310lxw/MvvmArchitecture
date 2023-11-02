@@ -40,24 +40,22 @@ class DownloadService : LifecycleService() {
             mSavePath = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_FILE).toString()
             mFileName = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_FILE_NAME).toString()
 
-            if (mDownloadUrl.endsWith(".apk")) {
-                mSavePath = KeyConstant.APP_UPDATE_PATH
+            mSavePath = if (mDownloadUrl.endsWith(".apk")) {
+                KeyConstant.APP_UPDATE_PATH
             } else if (mDownloadUrl.endsWith(".mp4") || mDownloadUrl.endsWith(".m3u8")) {
-                mSavePath = "${KeyConstant.APP_ROOT_PATH}/video"
+                "${KeyConstant.APP_ROOT_PATH}/video"
             } else if (mDownloadUrl.endsWith(".jpg") || mDownloadUrl.endsWith(".png") || mDownloadUrl.endsWith(
                     ".jpeg"
                 ) || mDownloadUrl.endsWith(
                     ".webp"
                 )
             ) {
-                mSavePath = "${KeyConstant.APP_ROOT_PATH}/images"
+                "${KeyConstant.APP_ROOT_PATH}/images"
             } else {
-                mSavePath = "${KeyConstant.APP_ROOT_PATH}/other"
+                "${KeyConstant.APP_ROOT_PATH}/other"
             }
 
-            mPathFile = mSavePath.let {
-                File(it)
-            }.also {
+            mPathFile = File(mSavePath).also {
                 if (!it.exists()) {
                     it.mkdirs()
                 }

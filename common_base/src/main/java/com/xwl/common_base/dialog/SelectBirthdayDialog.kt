@@ -4,7 +4,6 @@ import android.os.Build
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
 import com.orhanobut.logger.Logger
@@ -35,7 +34,6 @@ class SelectBirthdayDialog {
             initView()
         }
 
-        @RequiresApi(Build.VERSION_CODES.O)
         private fun initView() {
             setContentView(mBinding.root)
             setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
@@ -49,16 +47,13 @@ class SelectBirthdayDialog {
 //                mCurrentData.set(year, month, dayOfMonth)
 //            }
 
-            mBinding.datePicker.setOnDateChangedListener(object : DatePicker.OnDateChangedListener {
-                override fun onDateChanged(
-                    view: DatePicker?,
-                    year: Int,
-                    monthOfYear: Int,
-                    dayOfMonth: Int
-                ) {
-                    mCurrentData.set(year, monthOfYear, dayOfMonth)
-                }
-            })
+            mBinding.datePicker.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
+                mCurrentData.set(
+                    year,
+                    monthOfYear,
+                    dayOfMonth
+                )
+            }
 
             mBinding.tvComplete.onClick {
                 val timeStamp =

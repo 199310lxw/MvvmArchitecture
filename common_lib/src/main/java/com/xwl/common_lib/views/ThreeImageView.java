@@ -88,7 +88,7 @@ public class ThreeImageView<T> extends ViewGroup {
             //如果图片只有一个且单个图片尺寸不为-1
             if (mImgDataList.size() == 1 && mSingleImgSize != -1) {
                 //图片尺寸取总宽度与单个图片宽度中的较小值
-                mImageSize = mSingleImgSize > totalWidth ? totalWidth : mSingleImgSize;
+                mImageSize = Math.min(mSingleImgSize, totalWidth);
             } else {
                 //如果图片不止有一个，则图片尺寸为（总宽度-图片间总间距）/图片数量
                 mImageSize = (totalWidth - mGap * (mColumnCount - 1)) / mColumnCount;
@@ -122,7 +122,7 @@ public class ThreeImageView<T> extends ViewGroup {
                 textView.bringToFront();
                 //设置字体大小
                 String text = "共" + mImgDataList.size() + "张图";
-                int textSize = px2sp(mContext, mImageSize / 6);
+                int textSize = px2sp(mContext, (float) mImageSize / 6);
                 textView.setTextSize(textSize);
                 textView.setText(text);
 
@@ -178,6 +178,7 @@ public class ThreeImageView<T> extends ViewGroup {
             this.setVisibility(VISIBLE);
         }
         //获取需要显示的数量
+        assert list != null;
         int showCount = getNeedShowCount(list.size());
         //计算参数，根据需要显示的数量计算行数和列数
         int[] params = calculateParam(showCount);
