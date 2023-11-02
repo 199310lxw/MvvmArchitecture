@@ -28,7 +28,7 @@
     <string name="search">search</string>
     <string name="default_collection">collect</string>
     <string name="default_cache">cache</string>
-    <string name="look_decord">videoRecord</string>
+    <string name="look_decord">record</string>
     <string name="collect_list">favorites</string>
     <string name="catch_list">mycache</string>
     <string name="txt_logout">logout</string>
