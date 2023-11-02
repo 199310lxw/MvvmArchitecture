@@ -338,11 +338,11 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
         }
     }
 
-    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (JzvdStd.backPress()) {
             return
         }
+        super.onBackPressed()
     }
 
     override fun onPause() {
