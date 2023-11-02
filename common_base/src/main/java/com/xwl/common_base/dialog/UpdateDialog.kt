@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
+import com.example.lib_net.download.DownloadState
 import com.example.lib_net.download.DownloadUtil.startDownload
 import com.hjq.permissions.Permission
 import com.xwl.common_base.databinding.DialogUpdateLayoutBinding
@@ -98,20 +99,42 @@ class UpdateDialog {
             // 创建要下载的文件对象
             mDownloadUrl?.let {
                 mApkFileName?.let { it1 ->
-                    startDownload(context, it, it1, start = {
-                        mBinding.progressBar.visible()
-                        mBinding.updateNow.gone()
-                        mBinding.tvProgress.visible()
-                    }, { progress: Int ->
-                        mBinding.progressBar.progress = progress
-                        mBinding.tvProgress.text = String.format("%d%%", progress)
+                    startDownload(context, it, it1, state = {
+                        when (it) {
+                            is DownloadState.Start -> {
+                                mBinding.progressBar.visible()
+                                mBinding.updateNow.gone()
+                                mBinding.tvProgress.visible()
+                            }
+                            is DownloadState.InProgress -> {
+                                mBinding.progressBar.progress = it.progress
+                                mBinding.tvProgress.text = String.format("%d%%", it.progress)
+                            }
 
-                    }, { path: String? ->
-                        dismiss()
-                        AppUtils.installApk(context, path)
-                    }) { msg: String? ->
-                        showTips(msg)
-                    }
+                            is DownloadState.Success -> {
+                                dismiss()
+                                AppUtils.installApk(context, it.file.absolutePath)
+                            }
+                            is DownloadState.Error -> {
+                                showTips(it.throwable.message)
+                            }
+                            else -> {}
+                        }
+                    })
+//                    startDownload(context, it, it1, start = {
+//                        mBinding.progressBar.visible()
+//                        mBinding.updateNow.gone()
+//                        mBinding.tvProgress.visible()
+//                    }, { progress: Int ->
+//                        mBinding.progressBar.progress = progress
+//                        mBinding.tvProgress.text = String.format("%d%%", progress)
+//
+//                    }, { path: String? ->
+//                        dismiss()
+//                        AppUtils.installApk(context, path)
+//                    }) { msg: String? ->
+//                        showTips(msg)
+//                    }
                 }
             }
         }

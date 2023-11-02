@@ -9,7 +9,6 @@ import com.orhanobut.logger.Logger
 import com.xwl.common_lib.constants.KeyConstant
 import kotlinx.coroutines.launch
 import java.io.File
-import java.io.IOException
 import java.lang.ref.WeakReference
 
 /**
@@ -22,8 +21,9 @@ class DownloadService : LifecycleService() {
 
     private var mBinder: ServiceBinder? = null
     private var mDownloadListener: DownloadListener? = null
-    private var mFilePath: String? = null
+    private var mSavePath: String? = null
     private var mFileName = ""
+    private lateinit var mPathFile: File
     private lateinit var mDownloadFile: File
 
     init {
@@ -37,35 +37,41 @@ class DownloadService : LifecycleService() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent != null) {
             mDownloadUrl = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_URL).toString()
-            mFilePath = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_FILE).toString()
+            mSavePath = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_FILE).toString()
             mFileName = intent.getStringExtra(KeyConstant.KEY_DOWNLOAD_FILE_NAME).toString()
-            if (mFilePath != null) {
-                val fileType =
-                    mDownloadUrl.substring(mDownloadUrl.indexOf("."), mDownloadUrl.length)
-                if (mDownloadUrl.endsWith(".apk")) {
-                    mDownloadFile = File(mFilePath, "${mFileName}$fileType")
-                } else if (mDownloadUrl.endsWith(".mp4")) {
-                    mDownloadFile = File(mFilePath, "${mFileName}.mp4")
-                } else if (mDownloadUrl.endsWith(".m3u8")) {
-                    mDownloadFile = File(mFilePath, "${mFileName}.txt")
-                } else if (mDownloadUrl.endsWith(".jpg")) {
-                    mDownloadFile = File(mFilePath, "${mFileName}.jpg")
-                } else if (mDownloadUrl.endsWith(".png")) {
-                    mDownloadFile = File(mFilePath, "${mFileName}.png")
-                } else if (mDownloadUrl.endsWith(".webp")) {
-                    mDownloadFile = File(mFilePath, "${mFileName}.webp")
-                } else if (mDownloadUrl.endsWith(".svg")) {
-                    mDownloadFile = File(mFilePath, "${mFileName}.svg")
-                }
-                try {
-                    if (!mDownloadFile.exists()) {
-                        mDownloadFile.createNewFile()
-                    }
-                } catch (e: IOException) {
-                    Logger.e(e.message)
-                }
-                startDownload(mDownloadFile)
+
+            if (mDownloadUrl.endsWith(".apk")) {
+                mSavePath = KeyConstant.APP_UPDATE_PATH
+            } else if (mDownloadUrl.endsWith(".mp4") || mDownloadUrl.endsWith(".m3u8")) {
+                mSavePath = "${KeyConstant.APP_ROOT_PATH}/video"
+            } else if (mDownloadUrl.endsWith(".jpg") || mDownloadUrl.endsWith(".png") || mDownloadUrl.endsWith(
+                    ".jpeg"
+                ) || mDownloadUrl.endsWith(
+                    ".webp"
+                )
+            ) {
+                mSavePath = "${KeyConstant.APP_ROOT_PATH}/images"
+            } else {
+                mSavePath = "${KeyConstant.APP_ROOT_PATH}/other"
             }
+
+            mPathFile = mSavePath.let {
+                File(it)
+            }.also {
+                if (!it.exists()) {
+                    it.mkdirs()
+                }
+            }
+            val fileType = mDownloadUrl.substringAfterLast(".", " ")
+            Logger.e("mSavePath----->$mSavePath")
+            Logger.e("mFileName----->$mFileName")
+            Logger.e("fileType----->$fileType")
+
+            mDownloadFile = File(mSavePath, "${mFileName}.$fileType").also {
+                it.createNewFile()
+            }
+
+            startDownload(mDownloadFile)
         }
         return super.onStartCommand(intent, flags, startId)
     }
@@ -73,24 +79,7 @@ class DownloadService : LifecycleService() {
     private fun startDownload(file: File) {
         lifecycleScope.launch {
             DownloadManager.download(mDownloadUrl, file).collect {
-                when (it) {
-                    is DownloadState.Start -> {
-                        mDownloadListener?.onStart(it.boolean)
-                    }
-                    is DownloadState.InProgress -> {
-                        mDownloadListener?.onDownload(it.progress)
-                    }
-                    is DownloadState.Success -> {
-                        mDownloadListener?.onSuccess(it.file.absolutePath)
-                        Logger.e("下载成功")
-                    }
-                    is DownloadState.Error -> {
-                        mDownloadListener?.onError("下载失败：${it.throwable.message}")
-                        file?.delete()
-                        Logger.e("下载失败：${it.throwable.message}")
-                    }
-                    else -> {}
-                }
+                mDownloadListener?.callback(it)
             }
         }
     }
@@ -124,9 +113,6 @@ class DownloadService : LifecycleService() {
     }
 
     interface DownloadListener {
-        fun onStart(boolean: Boolean)
-        fun onSuccess(path: String)
-        fun onDownload(progress: Int)
-        fun onError(msg: String)
+        fun callback(state: DownloadState)
     }
 }

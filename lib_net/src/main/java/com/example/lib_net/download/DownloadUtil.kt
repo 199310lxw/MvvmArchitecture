@@ -9,9 +9,6 @@ import android.os.IBinder
 import com.example.lib_net.download.DownloadService.ServiceBinder
 import com.orhanobut.logger.Logger
 import com.xwl.common_lib.constants.KeyConstant
-import com.xwl.common_lib.constants.KeyConstant.APP_ROOT_PATH
-import com.xwl.common_lib.constants.KeyConstant.APP_UPDATE_PATH
-import com.xwl.common_lib.dialog.TipsToast.showTips
 import com.xwl.common_lib.provider.ContextServiceProvider
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
@@ -19,7 +16,6 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.io.File
 
 /**
  * @author  lxw
@@ -27,24 +23,25 @@ import java.io.File
  * descripe
  */
 object DownloadUtil {
-    private var conn: ServiceConnection? = null
     fun startDownload(
         context: Context,
         url: String,
         fileName: String,
-        start: (Boolean) -> Unit,
-        progress: (Int) -> Unit,
-        success: (String) -> Unit,
-        failure: (String) -> Unit
+        state: (DownloadState) -> Unit
+//        start: (Boolean) -> Unit,
+//        progress: (Int) -> Unit,
+//        success: (String) -> Unit,
+//        failure: (String) -> Unit
     ) {
         download(
             context,
             url,
             fileName,
-            start = start,
-            progress = progress,
-            success = success,
-            failure = failure
+            state = state
+//            start = start,
+//            progress = progress,
+//            success = success,
+//            failure = failure
         )
     }
 
@@ -52,61 +49,30 @@ object DownloadUtil {
         context: Context,
         url: String,
         fileName: String,
-        start: (Boolean) -> Unit,
-        progress: (Int) -> Unit,
-        success: (String) -> Unit,
-        failure: (String) -> Unit
+        state: (DownloadState) -> Unit
+//        start: (Boolean) -> Unit,
+//        progress: (Int) -> Unit,
+//        success: (String) -> Unit,
+//        failure: (String) -> Unit
     ) {
-        Observable.create { emitter: ObservableEmitter<String?> ->
-            initService(
-                progress = progress,
-                start = start,
-                success = success,
-                failure = failure
+        Observable.create { emitter: ObservableEmitter<ServiceConnection?> ->
+            val conn = initService(
+                state = state
             )
-
-            var savePath = ""
-            var file: File? = null
-            if (url.endsWith(".apk")) {
-                savePath = APP_UPDATE_PATH
-                file = File(savePath)
-            } else if (url.endsWith(".mp4")) {
-                savePath = "$APP_ROOT_PATH/video"
-                file = File(savePath)
-            } else if (url.endsWith(".jpg") || url.endsWith(".png") || url.endsWith(".jpeg")) {
-                savePath = "$APP_ROOT_PATH/images"
-            } else {
-                showTips("当前文件格式不支持下载")
-                conn = null
-                return@create
-            }
-            file?.let {
-                if (!it.exists()) {
-                    it.mkdirs()
-                }
-            }
-            Logger.e("文件下载地址：${url}")
-            Logger.e("文件保存地址：${savePath}")
-            if (file != null) {
-                emitter.onNext(savePath)
-            }
+            emitter.onNext(conn)
         }.observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<String?> {
+            .subscribe(object : Observer<ServiceConnection?> {
                 override fun onSubscribe(d: Disposable) {}
-
-                // 默认最先调用复写的 onSubscribe（）
-                override fun onNext(path: String) {
-                    if (conn == null) return
+                override fun onNext(serviceConnection: ServiceConnection) {
                     val intent = Intent(
                         ContextServiceProvider.service.applicationContext,
                         DownloadService::class.java
                     )
                     intent.putExtra(KeyConstant.KEY_DOWNLOAD_URL, url)
-                    intent.putExtra(KeyConstant.KEY_DOWNLOAD_FILE, path)
                     intent.putExtra(KeyConstant.KEY_DOWNLOAD_FILE_NAME, fileName)
                     context.startService(intent)
-                    context.bindService(intent, conn!!, Service.BIND_AUTO_CREATE)
+                    context.bindService(intent, serviceConnection!!, Service.BIND_AUTO_CREATE)
                 }
 
                 override fun onError(e: Throwable) {}
@@ -117,31 +83,37 @@ object DownloadUtil {
     }
 
     private fun initService(
-        start: (Boolean) -> Unit,
-        progress: (Int) -> Unit,
-        success: (String) -> Unit,
-        failure: (String) -> Unit
-    ) {
-        conn = object : ServiceConnection {
+        state: (DownloadState) -> Unit
+//        start: (Boolean) -> Unit,
+//
+//        progress: (Int) -> Unit,
+//        success: (String) -> Unit,
+//        failure: (String) -> Unit
+    ): ServiceConnection {
+        val conn = object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName, iBinder: IBinder) {
                 val binder = iBinder as ServiceBinder
                 val service = binder.service
                 service!!.setOnDownloadListener(object : DownloadService.DownloadListener {
-                    override fun onStart(boolean: Boolean) {
-                        start.invoke(boolean)
-                    }
-
-                    override fun onSuccess(path: String) {
-                        showTips("下载完成")
-                        success.invoke(path)
-                    }
-
-                    override fun onDownload(pro: Int) {
-                        progress.invoke(pro)
-                    }
-
-                    override fun onError(msg: String) {
-                        failure.invoke(msg)
+                    override fun callback(downloadState: DownloadState) {
+                        state.invoke(downloadState)
+//                        when (state) {
+//                            is DownloadState.Start -> {
+//                                start.invoke(true)
+//                            }
+//                            is DownloadState.InProgress -> {
+//                                progress.invoke(state.progress)
+//
+//                            }
+//                            is DownloadState.Success -> {
+//                                success.invoke(state.file.absolutePath)
+//                                Logger.e("下载成功:文件保存路径：${state.file.absolutePath}")
+//                            }
+//                            is DownloadState.Error -> {
+//                                failure.invoke("下载失败：${state.throwable.message}")
+//                                Logger.e("下载失败：${state.throwable.message}")
+//                            }
+//                        }
                     }
                 })
             }
@@ -150,5 +122,6 @@ object DownloadUtil {
                 Logger.e("download service is disconnected")
             }
         }
+        return conn
     }
 }

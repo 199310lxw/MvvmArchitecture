@@ -9,6 +9,7 @@ import android.os.Bundle
 import cn.jzvd.Jzvd
 import cn.jzvd.JzvdStd
 import com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout
+import com.example.lib_net.download.DownloadState
 import com.example.lib_net.download.DownloadUtil
 import com.example.mod_home.R
 import com.example.mod_home.adapters.RecommendAdapter
@@ -78,20 +79,30 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
         mViewBinding.tvDownload.onClick {
             mVideo?.videoUrl?.let { it1 ->
                 mVideo?.title?.let { it2 ->
-                    DownloadUtil.startDownload(this, it1, it2, start = {
-                        mViewBinding.downloadProgressbar.visible()
-                        mViewBinding.tvDownload.isClickable = false
-                    }, progress = {
-                        mViewBinding.downloadProgressbar.progress = it
-                        mViewBinding.tvDownload.text = String.format("%d%%", it)
-                    }, success = {
-                        showTips("下载成功,请到我的下载页面查看详情")
-                        mViewBinding.downloadProgressbar.gone()
-                        mViewBinding.tvDownload.text = resources.getString(R.string.default_cache)
-                        mViewBinding.tvDownload.isClickable = true
-                    }, failure = {
-                        showTips(it)
-                        mViewBinding.tvDownload.isClickable = true
+                    DownloadUtil.startDownload(this, it1, it2, state = {
+                        when (it) {
+                            is DownloadState.Start -> {
+                                mViewBinding.downloadProgressbar.visible()
+                                mViewBinding.tvDownload.isClickable = false
+                            }
+                            is DownloadState.InProgress -> {
+                                mViewBinding.downloadProgressbar.progress = it.progress
+                                mViewBinding.tvDownload.text = String.format("%d%%", it.progress)
+                            }
+
+                            is DownloadState.Success -> {
+                                showTips("下载成功,请到我的下载页面查看详情")
+                                mViewBinding.downloadProgressbar.gone()
+                                mViewBinding.tvDownload.text =
+                                    resources.getString(R.string.default_cache)
+                                mViewBinding.tvDownload.isClickable = true
+                            }
+                            is DownloadState.Error -> {
+                                showTips(it.throwable.message)
+                                mViewBinding.tvDownload.isClickable = true
+                            }
+                            else -> {}
+                        }
                     })
                 }
             }
