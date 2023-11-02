@@ -1,5 +1,6 @@
 package com.xwl.common_lib.views
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.text.Editable
@@ -61,6 +62,7 @@ class ClearEditText @JvmOverloads constructor(
      * 当我们按下的位置在EditText的宽度 - 图标到控件右边的距离 - 图标的宽度 和
      * EditText宽度 - 图标到控件右边的的距离之间我们就算点击了图标，竖直方向就没有考虑
      */
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_UP) {
             if (compoundDrawables[2] != null) {

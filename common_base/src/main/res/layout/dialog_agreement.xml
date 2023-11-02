@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="用户条款和隐私政策提示"
+        android:text="@string/privacy_policy_tips"
         android:textSize="@dimen/dimen_size_sp_14"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/black_222"
@@ -57,14 +57,14 @@
             android:id="@+id/tvOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="《用户协议》"
+            android:text="@string/user_agreement"
             android:textSize="@dimen/dimen_size_sp_14"
             android:textColor="#42BCB1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="和"
+            android:text="@string/default_and"
             android:textColor="@color/color_a6a6a6"
             android:textSize="@dimen/dimen_size_sp_12" />
 
@@ -72,7 +72,7 @@
             android:id="@+id/tvTwo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="《隐私政策》"
+            android:text="@string/privacy_policy"
             android:textSize="@dimen/dimen_size_sp_14"
             android:textColor="#42BCB1" />
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -80,7 +80,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="请点击“同意”,开始使用我们的产品"
+        android:text="@string/press_agree_to_use_application"
         android:textColor="@color/color_a6a6a6"
         android:textSize="@dimen/dimen_size_sp_14"
         android:layout_marginTop="@dimen/dimen_size_dp_4" />

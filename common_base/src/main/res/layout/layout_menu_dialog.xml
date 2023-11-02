@@ -42,7 +42,7 @@
             android:paddingHorizontal="@dimen/dimen_size_dp_15"
             android:paddingVertical="@dimen/dimen_size_dp_13"
             android:singleLine="true"
-            android:text="@string/txt_cancel"
+            android:text="@string/default_cancel"
             android:textColor="@color/red"
             android:textSize="@dimen/dimen_size_sp_14" />
 

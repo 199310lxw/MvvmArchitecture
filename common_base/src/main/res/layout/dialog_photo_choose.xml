@@ -92,7 +92,7 @@
         android:background="@color/white"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
-        android:text="@string/txt_cancel"
+        android:text="@string/default_cancel"
         android:textColor="@color/red"
         android:textSize="@dimen/dimen_size_sp_16"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">common_lib</string>
     <string name="default_no_data">暂无数据</string>
-    <string name="txt_cancel">取消</string>
+    <string name="default_cancel">取消</string>
     <string name="txt_confirm">确定</string>
     <string name="default_confirm">确认</string>
     <string name="video_url_error">视频地址有误</string>
@@ -25,6 +25,10 @@
     <string name="disagree_to_basics_function">不同意进入基本功能模式</string>
 
     <string name="ageement_text">用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策</string>
+    <string name="default_loading">加载中</string>
+    <string name="video_start_time">00:00</string>
+    <string name="video_load_failed">视频加载失败</string>
+    <string name="click_to_retry">点击重试</string>
 
 
 </resources>

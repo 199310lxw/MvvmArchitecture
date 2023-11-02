@@ -98,7 +98,7 @@
                 android:textColor="@color/red"
                 android:background="@color/white"
                 android:foreground="?attr/selectableItemBackground"
-                android:text="退出登陆"
+                android:text="@string/txt_logout"
                 android:gravity="center" />
 
         </LinearLayout>

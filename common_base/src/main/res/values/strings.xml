@@ -15,4 +15,14 @@
     <string name="share_platform_qzone">QQ空间</string>
     <string name="share_platform_link">复制链接</string>
     <string name="if_you_agree">如您同意</string>
+    <string name="default_later">稍后</string>
+    <string name="update_right_know">立即更新</string>
+    <string name="update_tips">应用有新版本，是否立即更新？</string>
+    <string name="the_newest_version">最新版本:</string>
+    <string name="privacy_policy_tips">用户条款和隐私政策提示</string>
+    <string name="user_agreement">《用户协议》</string>
+    <string name="privacy_policy">《隐私政策》</string>
+    <string name="press_agree_to_use_application">请点击“同意”,开始使用我们的产品</string>
+    <string name="default_tips">提示</string>
+    <string name="default_and">和</string>
 </resources>

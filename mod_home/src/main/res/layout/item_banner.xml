@@ -7,7 +7,7 @@
     android:padding="@dimen/dimen_size_dp_10"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/ll_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,5 +30,5 @@
         <View
             android:layout_width="@dimen/dimen_size_dp_20"
             android:layout_height="match_parent" />
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </LinearLayout>

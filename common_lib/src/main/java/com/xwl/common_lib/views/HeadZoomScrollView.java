@@ -1,6 +1,7 @@
 package com.xwl.common_lib.views;
 
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -89,6 +90,7 @@ public class HeadZoomScrollView extends NestedScrollView {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent ev) {
         if (zoomViewWidth <= 0 || zoomViewHeight <= 0) {

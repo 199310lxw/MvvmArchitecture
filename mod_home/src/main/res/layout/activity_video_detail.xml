@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/video_bg"
@@ -97,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:drawableLeft="@drawable/icon_collection_unselected"
+                    android:drawableStart="@drawable/icon_collection_unselected"
                     android:drawablePadding="@dimen/dimen_size_dp_8"
                     android:gravity="center"
                     android:text="@string/default_collection"
@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:drawableLeft="@drawable/icon_download"
+                    android:drawableStart="@drawable/icon_download"
                     android:drawablePadding="@dimen/dimen_size_dp_8"
                     android:gravity="center"
                     android:text="@string/default_cache"
@@ -129,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:drawableLeft="@drawable/icon_share_white"
+                    android:drawableStart="@drawable/icon_share_white"
                     android:drawablePadding="@dimen/dimen_size_dp_8"
                     android:gravity="center"
                     android:textColor="@color/whiteAlpha55"
@@ -145,7 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:drawableLeft="@drawable/icon_discuss"
+                    android:drawableStart="@drawable/icon_discuss"
                     android:drawablePadding="@dimen/dimen_size_dp_8"
                     android:gravity="center"
                     android:textColor="@color/whiteAlpha55"
@@ -169,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_size_dp_10"
                 android:padding="@dimen/dimen_size_dp_10"
-                android:text="推荐列表"
+                android:text="@string/txt_recommend_list"
                 android:textColor="@color/whiteAlpha55"
                 android:background="@color/black_33"
                 android:textSize="@dimen/dimen_size_sp_16" />
