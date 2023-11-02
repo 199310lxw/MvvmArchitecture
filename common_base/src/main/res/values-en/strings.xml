@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">common_base</string>
+    <string name="default_no_data">no data available</string>
+
+    <string name="user_pictures">takeAPicture</string>
+    <string name="user_album">photoAlbum</string>
+
+    <string name="user_sex_boy">man</string>
+    <string name="user_sex_girl">woman</string>
+
+    <string name="share_title">share to...</string>
+    <string name="share_platform_wechat">wechat</string>
+    <string name="share_platform_moment">circleOfFriends</string>
+    <string name="share_platform_qq">QQ</string>
+    <string name="share_platform_qzone">QQspace</string>
+    <string name="share_platform_link">copyLink</string>
+    <string name="if_you_agree">with your consent</string>
+    <string name="default_later">lateron</string>
+    <string name="update_right_know">update now</string>
+    <string name="update_tips">there is a new version of the app, do you want to update it immediately?</string>
+    <string name="the_newest_version">latestVersion:</string>
+    <string name="privacy_policy_tips">user Terms and Privacy Policy tips</string>
+    <string name="user_agreement">《useragreement》</string>
+    <string name="privacy_policy">《privacypolicy》</string>
+    <string name="press_agree_to_use_application">please click "Agree" to start using our products</string>
+    <string name="default_tips">tips</string>
+    <string name="default_and">and</string>
+</resources>

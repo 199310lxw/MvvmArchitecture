@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">mod_home</string>
+
+    <string name="tab_home">homepage</string>
+    <string name="tab_hot">hot</string>
+    <string name="tab_message">message</string>
+    <string name="tab_mine">user</string>
+
+
+    <string name="user_pictures">photo</string>
+    <string name="user_album">album</string>
+
+    <string name="default_save">save</string>
+    <string name="user_info_head">avatar</string>
+    <string name="user_info_name">nickname</string>
+    <string name="user_info_input_name">enter user name</string>
+    <string name="user_info_phone">mobile phone number</string>
+    <string name="user_info_sex">sex</string>
+    <string name="user_info_birthday">birthday</string>
+    <string name="user_info_input_birthday">click to set Birthday</string>
+    <string name="user_info_signature">signature</string>
+    <string name="user_info_input_signature">please enter your personal signature</string>
+    <string name="default_save_success">save successfully</string>
+    <string name="update_status_running">be downloading %d%%</string>
+    <string name="update_status_successful">when the download is complete, click Install</string>
+
+    <string name="default_logout">logout</string>
+    <string name="search">search</string>
+    <string name="default_collection">collect</string>
+    <string name="default_cache">cache</string>
+    <string name="look_decord">videoRecord</string>
+    <string name="collect_list">favorites</string>
+    <string name="catch_list">mycache</string>
+    <string name="txt_logout">logout</string>
+    <string name="txt_recommend_list">recommendationList</string>
+
+
+</resources>

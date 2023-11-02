@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/viewHorizontal"
         app:layout_constraintStart_toEndOf="@+id/viewVertical"
-        android:text="@string/txt_confirm"
+        android:text="@string/default_confirm"
         android:textSize="@dimen/dimen_size_sp_16"
         android:textColor="@color/common_blue"
         android:padding="@dimen/dimen_size_dp_14"

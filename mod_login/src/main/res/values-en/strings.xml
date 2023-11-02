@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">mod_login</string>
+    <string name="default_login">logln</string>
+    <string name="login_other">other login methods</string>
+    <string name="txt_register">register</string>
+    <string name="txt_please_enter_phone">please enter your phone number</string>
+    <string name="txt_please_enter_password">please enter password</string>
+
+</resources>

@@ -1,0 +1,32 @@
+<resources>
+    <string name="default_no_data">no data available</string>
+    <string name="default_cancel">cancel</string>
+    <string name="default_confirm">confirm</string>
+    <string name="video_url_error">video url error</string>
+    <string name="common_phone_input_hint">please enter your phone</string>
+    <string name="common_password_input_hint">please enter password</string>
+    <string name="forget_password">forget password</string>
+    <string name="common_phone_input_error">error phone</string>
+
+    //设置
+    <string name="setting_title">setting</string>
+    <string name="setting_update">check update</string>
+    <string name="setting_language_switch">switch language</string>
+    <string name="setting_user_info">user infomation</string>
+    <string name="setting_phone">edit phone</string>
+    <string name="setting_password">edit password</string>
+    <string name="setting_agreement">privacy agreement</string>
+    <string name="setting_about">about us</string>
+
+
+    <string name="default_agree">agree</string>
+    <string name="disagree_to_basics_function">disagree to enter basic mode</string>
+
+    <string name="ageement_text">用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策用户协议隐私政策</string>
+    <string name="default_loading">loading</string>
+    <string name="video_start_time">00:00</string>
+    <string name="video_load_failed">video loading failure</string>
+    <string name="click_to_retry">click and retry</string>
+
+
+</resources>
