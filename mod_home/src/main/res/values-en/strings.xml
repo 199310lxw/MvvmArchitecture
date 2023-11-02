@@ -14,7 +14,7 @@
     <string name="user_info_head">avatar</string>
     <string name="user_info_name">nickname</string>
     <string name="user_info_input_name">enter user name</string>
-    <string name="user_info_phone">mobile phone number</string>
+    <string name="user_info_phone">phone</string>
     <string name="user_info_sex">sex</string>
     <string name="user_info_birthday">birthday</string>
     <string name="user_info_input_birthday">click to set Birthday</string>
