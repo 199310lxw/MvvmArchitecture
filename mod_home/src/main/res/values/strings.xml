@@ -7,6 +7,10 @@
     <string name="tab_mine">我的</string>
 
 
+    <string name="english">english</string>
+    <string name="chinese">中文</string>
+
+
     <string name="user_pictures">拍照</string>
     <string name="user_album">相册</string>
 
@@ -29,10 +33,11 @@
     <string name="default_collection">收藏</string>
     <string name="default_cache">缓存</string>
     <string name="look_decord">观看记录</string>
-    <string name="collect_list">收藏列表</string>
-    <string name="catch_list">我的缓存</string>
+    <string name="collect_list">收藏</string>
     <string name="txt_logout">退出登陆</string>
     <string name="txt_recommend_list">推荐列表</string>
+    <string name="give_a_like">点赞</string>
+    <string name="discuss">评论</string>
 
 
 </resources>

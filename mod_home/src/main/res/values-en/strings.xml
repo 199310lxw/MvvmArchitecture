@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">mod_home</string>
 
-    <string name="tab_home">homepage</string>
+    <string name="tab_home">home</string>
     <string name="tab_video">video</string>
     <string name="tab_community">community</string>
     <string name="tab_mine">user</string>
+
+    <string name="english">English</string>
+    <string name="chinese">Chinese</string>
 
 
     <string name="user_pictures">photo</string>
@@ -32,6 +35,7 @@
     <string name="collect_list">favorites</string>
     <string name="txt_logout">logout</string>
     <string name="txt_recommend_list">recommendationList</string>
-
+    <string name="give_a_like">like</string>
+    <string name="discuss">discuss</string>
 
 </resources>
