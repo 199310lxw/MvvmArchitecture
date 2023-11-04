@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.xwl.common_lib.R;
+import com.xwl.common_lib.utils.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +112,7 @@ public class ThreeImageView<T> extends ViewGroup {
             right = left + mImageSize;
             bottom = top + mImageSize * 2 / 3;
             childrenView.layout(left, top, right, bottom);
-            Glide.with(mContext).load(mImgDataList.get(i)).transform(new CenterCrop(), new RoundedCorners(10)).into(childrenView);
+            Glide.with(mContext).load(mImgDataList.get(i)).transform(new CenterCrop(), new RoundedCorners(ScreenUtil.dip2px(6))).into(childrenView);
         }
         showImageAndText(left, top, right, bottom);
     }

@@ -29,6 +29,6 @@ class DisCussPopWindow(
     }
 
     fun show(gravity: Int) {
-        this.showAsDropDown(AnchorView, -480, -100, gravity)
+        this.showAsDropDown(AnchorView, -540, -100, gravity)
     }
 }

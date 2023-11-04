@@ -15,6 +15,8 @@
         android:textColor="@color/black_222"
         android:layout_marginTop="@dimen/dimen_size_dp_24"
         android:textStyle="bold"
+        android:maxLines="2"
+        android:ellipsize="end"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imgContainer"
         app:layout_constraintBottom_toTopOf="@+id/tvAuthor"

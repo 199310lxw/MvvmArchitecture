@@ -9,14 +9,18 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/dimen_size_sp_16"
         android:textColor="@color/black_222"
         android:textStyle="bold"
+        android:maxLines="3"
+        android:ellipsize="end"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/tvAuthor"
+        app:layout_constraintEnd_toStartOf="@+id/img"
+        android:layout_marginEnd="@dimen/dimen_size_dp_10"
         android:layout_marginStart="@dimen/dimen_size_dp_10"
         android:layout_marginBottom="@dimen/dimen_size_dp_10"
         tools:text="我是title啊" />
@@ -35,7 +39,7 @@
         android:id="@+id/img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>
