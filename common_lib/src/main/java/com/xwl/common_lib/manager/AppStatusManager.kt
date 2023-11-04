@@ -3,6 +3,7 @@ package com.xwl.common_lib.manager
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.orhanobut.logger.Logger
 
 /**
  * @author  lxw
@@ -17,28 +18,29 @@ object AppStatusManager {
             Application.ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 ActivityManager.addActivity(activity)
-//                Logger.e("${activity.localClassName}：onActivityCreated")
+                Logger.e("${activity.localClassName}：onActivityCreated")
             }
 
             override fun onActivityStarted(activity: Activity) {
-//                Logger.e("${activity.localClassName}：onActivityStarted")
+                Logger.e("${activity.localClassName}：onActivityStarted")
                 startActivityNum++
                 if (startActivityNum == 1) {
                     listener.onFront()
                 }
 
             }
+            
 
             override fun onActivityResumed(activity: Activity) {
-//                Logger.e("${activity.localClassName}：onActivityResumed")
+                Logger.e("${activity.localClassName}：onActivityResumed")
             }
 
             override fun onActivityPaused(activity: Activity) {
-//                Logger.e("${activity.localClassName}：onActivityPaused")
+                Logger.e("${activity.localClassName}：onActivityPaused")
             }
 
             override fun onActivityStopped(activity: Activity) {
-//                Logger.e("${activity.localClassName}：onActivityStopped")
+                Logger.e("${activity.localClassName}：onActivityStopped")
                 startActivityNum--
                 if (startActivityNum == 0) {
                     listener.onBack()
@@ -46,11 +48,11 @@ object AppStatusManager {
             }
 
             override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-
+                Logger.e("${activity.localClassName}：onActivitySaveInstanceState")
             }
 
             override fun onActivityDestroyed(activity: Activity) {
-//                Logger.e("${activity.localClassName}：onActivityDestroyed")
+                Logger.e("${activity.localClassName}：onActivityDestroyed")
                 ActivityManager.removeActivity(activity)
             }
         })

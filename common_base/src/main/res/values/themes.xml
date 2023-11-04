@@ -72,4 +72,10 @@
         <item name="android:windowEnterAnimation">@anim/dialog_top_in</item>
         <item name="android:windowExitAnimation">@anim/dialog_top_out</item>
     </style>
+
+
+    <style name="RightByAchorAnimStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_right_in_by_achor</item>
+        <item name="android:windowExitAnimation">@anim/dialog_right_out_by_achor</item>
+    </style>
 </resources>

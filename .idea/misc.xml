@@ -81,6 +81,7 @@
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_basics/src/main/res/layout/item_video.xml" value="0.31979166666666664" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/home_selector.xml" value="0.2215" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/ic_launcher_background.xml" value="0.215" />
+        <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_arrow_black.xml" value="0.2115" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_download.xml" value="0.2195" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_home.xml" value="0.215" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_home_press.xml" value="0.215" />
@@ -88,6 +89,7 @@
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_message_press.xml" value="0.194" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_mine.xml" value="0.198" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_mine_press.xml" value="0.194" />
+        <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_more_gray.xml" value="0.255" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_news.xml" value="0.198" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_news_press.xml" value="0.194" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/icon_setting_white.xml" value="0.237" />
@@ -101,6 +103,7 @@
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/shape_bg_serach.xml" value="0.181" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/shape_bg_shadow.xml" value="0.2475" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/shape_bg_white_corner_12.xml" value="0.2285" />
+        <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/drawable/shape_discuss_bg.xml" value="0.23" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/activity_collected.xml" value="0.3078125" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/activity_course_detail.xml" value="0.33" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/activity_course_list.xml" value="0.328125" />
@@ -120,6 +123,7 @@
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/fragment_news.xml" value="0.35" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/fragment_video.xml" value="0.36614583333333334" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/item_banner.xml" value="0.3333333333333333" />
+        <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/item_community_more_than_one_pics.xml" value="0.321875" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/item_course_layout.xml" value="0.328125" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/item_home.xml" value="0.29270833333333335" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/item_home_sort.xml" value="0.3020833333333333" />
@@ -128,6 +132,7 @@
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/item_recommend.xml" value="0.321875" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/item_video.xml" value="0.3307291666666667" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/item_view.xml" value="0.30416666666666664" />
+        <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/layout_discuss_pop.xml" value="0.33" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/layout/layout_std.xml" value="0.365625" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_home/src/main/res/menu/bottom_nav_menu.xml" value="0.35" />
         <entry key="..\:/MyCode/Android/MvvmArchitecture/mod_login/src/main/res/drawable/ic_launcher_background.xml" value="0.192" />

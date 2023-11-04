@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/dimen_size_dp_20"
+        android:layout_height="@dimen/dimen_size_dp_16"
+        android:src="@drawable/icon_arrow_black"
+        android:translationX="140dp"
+        android:translationY="18dp"
+        android:rotation="90" />
+
+    <LinearLayout
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_margin="@dimen/dimen_size_dp_8"
+        android:paddingStart="@dimen/dimen_size_dp_10"
+        android:paddingTop="@dimen/dimen_size_dp_8"
+        android:paddingBottom="@dimen/dimen_size_dp_8"
+        android:background="@drawable/shape_discuss_bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:layout_marginStart="@dimen/dimen_size_dp_6"
+            android:drawableLeft="@drawable/icon_dianzan_white"
+            android:drawablePadding="@dimen/dimen_size_dp_4"
+            android:text="点赞"
+            android:textColor="@color/white" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_size_dp_16"
+            android:drawableLeft="@drawable/icon_pinglun_white"
+            android:drawablePadding="@dimen/dimen_size_dp_4"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:text="评论"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</FrameLayout>

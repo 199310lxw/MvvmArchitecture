@@ -68,7 +68,7 @@
                     android:drawableTop="@drawable/icon_collect_black"
                     android:drawablePadding="@dimen/dimen_size_dp_6"
                     android:gravity="center"
-                    android:text="@string/catch_list"
+                    android:text="@string/default_cache"
                     android:textColor="@color/black_222" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 

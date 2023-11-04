@@ -1,7 +1,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/color_F7F7F7</item>
         <!-- 解决 Android 5.1 及以上版本 Button 英文字符串自动变大写的问题 -->
         <item name="android:textAllCaps">false</item>
         <!-- 解决 ImageView 不能自动等比拉伸图片的问题 -->

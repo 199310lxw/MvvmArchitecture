@@ -9,7 +9,7 @@ import com.xwl.common_base.databinding.DialogSexChooseBinding
 import com.xwl.common_lib.ext.onClick
 
 /**
- * @author mingyan.su
+ * @author lxw
  * @date   2023/4/25 14:35
  * @desc   性别选择弹框
  */

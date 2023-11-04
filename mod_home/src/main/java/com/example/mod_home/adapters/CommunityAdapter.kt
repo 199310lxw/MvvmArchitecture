@@ -1,6 +1,7 @@
 package com.example.mod_home.adapters
 
 import android.content.Context
+import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -8,7 +9,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.QuickViewHolder
 import com.example.mod_home.R
+import com.example.mod_home.views.DisCussPopWindow
 import com.xwl.common_lib.bean.CommunityBean
+import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.ext.setUrlRound
 import com.xwl.common_lib.utils.ScreenUtil
 import com.xwl.common_lib.views.ThreeImageView
@@ -51,12 +54,19 @@ class CommunityAdapter : BaseQuickAdapter<CommunityBean, QuickViewHolder>() {
             val tvTitle = holder.getView<TextView>(R.id.tvTitle)
             val tvAuthor = holder.getView<TextView>(R.id.tvAuthor)
             val imgContainer = holder.getView<ThreeImageView<String>>(R.id.imgContainer)
+            val imgMore = holder.getView<ImageView>(R.id.imgMore)
             item?.let {
                 tvTitle.text = it.title
                 tvAuthor.text = it.author
                 imgContainer.setImagesData(it.imgList)
             }
-
+            imgMore.onClick {
+                val pop = DisCussPopWindow(
+                    context,
+                    imgMore
+                )
+                pop.show(Gravity.LEFT)
+            }
         }
     }
 

@@ -9,7 +9,7 @@ import com.xwl.common_base.databinding.DialogPhotoChooseBinding
 import com.xwl.common_lib.ext.onClick
 
 /**
- * @author mingyan.su
+ * @author lxw
  * @date   2023/4/24 14:35
  * @desc   拍照、相册选择弹框
  */

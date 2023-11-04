@@ -2,8 +2,8 @@
     <string name="app_name">mod_home</string>
 
     <string name="tab_home">homepage</string>
-    <string name="tab_hot">hot</string>
-    <string name="tab_message">message</string>
+    <string name="tab_video">video</string>
+    <string name="tab_community">community</string>
     <string name="tab_mine">user</string>
 
 
@@ -30,7 +30,6 @@
     <string name="default_cache">cache</string>
     <string name="look_decord">record</string>
     <string name="collect_list">favorites</string>
-    <string name="catch_list">mycache</string>
     <string name="txt_logout">logout</string>
     <string name="txt_recommend_list">recommendationList</string>
 

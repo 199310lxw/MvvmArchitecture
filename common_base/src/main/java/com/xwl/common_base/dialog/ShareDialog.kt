@@ -12,7 +12,7 @@ import com.xwl.common_lib.bean.ShareBean
 import com.xwl.common_lib.utils.ClickUtil
 
 /**
- * @author mingyan.su
+ * @author lxw
  * @date   2023/4/25 14:35
  * @desc   性别选择弹框
  */
