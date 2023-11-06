@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.QuickViewHolder
 import com.example.mod_home.R
 import com.example.mod_home.views.DisCussPopWindow
+import com.xwl.common_base.adapter.BaseAdapter
 import com.xwl.common_lib.bean.CommunityBean
 import com.xwl.common_lib.ext.onClick
 import com.xwl.common_lib.ext.setUrlRound
@@ -21,7 +21,7 @@ import com.xwl.common_lib.views.ThreeImageView
  * @date 2023/10/6
  * descripe
  */
-class CommunityAdapter : BaseQuickAdapter<CommunityBean, QuickViewHolder>() {
+class CommunityAdapter : BaseAdapter<CommunityBean>() {
 
     private val ITEM_TYPE_ONE_PICS = 1
     private val ITEM_TYPE_MORE_PICS = 2
@@ -87,4 +87,5 @@ class CommunityAdapter : BaseQuickAdapter<CommunityBean, QuickViewHolder>() {
         }
         return holder
     }
+    
 }

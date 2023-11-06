@@ -265,10 +265,7 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
                 it.let {
                     if (mIsRefresh) {
                         if (it.isEmpty()) {
-                            mRecommendAdapter.setEmptyViewLayout(
-                                this@VideoDetailActivity,
-                                com.xwl.common_lib.R.layout.view_empty_data
-                            )
+                            mRecommendAdapter.setEmptyView()
                         }
                     } else if (it.size >= totalSize) {
                         mViewBinding.smartRefresh.setEnableLoadMore(true)
@@ -278,10 +275,7 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
                 }
             } else {
                 if (mIsRefresh) {
-                    mRecommendAdapter.setEmptyViewLayout(
-                        this@VideoDetailActivity,
-                        com.xwl.common_lib.R.layout.view_empty_data
-                    )
+                    mRecommendAdapter.setEmptyView()
                     mViewBinding.smartRefresh.finishRefresh()
                 } else {
                     mCurrentPage--
@@ -295,7 +289,6 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
 
     private fun initRecomendList() {
         mRecommendAdapter = RecommendAdapter()
-        mRecommendAdapter.isEmptyViewEnable = true
         mViewBinding.rvRecommend.adapter = mRecommendAdapter
         mRecommendAdapter.setOnItemClickListener { _, _, position ->
             if (ClickUtil.isFastClick()) return@setOnItemClickListener

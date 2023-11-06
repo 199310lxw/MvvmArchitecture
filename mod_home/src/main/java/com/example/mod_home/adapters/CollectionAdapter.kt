@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.FragmentActivity
-import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.dragswipe.listener.DragAndSwipeDataCallback
 import com.chad.library.adapter.base.viewholder.QuickViewHolder
 import com.example.mod_home.R
+import com.xwl.common_base.adapter.BaseAdapter
 import com.xwl.common_base.dialog.ShareDialog
 import com.xwl.common_lib.bean.CollectionBean
 import com.xwl.common_lib.dialog.TipsToast
@@ -20,7 +21,7 @@ import com.xwl.common_lib.utils.ScreenUtil
  * @date 2023/10/6
  * descripe
  */
-class CollectionAdapter : BaseQuickAdapter<CollectionBean, QuickViewHolder>() {
+class CollectionAdapter : BaseAdapter<CollectionBean>(), DragAndSwipeDataCallback {
 
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: CollectionBean?) {
         val imgVideo = holder.getView<ImageView>(R.id.imgVideo)
@@ -49,5 +50,13 @@ class CollectionAdapter : BaseQuickAdapter<CollectionBean, QuickViewHolder>() {
         viewType: Int
     ): QuickViewHolder {
         return QuickViewHolder(R.layout.item_video, parent)
+    }
+
+    override fun dataMove(fromPosition: Int, toPosition: Int) {
+
+    }
+
+    override fun dataRemoveAt(position: Int) {
+          
     }
 }

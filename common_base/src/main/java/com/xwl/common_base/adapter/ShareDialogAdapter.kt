@@ -3,7 +3,6 @@ package com.xwl.common_base.adapter
 import android.content.Context
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.QuickViewHolder
 import com.xwl.common_base.R
 import com.xwl.common_lib.bean.ShareBean
@@ -13,7 +12,7 @@ import com.xwl.common_lib.bean.ShareBean
  * @date 2023/10/6
  * descripe
  */
-class ShareDialogAdapter : BaseQuickAdapter<ShareBean, QuickViewHolder>() {
+class ShareDialogAdapter : BaseAdapter<ShareBean>() {
 
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: ShareBean?) {
         val img = holder.getView<ImageView>(R.id.iv_share_image)

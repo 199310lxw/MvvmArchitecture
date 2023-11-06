@@ -52,10 +52,7 @@ class VideoFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentVideoBinding
                     if (mIsRefresh) {
                         if (it.isEmpty()) {
                             activity?.let { it1 ->
-                                mAdapter.setEmptyViewLayout(
-                                    it1,
-                                    com.xwl.common_lib.R.layout.view_empty_data
-                                )
+                                mAdapter.setEmptyView()
                             }
                         } else if (it.size >= size) {
                             mViewBinding.refreshLayout.setEnableLoadMore(true)
@@ -74,10 +71,7 @@ class VideoFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentVideoBinding
                 }
             } else {
                 if (mIsRefresh) {
-                    mAdapter.setEmptyViewLayout(
-                        mContext,
-                        com.xwl.common_lib.R.layout.view_empty_data
-                    )
+                    mAdapter.setEmptyView()
                     mViewBinding.refreshLayout.finishRefresh()
                 } else {
                     mCurrentPage--
@@ -89,12 +83,6 @@ class VideoFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentVideoBinding
 
     private fun initRv() {
         mAdapter = VideoAdapter()
-        mAdapter.isEmptyViewEnable = true
-        mAdapter.setItemAnimation(BaseQuickAdapter.AnimationType.ScaleIn)
-//        val helper = QuickAdapterHelper.Builder(mAdapter)
-        //设置尾部加载更多
-//            .setConfig(ConcatAdapter.Config.DEFAULT)
-//            .build()
         mViewBinding.rv.adapter = mAdapter
 
         mAdapter.setOnItemClickListener(object : BaseQuickAdapter.OnItemClickListener<VideoBean> {
