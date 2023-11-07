@@ -116,15 +116,5 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("size") size: Int
     ): BaseResponse<ArrayList<VideoBean>>?
-
-    /**
-     * 获取课程列表
-     */
-    @GET(UrlConstants.COURSE_LIST_URL)
-    suspend fun getCourseList(
-        @Query("page") page: Int,
-        @Query("size") size: Int,
-        @Query("type") type: Int
-    ): BaseResponse<ArrayList<CourseListBean>>?
-
+    
 }

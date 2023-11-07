@@ -21,7 +21,11 @@ class CommunityFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentCommunit
     }
 
     override fun initView(savedInstanceState: Bundle?, view: View?) {
-
+        mViewBinding.refreshLayout.setEnableLoadMore(false)
+        mViewBinding.refreshLayout.setOnRefreshListener {
+            getData()
+            mViewBinding.refreshLayout.finishRefresh()
+        }
     }
 
     private fun initRv() {

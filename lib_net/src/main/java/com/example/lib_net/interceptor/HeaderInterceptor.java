@@ -43,9 +43,6 @@ public class HeaderInterceptor implements Interceptor {
                 builder.header(entry.getKey(), entry.getValue());
             }
         }
-//        builder.addHeader("session", SharedPreferenceUtil.getInstance().getString(KeyConstant.KEY_SESSSION));
-//        builder.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-//        builder.addHeader("Content-Type", "application/json;charset=UTF-8");
         request = builder.build();
 
         if (BuildConfig.DEBUG) {
@@ -56,9 +53,9 @@ public class HeaderInterceptor implements Interceptor {
             assert response.body() != null;
             MediaType mediaType = Objects.requireNonNull(response.body()).contentType();
             String content = Objects.requireNonNull(response.body()).string();
-            Logger.i("| request = " + request + ", headers = " + request.headers().toString());
-            Logger.i("| Response:" + content);
-            Logger.i("----------Request End:" + duration + "毫秒----------");
+            Logger.i("request = " + request + ", headers = " + request.headers());
+            Logger.i("Response:" + content);
+            Logger.i("Request End:" + duration + "毫秒----------");
             return response.newBuilder()
                     .body(ResponseBody.create(mediaType, content))
                     .build();

@@ -1,6 +1,6 @@
 package com.example.lib_net.download
 
-import com.example.lib_net.api.DownloadAPiService
+import com.example.lib_net.manager.ApiManager.downloadApi
 import com.orhanobut.logger.Logger
 import com.xwl.common_lib.constants.UrlConstants
 import kotlinx.coroutines.Dispatchers
@@ -24,13 +24,13 @@ object DownloadManager {
         val mFlow = flow {
             val range = String.format(Locale.CHINESE, "bytes=%d-", file.length())
             Logger.e(range)
-//           val response = ApiManager.downloadApi.downloadFile(range,url)
             val retrofit = Retrofit.Builder()
                 .baseUrl(UrlConstants.BASE_URL)
                 .client(OkHttpClient())
                 .build()
             emit(DownloadState.Start(true))
-            val response = retrofit.create(DownloadAPiService::class.java).downloadFile(range, url)
+//            val response = retrofit.create(DownloadAPiService::class.java).downloadFile(range, url)
+            val response = downloadApi.downloadFile(range, url)
             if (response.isSuccessful) {
                 saveToFile(response.body()!!, file, progress = {
                     emit(DownloadState.InProgress(it))
