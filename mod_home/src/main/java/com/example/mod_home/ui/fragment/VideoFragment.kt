@@ -10,6 +10,7 @@ import com.example.mod_home.viewmodel.HomeViewModel
 import com.orhanobut.logger.Logger
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
 import com.xwl.common_lib.bean.VideoBean
+import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.provider.LoginServiceProvider
 import com.xwl.common_lib.provider.UserServiceProvider
 import com.xwl.common_lib.utils.ClickUtil
@@ -36,17 +37,21 @@ class VideoFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentVideoBinding
         mViewBinding.refreshLayout.setOnLoadMoreListener {
             mIsRefresh = false
             mCurrentPage++
-            Logger.e("----->${mCurrentPage}")
+            Logger.i("----->${mCurrentPage}")
             getData(mCurrentPage, size, false)
         }
     }
 
     override fun onLazyLoadData() {
         getData(1, size)
+        mViewModel.error.observe(this) {
+            TipsToast.showTips(it)
+            mViewBinding.refreshLayout.finishRefresh()
+        }
     }
 
     private fun getData(page: Int, size: Int, showloading: Boolean = true) {
-        mViewModel.getHotList(page, size, showloading).observe(this) {
+        mViewModel.getVideoList(page, size, showloading).observe(this) {
             if (it != null) {
                 it.let {
                     if (mIsRefresh) {

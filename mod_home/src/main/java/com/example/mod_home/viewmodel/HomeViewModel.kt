@@ -3,6 +3,7 @@ package com.example.mod_home.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.example.lib_net.manager.ApiManager
 import com.example.mod_home.repostory.HomeRepostory
+import com.orhanobut.logger.Logger
 import com.xwl.common_base.viewmodel.BaseViewModel
 import com.xwl.common_lib.bean.BannerBean
 import com.xwl.common_lib.bean.SortBean
@@ -23,7 +24,7 @@ class HomeViewModel : BaseViewModel() {
 //        //方法一
 //        request(requestCall = { ApiManager.api.register(map) }, object : IHttpCallBack<Any> {
 //            override fun onSuccess(result: Any) {
-//                Logger.e(result.toString())
+//                Logger.i(result.toString())
 //                liveData.value = "注册成功"
 //            }
 //
@@ -40,7 +41,7 @@ class HomeViewModel : BaseViewModel() {
 //            val data = homeRepostory.register(map, loadingDialog = {
 //                loadingChange.showDialog.value = it
 //            })
-//            Logger.e(data.toString())
+//            Logger.i(data.toString())
 //            liveData.value = "注册成功"
 //        }
 //
@@ -61,7 +62,7 @@ class HomeViewModel : BaseViewModel() {
                 }
 
                 override fun onFailure(obj: Any?) {
-                    error.value = obj.toString()
+
                 }
             }, showloading
         )
@@ -79,7 +80,7 @@ class HomeViewModel : BaseViewModel() {
                 }
 
                 override fun onFailure(obj: Any?) {
-                    error.value = obj.toString()
+
                 }
             }, showloading
         )
@@ -87,9 +88,9 @@ class HomeViewModel : BaseViewModel() {
     }
 
     /**
-     * 获取热门列表
+     * 获取视频列表
      */
-    fun getHotList(
+    fun getVideoList(
         page: Int,
         size: Int,
         showloading: Boolean
@@ -98,14 +99,14 @@ class HomeViewModel : BaseViewModel() {
             MutableLiveData<ArrayList<VideoBean>?>()
 
         request(
-            requestCall = { ApiManager.api.getHotList(page, size) },
+            requestCall = { ApiManager.api.getVideoList(page, size) },
             object : IHttpCallBack<ArrayList<VideoBean>?> {
                 override fun onSuccess(result: ArrayList<VideoBean>?) {
                     hotLiveData.value = result
                 }
 
                 override fun onFailure(obj: Any?) {
-                    error.value = obj.toString()
+                    Logger.i("-------->${obj.toString()}")
                 }
             }, showloading
         )

@@ -85,7 +85,7 @@ object DownloadUtil {
             }
 
             override fun onServiceDisconnected(name: ComponentName) {
-                Logger.e("download service is disconnected")
+                Logger.i("download service is disconnected")
             }
         }
         return conn

@@ -14,6 +14,7 @@ import com.scwang.smart.refresh.layout.constant.RefreshState
 import com.scwang.smart.refresh.layout.listener.OnMultiListener
 import com.xwl.common_base.fragment.BaseVmVbByLazyFragment
 import com.xwl.common_lib.bean.BannerBean
+import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.ext.setUrl
 import com.xwl.common_lib.utils.ScreenUtil
 import com.youth.banner.adapter.BannerImageAdapter
@@ -145,6 +146,7 @@ class HomeFragment : BaseVmVbByLazyFragment<HomeViewModel, FragmentHomeBinding>(
 
     override fun onLazyLoadData() {
         mViewModel.error.observe(this) {
+            TipsToast.showTips(it)
             mViewBinding.refreshLayout.finishRefresh()
         }
     }

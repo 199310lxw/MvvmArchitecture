@@ -10,7 +10,6 @@ import com.example.lib_net.response.BaseResponse
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.orhanobut.logger.Logger
 import com.xwl.common_lib.callback.IHttpCallBack
-import com.xwl.common_lib.dialog.TipsToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -75,6 +74,7 @@ abstract class BaseViewModel : ViewModel() {
                 loadingChange.showDialog.value = false
             }
         }, errorBlock = {
+            error.value = it
             calllback.onFailure(it)
         }, successBlock = {
             calllback.onSuccess(it)
@@ -108,10 +108,13 @@ abstract class BaseViewModel : ViewModel() {
         successBlock: (T?) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.Main) {
-            val data = requestFlow(requestCall, errorBlock = errorBlock, showLoading = showLoading)
-//            withContext(Dispatchers.Main) {
-            successBlock.invoke(data)
-//            }
+            successBlock.invoke(
+                requestFlow(
+                    requestCall,
+                    errorBlock = errorBlock,
+                    showLoading = showLoading
+                )
+            )
         }
     }
 
@@ -134,9 +137,6 @@ abstract class BaseViewModel : ViewModel() {
         //7.调用collect获取emit()回调的结果，就是请求最后的结果
         flow.collect {
             if (it != null) {
-                if (showResult) {
-                    TipsToast.showTips(it.errorMsg)
-                }
                 data = it.data
             }
         }
@@ -178,9 +178,10 @@ abstract class BaseViewModel : ViewModel() {
             }
             //5.捕获异常
             .catch { e ->
-                e.printStackTrace()
-                Logger.e(e.message)
-                errorBlock.invoke(e.message)
+                Logger.d(e.stackTraceToString())
+                val exception = ExceptionHandler.handleException(e)
+                Logger.i(exception.errMsg)
+                errorBlock(exception.errMsg)
             }
             //6.请求完成，包括成功和失败
             .onCompletion {

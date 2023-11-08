@@ -22,24 +22,24 @@ object BiometricUtils {
         mBiometricPrompt = BiometricPrompt.Builder(context)
             .setTitle("指纹验证")
             .setNegativeButton("取消",context.mainExecutor) { dialog, which ->
-                Logger.e("cancel is clicked")
+                Logger.i("cancel is clicked")
             }
             .build()
 
         mCancellationSignal = CancellationSignal()
         mCancellationSignal!!.setOnCancelListener {
-            Logger.e("cancel")
+            Logger.i("cancel")
         }
         mAuthenticationCallback = object: BiometricPrompt.AuthenticationCallback() {
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
                 super.onAuthenticationError(errorCode, errString)
-                Logger.e("onAuthenticationError:${errorCode}:${errString}")
+                Logger.i("onAuthenticationError:${errorCode}:${errString}")
                 recognizeResult.invoke(errorCode,errString.toString())
             }
 
             override fun onAuthenticationFailed() {
                 super.onAuthenticationFailed()
-                Logger.e("onAuthenticationFailed")
+                Logger.i("onAuthenticationFailed")
                 recognizeResult.invoke(-1,"onAuthenticationFailed")
             }
 
@@ -48,7 +48,7 @@ object BiometricUtils {
                 super.onAuthenticationSucceeded(result)
                 if (result != null) {
                     recognizeResult.invoke(0,"onAuthenticationSucceeded")
-                    Logger.e("onAuthenticationSucceeded:${result.authenticationType}: ${result.cryptoObject}")
+                    Logger.i("onAuthenticationSucceeded:${result.authenticationType}: ${result.cryptoObject}")
                 }
             }
         }

@@ -14,7 +14,7 @@ import com.xwl.common_lib.callback.IHttpCallBack
 class CollectedViewModel : BaseViewModel() {
 
     /**
-     * 获取热门列表
+     * 获取收藏列表
      */
     fun getCollectedList(
         phone: String,
@@ -31,7 +31,7 @@ class CollectedViewModel : BaseViewModel() {
                 }
 
                 override fun onFailure(obj: Any?) {
-                    error.value = obj.toString()
+
                 }
             }, showLoading
         )
@@ -58,7 +58,7 @@ class CollectedViewModel : BaseViewModel() {
                 }
 
                 override fun onFailure(obj: Any?) {
-                    error.value = obj.toString()
+                 
                 }
             }, showLoading
         )

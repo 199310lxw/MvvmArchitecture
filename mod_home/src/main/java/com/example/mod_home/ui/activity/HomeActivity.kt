@@ -52,8 +52,7 @@ class HomeActivity : BaseVmVbActivity<HomeViewModel, ActivityHomeBinding>() {
                 mViewBinding.navView.menu.getItem(position).isChecked = true
             }
         })
-
-//        mViewBinding.navView.itemIconTintList = null
+        
         mViewBinding.navView.setOnItemSelectedListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.nav_home -> mViewBinding.viewPager.setCurrentItem(0, false)
@@ -73,7 +72,7 @@ class HomeActivity : BaseVmVbActivity<HomeViewModel, ActivityHomeBinding>() {
     override fun initData() {
 
     }
-    
+
     override fun onBackPressed() {
         AppExit.onBackPressed(this)
     }

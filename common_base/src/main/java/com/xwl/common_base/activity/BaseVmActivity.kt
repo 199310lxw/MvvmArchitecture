@@ -3,6 +3,7 @@ package com.xwl.common_base.activity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import com.orhanobut.logger.Logger
 import com.xwl.common_base.viewmodel.BaseViewModel
 import com.xwl.common_lib.dialog.TipsToast
 import com.xwl.common_lib.ext.dismissLoadingExt
@@ -44,6 +45,7 @@ abstract class BaseVmActivity<VM : BaseViewModel> : BaseActivity() {
             }
         }
         mViewModel.error.observe(this) {
+            Logger.i("11111111111-------->${it}")
             TipsToast.showTips(it)
         }
     }

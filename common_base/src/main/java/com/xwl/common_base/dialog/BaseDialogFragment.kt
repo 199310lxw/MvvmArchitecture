@@ -47,7 +47,7 @@ class BaseDialogFragment : AppCompatDialogFragment() {
                 try {
                     super.show(manager, tag)
                 } catch (e: Exception) {
-                    Logger.e(e.message)
+                    Logger.i(e.message)
                 }
             }
         }
@@ -61,7 +61,7 @@ class BaseDialogFragment : AppCompatDialogFragment() {
             try {
                 return super.show(transaction, tag)
             } catch (e: Exception) {
-                Logger.e(e.message)
+                Logger.i(e.message)
             }
         }
         return -1
@@ -142,7 +142,7 @@ class BaseDialogFragment : AppCompatDialogFragment() {
                 // 解决 Dialog 设置了而 DialogFragment 没有生效的问题
                 dialogFragment?.isCancelable = isCancelable
             } catch (e: Exception) {
-                Logger.e("@BaseDialog，弹窗show失败$e")
+                Logger.i("@BaseDialog，弹窗show失败$e")
             }
             return dialog
         }

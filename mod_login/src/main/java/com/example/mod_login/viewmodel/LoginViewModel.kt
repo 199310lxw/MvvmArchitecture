@@ -33,12 +33,12 @@ class LoginViewModel : BaseViewModel() {
         //方法一
         request(requestCall = { ApiManager.api.register(map) }, object : IHttpCallBack<Any?> {
             override fun onSuccess(result: Any?) {
-                Logger.e(result.toString())
+                Logger.i(result.toString())
                 registerLiveData.value = "注册成功"
             }
 
             override fun onFailure(obj: Any?) {
-                error.value = obj?.toString()
+                
             }
         })
 
@@ -49,7 +49,7 @@ class LoginViewModel : BaseViewModel() {
 //           val data = loginRepostory.register(map, loadingDialog = {
 //               loadingChange.showDialog.value = it
 //           })
-//            Logger.e(data.toString())
+//            Logger.i(data.toString())
 //            registerLiveData.value = "注册成功"
 //        }
 
@@ -64,7 +64,7 @@ class LoginViewModel : BaseViewModel() {
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        Logger.e(jsonObject.toString())
+        Logger.i(jsonObject.toString())
         //方法一
         request(
             requestCall = { ApiManager.api.login(phone, password) },
@@ -76,7 +76,7 @@ class LoginViewModel : BaseViewModel() {
                 }
 
                 override fun onFailure(obj: Any?) {
-                    error.value = obj.toString()
+
                 }
             }, false
         )

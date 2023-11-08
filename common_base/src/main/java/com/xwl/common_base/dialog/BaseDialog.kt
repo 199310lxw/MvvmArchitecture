@@ -118,7 +118,7 @@ class BaseDialog @JvmOverloads constructor(
                 }
             }
         } catch (e: Exception) {
-            Logger.e(e.message)
+            Logger.i(e.message)
         }
     }
 
@@ -136,7 +136,7 @@ class BaseDialog @JvmOverloads constructor(
                 }
             }
         } catch (e: Exception) {
-            Logger.e(e.message)
+            Logger.i(e.message)
         }
     }
 
@@ -156,7 +156,7 @@ class BaseDialog @JvmOverloads constructor(
                 }
             }
         } catch (e: Exception) {
-            Logger.e(e.message)
+            Logger.i(e.message)
         }
     }
 

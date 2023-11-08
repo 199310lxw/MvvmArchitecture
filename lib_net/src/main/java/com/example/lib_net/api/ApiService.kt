@@ -112,9 +112,9 @@ interface ApiService {
      * 获取热门列表
      */
     @GET(UrlConstants.VIDEO_LIST_URL)
-    suspend fun getHotList(
+    suspend fun getVideoList(
         @Query("page") page: Int,
         @Query("size") size: Int
     ): BaseResponse<ArrayList<VideoBean>>?
-    
+
 }

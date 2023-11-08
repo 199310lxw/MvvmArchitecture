@@ -64,5 +64,7 @@ dependencies {
     implementation project(':mod_home')
     implementation project(':mod_basics')
 
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
+
     implementation "androidx.core:core-splashscreen:1.0.0-beta02"
 }

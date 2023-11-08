@@ -14,7 +14,7 @@ import com.xwl.common_lib.callback.IHttpCallBack
 class MainViewModel : BaseViewModel() {
 
     /**
-     * 获取热门列表
+     * 获取视频列表
      */
     fun getVideoList(
         page: Int,
@@ -25,14 +25,13 @@ class MainViewModel : BaseViewModel() {
             MutableLiveData<ArrayList<VideoBean>?>()
 
         request(
-            requestCall = { ApiManager.api.getHotList(page, size) },
+            requestCall = { ApiManager.api.getVideoList(page, size) },
             object : IHttpCallBack<ArrayList<VideoBean>?> {
                 override fun onSuccess(result: ArrayList<VideoBean>?) {
                     hotLiveData.value = result
                 }
 
                 override fun onFailure(obj: Any?) {
-                    error.value = obj.toString()
                 }
             }, showloading
         )

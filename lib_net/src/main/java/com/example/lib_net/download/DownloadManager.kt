@@ -23,7 +23,7 @@ object DownloadManager {
     suspend fun download(url: String, file: File): Flow<DownloadState> {
         val mFlow = flow {
             val range = String.format(Locale.CHINESE, "bytes=%d-", file.length())
-            Logger.e(range)
+            Logger.i(range)
             val retrofit = Retrofit.Builder()
                 .baseUrl(UrlConstants.BASE_URL)
                 .client(OkHttpClient())
@@ -44,10 +44,10 @@ object DownloadManager {
                 }
             }
         }.retry(1) { cause ->
-            Logger.e("retrying cause: $cause")
+            Logger.i("retrying cause: $cause")
             true
         }.catch {
-            Logger.e("${it.stackTraceToString()}")
+            Logger.i("${it.stackTraceToString()}")
             emit(DownloadState.Error(it))
         }.flowOn(Dispatchers.IO)
         return mFlow

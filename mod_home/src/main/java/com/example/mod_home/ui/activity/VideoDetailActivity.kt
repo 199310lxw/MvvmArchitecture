@@ -209,7 +209,7 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
                                 it4,
                                 true
                             ).observe(this) {
-                                Logger.e("收藏成功")
+                                Logger.i("收藏成功")
                                 isCollected = true
                                 showCollectView(isCollected)
                             }
@@ -233,7 +233,7 @@ class VideoDetailActivity : BaseVmVbActivity<CourseDetailViewModel, ActivityVide
                     it1,
                     true
                 ).observe(this) {
-                    Logger.e("收藏成功")
+                    Logger.i("收藏成功")
                     if (it == "true") { //取消收藏成功
                         isCollected = false
                         showCollectView(isCollected)

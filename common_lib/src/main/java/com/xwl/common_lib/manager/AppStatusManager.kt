@@ -18,11 +18,11 @@ object AppStatusManager {
             Application.ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 ActivityManager.addActivity(activity)
-                Logger.e("${activity.localClassName}：onActivityCreated")
+                Logger.i("${activity.localClassName}：onActivityCreated")
             }
 
             override fun onActivityStarted(activity: Activity) {
-                Logger.e("${activity.localClassName}：onActivityStarted")
+                Logger.i("${activity.localClassName}：onActivityStarted")
                 startActivityNum++
                 if (startActivityNum == 1) {
                     listener.onFront()
@@ -32,15 +32,15 @@ object AppStatusManager {
             
 
             override fun onActivityResumed(activity: Activity) {
-                Logger.e("${activity.localClassName}：onActivityResumed")
+                Logger.i("${activity.localClassName}：onActivityResumed")
             }
 
             override fun onActivityPaused(activity: Activity) {
-                Logger.e("${activity.localClassName}：onActivityPaused")
+                Logger.i("${activity.localClassName}：onActivityPaused")
             }
 
             override fun onActivityStopped(activity: Activity) {
-                Logger.e("${activity.localClassName}：onActivityStopped")
+                Logger.i("${activity.localClassName}：onActivityStopped")
                 startActivityNum--
                 if (startActivityNum == 0) {
                     listener.onBack()
@@ -48,11 +48,11 @@ object AppStatusManager {
             }
 
             override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-                Logger.e("${activity.localClassName}：onActivitySaveInstanceState")
+                Logger.i("${activity.localClassName}：onActivitySaveInstanceState")
             }
 
             override fun onActivityDestroyed(activity: Activity) {
-                Logger.e("${activity.localClassName}：onActivityDestroyed")
+                Logger.i("${activity.localClassName}：onActivityDestroyed")
                 ActivityManager.removeActivity(activity)
             }
         })

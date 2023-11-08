@@ -25,14 +25,14 @@ class LookRecordViewModel : BaseViewModel() {
             MutableLiveData<ArrayList<VideoBean>?>()
 
         request(
-            requestCall = { ApiManager.api.getHotList(page, size) },
+            requestCall = { ApiManager.api.getVideoList(page, size) },
             object : IHttpCallBack<ArrayList<VideoBean>?> {
                 override fun onSuccess(result: ArrayList<VideoBean>?) {
                     hotLiveData.value = result
                 }
 
                 override fun onFailure(obj: Any?) {
-                    error.value = obj.toString()
+                   
                 }
             }, showloading
         )

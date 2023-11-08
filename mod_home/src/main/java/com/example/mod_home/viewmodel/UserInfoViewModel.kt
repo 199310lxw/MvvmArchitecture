@@ -32,13 +32,13 @@ class UserInfoViewModel : BaseViewModel() {
             requestCall = { ApiManager.api.updateUserIcon(body) },
             object : IHttpCallBack<String?> {
                 override fun onSuccess(result: String?) {
-                    Logger.e(result)
+                    Logger.i(result)
                     uploadListLiveData.value = result
                 }
 
                 override fun onFailure(obj: Any?) {
-                    Logger.e(obj.toString())
-                    error.value = obj.toString()
+                    Logger.i(obj.toString())
+
                 }
             })
 
@@ -70,7 +70,7 @@ class UserInfoViewModel : BaseViewModel() {
                 }
 
                 override fun onFailure(obj: Any?) {
-                    error.value = obj.toString()
+                   
                 }
             })
 

@@ -61,9 +61,9 @@ class DownloadService : LifecycleService() {
                 }
             }
             val fileType = mDownloadUrl.substringAfterLast(".", " ")
-            Logger.e("mSavePath----->$mSavePath")
-            Logger.e("mFileName----->$mFileName")
-            Logger.e("fileType----->$fileType")
+            Logger.i("mSavePath----->$mSavePath")
+            Logger.i("mFileName----->$mFileName")
+            Logger.i("fileType----->$fileType")
 
             mDownloadFile = File(mSavePath, "${mFileName}.$fileType").also {
                 it.createNewFile()
@@ -100,13 +100,13 @@ class DownloadService : LifecycleService() {
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
-        Logger.e("DownloadService onUnbind")
+        Logger.i("DownloadService onUnbind")
         return super.onUnbind(intent)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Logger.e("DownloadService onDestroy")
+        Logger.i("DownloadService onDestroy")
         mBinder = null
     }
 

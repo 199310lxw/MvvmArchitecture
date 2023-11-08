@@ -1,6 +1,7 @@
 package com.example.lib_net.api
 
 
+import com.example.lib_net.interceptor.HeaderInterceptor
 import com.xwl.common_lib.constants.UrlConstants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -45,8 +46,8 @@ object Api {
             .connectTimeout(6, TimeUnit.SECONDS)
             .writeTimeout(12, TimeUnit.SECONDS)
             .readTimeout(12, TimeUnit.SECONDS)
-        // 添加参数拦截器
-//            .addInterceptor(HeaderInterceptor())
+            // 添加参数拦截器
+            .addInterceptor(HeaderInterceptor())
         return build.build()
     }
 
