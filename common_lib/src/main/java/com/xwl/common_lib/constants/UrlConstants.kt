@@ -7,7 +7,7 @@ package com.xwl.common_lib.constants
  */
 object UrlConstants {
     //        const val BASE_URL = "http://192.168.1.43/"
-    const val BASE_URL = "http://192.168.10.21/"
+    const val BASE_URL = "http://192.168.10.22/"
 
     const val URL_REGISTER = "server/user/register"//注册
 

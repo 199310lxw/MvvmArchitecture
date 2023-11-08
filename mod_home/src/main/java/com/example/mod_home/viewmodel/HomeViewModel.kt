@@ -3,7 +3,6 @@ package com.example.mod_home.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.example.lib_net.manager.ApiManager
 import com.example.mod_home.repostory.HomeRepostory
-import com.orhanobut.logger.Logger
 import com.xwl.common_base.viewmodel.BaseViewModel
 import com.xwl.common_lib.bean.BannerBean
 import com.xwl.common_lib.bean.SortBean
@@ -97,7 +96,6 @@ class HomeViewModel : BaseViewModel() {
     ): MutableLiveData<ArrayList<VideoBean>?> {
         val hotLiveData: MutableLiveData<ArrayList<VideoBean>?> =
             MutableLiveData<ArrayList<VideoBean>?>()
-
         request(
             requestCall = { ApiManager.api.getVideoList(page, size) },
             object : IHttpCallBack<ArrayList<VideoBean>?> {
@@ -106,11 +104,9 @@ class HomeViewModel : BaseViewModel() {
                 }
 
                 override fun onFailure(obj: Any?) {
-                    Logger.i("-------->${obj.toString()}")
                 }
             }, showloading
         )
-
         return hotLiveData
     }
 }
