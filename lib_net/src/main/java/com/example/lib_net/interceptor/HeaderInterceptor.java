@@ -53,7 +53,7 @@ public class HeaderInterceptor implements Interceptor {
             assert response.body() != null;
             MediaType mediaType = Objects.requireNonNull(response.body()).contentType();
             String content = Objects.requireNonNull(response.body()).string();
-            Logger.i("request------------->" + request + "------------->headers = " + request.headers());
+            Logger.i("request------------->" + request + "\nheaders------------->" + request.headers());
             Logger.i("Response:" + content);
             Logger.i("Request Time------------->" + duration + "毫秒");
             return response.newBuilder()
